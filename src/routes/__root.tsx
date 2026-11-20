@@ -53,7 +53,7 @@ export const Route = createRootRouteWithContext()({
     scripts: [
       {
         children:
-          "if(location.pathname.endsWith('/index.html'))history.replaceState(history.state,'',(location.pathname.slice(0,-11)||'/')+location.search+location.hash);document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)",
+          "if(location.pathname.endsWith('/index.html'))history.replaceState(history.state,'',(location.pathname.slice(0,-11)||'/')+location.search+location.hash);{const f=window.fetch;window.fetch=(u,o)=>f(u===location.href&&!location.pathname.endsWith('.html')&&location.pathname!=='/'?location.origin+location.pathname+'/index.html':u,o)}document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)",
       },
       {
         children:

@@ -1,9 +1,11 @@
 {
- "page": "dist/client/index.html",
- "dir": "/Users/jose.salcedo/Documents/Personal/thp-web",
- "kind": "product",
- "start": "2026-11-20T16:46:42.029Z",
- "by": "start.mjs",
+ "page": "dist/client/suelas/index.html",
  "url": null,
- "root": "dist/client"
+ "root": "dist/client",
+ "kind": "product",
+ "category": "suelas de hule y moldes para calzado",
+ "primary": "Solicitar cotización",
+ "rounds": 3,
+ "start": "2026-11-20T18:56:35.965Z",
+ "by": "gate.mjs --start"
 }

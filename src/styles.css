@@ -109,6 +109,17 @@
   .hero--photo {
     --photo: 31svh;
   }
+  #laminas-hero,
+  #suelas-hero {
+    --photo: 22svh;
+  }
+}
+
+@media (max-width: 360px) {
+  #laminas-hero,
+  #suelas-hero {
+    --photo: 16svh;
+  }
 }
 
 /* Nav menu cards */
@@ -116,45 +127,65 @@
   --p-h: 180px;
 }
 
-/* Home section screen counts */
+@media (min-width: 1024px) {
+  .nav__item:not(:hover):not(:focus-within):not(.is-open) > .nav__menu {
+    display: none;
+  }
+}
+
+/* Home & category section screen counts */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
 #lineas,
 #catalogo-home,
-#planta {
+#planta,
+#calidades,
+#grabados,
+#especificaciones,
+#matriceria,
+#tapetes {
   --h: 1;
   --hm: 2;
 }
 
-/* Section 2: #lineas (trio composition) */
-#lineas .panel {
+#pisos {
+  --h: 1;
+  --hm: 1;
+}
+
+/* Trio composition: #lineas (/) and #calidades (/laminas) */
+:is(#lineas, #calidades) .panel {
   --p-h: 224px;
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
-  #lineas .section-head {
+  :is(#lineas, #calidades) .section-head {
     margin-bottom: var(--s-4);
   }
-  #lineas .grid > .card.span-4:has(> .panel) {
+  :is(#lineas, #calidades) .grid > .card.span-4:has(> .panel) {
     grid-column: auto / span 4;
   }
-  #lineas .panel {
+  :is(#lineas, #calidades) .panel {
     --p-h: 148px;
   }
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
-  #lineas .grid {
+  :is(#lineas, #calidades) .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  #lineas .grid > .card {
+  :is(#lineas, #calidades) .grid > .card {
     grid-column: auto;
   }
-  #lineas .panel {
+  :is(#lineas, #calidades) .panel {
     --p-h: 220px;
   }
 }
 
 @media (max-width: 639px) {
-  #lineas .panel {
+  :is(#lineas, #calidades) .panel {
     --p-h: 172px;
   }
 }
@@ -231,16 +262,20 @@
   }
 }
 
-/* Section 5: #planta (split on .ground-brand with picture-develops) */
-.ground-brand {
+/* Split sections: #planta (/), #especificaciones (/laminas), #tapetes (/suelas) */
+.ground-brand,
+.ground-brand .card,
+.ground-brand .card > p,
+.ground-brand .section-head > p {
   --muted: var(--p-accent-ink);
+  color: var(--p-accent-ink);
 }
 
-#planta .section-head {
+:is(#planta, #especificaciones, #tapetes) .section-head {
   margin-bottom: var(--s-5);
 }
 
-#planta .rows > li {
+:is(#planta, #especificaciones, #tapetes) .rows > li {
   padding-block: var(--s-3);
 }
 
@@ -251,42 +286,53 @@
   height: min(500px, var(--ly-fit));
 }
 
+.develop > picture,
+.develop > picture > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .planta-cta {
   margin-top: var(--s-4);
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
-  #planta .section-head {
-    margin-bottom: var(--s-3);
+  :is(#planta, #especificaciones, #tapetes) .section-head {
+    margin-bottom: var(--s-2);
   }
-  #planta .section-head p {
+  :is(#planta, #especificaciones, #tapetes) .section-head p {
     font-size: var(--t-body);
   }
-  #planta .rows > li {
-    padding-block: var(--s-2);
+  :is(#planta, #especificaciones, #tapetes) .rows > li {
+    padding-block: var(--s-1);
+  }
+  :is(#especificaciones, #tapetes) .develop {
+    height: min(440px, var(--ly-fit));
   }
   .planta-cta {
-    margin-top: var(--s-3);
+    margin-top: var(--s-2);
   }
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
-  #planta .section-head {
+  :is(#planta, #especificaciones, #tapetes) .section-head {
     margin-bottom: var(--s-3);
   }
-  #planta .section-head p {
+  :is(#planta, #especificaciones, #tapetes) .section-head p {
     font-size: var(--t-body);
   }
-  #planta .rows > li {
+  :is(#planta, #especificaciones, #tapetes) .rows > li {
     padding-block: var(--s-2);
   }
   .planta-cta {
     margin-top: var(--s-3);
   }
-  #planta .grid > .span-6 {
+  :is(#planta, #especificaciones, #tapetes) .grid > .span-6 {
     grid-column: auto / span 6;
   }
-  #planta .develop {
+  :is(#planta, #especificaciones, #tapetes) .develop {
     grid-column: 7 / span 6;
     margin-top: 0;
     height: min(560px, var(--ly-fit));
@@ -295,10 +341,10 @@
 }
 
 @media (max-width: 639px) {
-  #planta .section-head {
+  :is(#planta, #especificaciones, #tapetes) .section-head {
     margin-bottom: var(--s-7);
   }
-  #planta .rows > li {
+  :is(#planta, #especificaciones, #tapetes) .rows > li {
     padding-block: var(--s-5);
   }
   .planta-cta {
@@ -311,12 +357,176 @@
   }
 }
 
+/* /laminas Section 3: #grabados */
+#grabados .section-head {
+  margin-bottom: var(--s-5);
+}
+
+#grabados .rows > li {
+  padding-block: var(--s-3);
+}
+
+#grabados :is(.develop, .pl-photo) {
+  margin: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  height: 372px;
+}
+
+#grabados .pl-photo > picture,
+#grabados .pl-photo > picture > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #grabados .section-head {
+    margin-bottom: var(--s-2);
+  }
+  #grabados .section-head p {
+    font-size: var(--t-body);
+  }
+  #grabados .rows > li {
+    padding-block: var(--s-1);
+  }
+  #grabados :is(.develop, .pl-photo) {
+    height: 210px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  #grabados .section-head {
+    margin-bottom: var(--s-3);
+  }
+  #grabados .section-head p {
+    font-size: var(--t-body);
+  }
+  #grabados .rows > li {
+    padding-block: var(--s-2);
+  }
+  #grabados .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  #grabados .grid > * {
+    grid-column: auto;
+  }
+  #grabados :is(.develop, .pl-photo) {
+    height: 400px;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  #grabados .section-head {
+    margin-bottom: var(--s-5);
+  }
+  #grabados .rows > li {
+    padding-block: var(--s-3);
+  }
+  #grabados .develop {
+    height: 240px;
+    margin-top: var(--s-4);
+  }
+  #grabados .pl-photo {
+    height: 200px;
+    margin-top: var(--s-4);
+  }
+}
+
+/* /suelas Section 2: #pisos (photo-pair) */
+#pisos .section-head {
+  margin-bottom: var(--s-5);
+}
+
+#pisos .pl-photo {
+  margin: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  height: 380px;
+}
+
+#pisos .pl-photo > picture,
+#pisos .pl-photo > picture > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #pisos .section-head {
+    margin-bottom: var(--s-4);
+  }
+  #pisos .pl-photo {
+    height: 304px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  #pisos .section-head {
+    margin-bottom: var(--s-4);
+  }
+  #pisos .grid > .pl-photo {
+    grid-column: auto / span 6;
+    height: 460px;
+  }
+}
+
+@media (max-width: 639px) {
+  #pisos .section-head {
+    margin-bottom: var(--s-3);
+  }
+  #pisos .pl-photo {
+    height: 156px;
+  }
+}
+
+/* /suelas Section 3: #matriceria (2-card row on .ground-brand) */
+#matriceria .panel {
+  --p-h: 244px;
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #matriceria .section-head {
+    margin-bottom: var(--s-4);
+  }
+  #matriceria .panel {
+    --p-h: 172px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  #matriceria .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #matriceria .grid > .card {
+    grid-column: auto;
+  }
+  #matriceria .panel {
+    --p-h: 320px;
+  }
+}
+
+@media (max-width: 639px) {
+  #matriceria .panel {
+    --p-h: 224px;
+  }
+}
+
 /* Footer layout & sizing */
 .closing__cta > .btn--xl {
   flex: none;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 1279px) {
+  .closing__cta.close--type > .btn--xl:not(.btn--wide) {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
   .closing__cta.close--type > .btn--xl:not(.btn--wide) {
     width: min(100%, 640px);
   }
@@ -336,23 +546,23 @@
 
 @media (max-width: 639px) {
   footer.closing {
-    padding-top: var(--s-8);
+    padding-top: var(--s-6);
     padding-bottom: var(--s-5);
   }
   footer.closing > .wrap {
-    row-gap: var(--s-3);
+    row-gap: var(--s-2);
   }
   .closing__cta {
-    gap: var(--s-3);
-  }
-  .closing__cta .section-head {
     gap: var(--s-2);
   }
+  .closing__cta .section-head {
+    gap: var(--s-1);
+  }
   .closing__links {
-    gap: var(--s-3);
+    gap: var(--s-2);
   }
   .closing__links > .grid {
-    row-gap: var(--s-3);
+    row-gap: var(--s-2);
   }
   .closing__links > .grid > .span-4 {
     display: flex;
@@ -371,17 +581,19 @@
     margin-bottom: var(--s-1);
   }
   .footer ul {
-    gap: var(--s-1);
+    gap: 0;
     font-size: var(--t-label);
-    line-height: 1.35;
+    line-height: 1.25;
   }
   .footer ul:has(> li > a) > li,
   :is(.footer ul, .footer__legal, .footer__nav) a:not(.btn) {
     min-height: 44px;
   }
   .footer__legal {
-    padding-top: var(--s-2);
-    gap: var(--s-1) var(--s-3);
+    padding-top: var(--s-1);
+    gap: 2px var(--s-3);
+    font-size: var(--t-label);
+    line-height: 1.25;
   }
 }
 
