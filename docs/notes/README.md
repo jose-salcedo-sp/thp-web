@@ -23,3 +23,8 @@ Legacy Astro site: read from git (`git show master:src/...`), assets in `public/
 ## Parallel work
 
 Builds and gate runs write to `dist/`, so parallel agents each get their own worktree (`git worktree add ../thp-web-<name> -b redesign-<name>` then `bun install`). Route files are disjoint; on merge, regenerate `src/routeTree.gen.ts` with `bun run build` instead of hand-resolving it.
+
+## Integration TODO
+
+- Sitemap must exclude URLs containing `?` or `#` (filter in start plugin sitemap config); `lint:standards` should fail the build if `dist/client/sitemap.xml` contains either.
+- Internal product links use `/catalogo/<sku>`, never `/catalogo?sku=`.
