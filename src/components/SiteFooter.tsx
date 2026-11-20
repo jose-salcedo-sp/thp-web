@@ -74,10 +74,9 @@ export function SiteFooter() {
               <a href="/privacidad">Aviso de privacidad</a>
             </span>
             <div class="socials" />
-            <p class="credits">
-              Fotografías de planta y producto por Transformadora de Hules y
-              Plásticos; fotografías adicionales vía Wikimedia Commons.
-            </p>
+            <a class="credits" href="/privacidad#creditos">
+              Fotografías de apoyo: Wikimedia Commons
+            </a>
           </div>
         </div>
       </div>

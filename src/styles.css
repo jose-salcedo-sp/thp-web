@@ -384,3 +384,27 @@
     gap: var(--s-1) var(--s-3);
   }
 }
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.table-wrap :is(th, td) {
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--line-strong);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-wrap th {
+  font-weight: 500;
+  color: var(--muted);
+}
