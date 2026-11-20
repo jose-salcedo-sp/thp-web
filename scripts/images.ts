@@ -44,14 +44,16 @@ for (const file of files) {
   const meta = await sharp(file).metadata()
   const width = meta.width!
   const height = meta.height!
-  const widths = TARGET_WIDTHS.filter((w) => w <= width)
+  const isProducto = file.replace(/\\/g, '/').includes('/productos/')
+  const maxW = isProducto ? Math.max(width, 1080) : width
+  const widths = TARGET_WIDTHS.filter((w) => w <= maxW)
   if (widths.length === 0) widths.push(width as 480)
 
   const outSlugDir = path.join(OUT_DIR, slug)
   await mkdir(outSlugDir, { recursive: true })
 
   for (const w of widths) {
-    const pipeline = sharp(file).resize({ width: w, withoutEnlargement: true })
+    const pipeline = sharp(file).resize({ width: w, withoutEnlargement: !isProducto })
     const [avifInfo, webpInfo, jpgInfo] = await Promise.all([
       pipeline.clone().avif({ quality: 52, effort: 4 }).toFile(path.join(outSlugDir, `${w}.avif`)),
       pipeline.clone().webp({ quality: 75 }).toFile(path.join(outSlugDir, `${w}.webp`)),
@@ -67,7 +69,9 @@ for (const file of files) {
   const lqipBuf = await sharp(file).resize({ width: 16 }).webp({ quality: 40 }).toBuffer()
   const lqip = `data:image/webp;base64,${lqipBuf.toString('base64')}`
 
-  manifest[slug] = { slug, width, height, widths: [...widths], lqip }
+  const maxOutW = isProducto ? Math.max(width, widths[widths.length - 1]) : width
+  const maxOutH = Math.round((height * maxOutW) / width)
+  manifest[slug] = { slug, width: maxOutW, height: maxOutH, widths: [...widths], lqip }
 }
 
 const sortedEntries = Object.keys(manifest)

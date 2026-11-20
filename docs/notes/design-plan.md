@@ -155,5 +155,10 @@ Global chrome on every route: `header.nav` (`nav-cards`, fixed `72px` desktop / 
   - `src/routes/laminas.tsx` — 4 sections (`#laminas-hero` with `stand-calandra`, `#calidades` trio `cra0cr`/`cla0cr`/`crn0cr`, `#grabados` on `.ground-brand` with `laminas` + `crn0zg` and `picture-develops`, `#especificaciones` split with `molino-laminador`), `BreadcrumbList` JSON-LD, links to `/catalogo`, `/catalogo/{cla0cr,cra0cr,cra0zg,crn0cr,crn0zg}`, and `/contacto`.
   - `src/routes/suelas.tsx` — 4 sections (`#suelas-hero` with `stand-suelas`, `#pisos` pair `suelas`/`suela`, `#matriceria` on `.ground-brand` with `moldes` + `cargas-laminadas` and `picture-develops`, `#tapetes` split with `sanitizante`), `BreadcrumbList` JSON-LD, CTA `/contacto`.
   - Checks (`/laminas` & `/suelas`): `copy-lint.mjs` `0 FAIL, 0 WARN`; `layout/check.mjs` `0 findings` across all 5 viewports; `perf.mjs` `0 FAIL, 0 WARN -> PASS`; `gate.mjs` **`GATE: PASS`** on both routes (`0 open FAIL`, 0 new waivers).
+- **Catalogue & product routes (`/catalogo`, `/catalogo/$sku`, and `/` `#catalogo-home`):**
+  - `src/routes/catalogo/index.tsx` — Prerendered 5-SKU catalogue with `@ui-sdk/solid/toggle` (`ToggleGroup` / `Toggle`) filter island (`calidad`, `grabado`, `fierraje`, `color`) synced to URL search params via `validateSearch`, polite live region announcing result count, 44px targets, and comparison matrix. Island JS chunk: `50.16 kB` (`18.58 kB` gz; route entry `1.16 kB` / `0.63 kB` gz).
+  - `src/routes/catalogo/$sku.tsx` — Prerendered product template for `cla0cr`, `cra0cr`, `cra0zg`, `crn0cr`, `crn0zg` with full-wrap product stage (`1080w` AVIF/WebP/JPG), tabular-nums specs table, `/contacto?sku=<SKU>` CTA, related SKUs, breadcrumb + `BreadcrumbList` and `Product` JSON-LD (no fake prices/offers).
+  - `src/routes/index.tsx` (`#catalogo-home`) — Updated so all 5 SKU cards include their own `<Picture>` and link directly to `/catalogo/$sku`.
+  - Gate & checks (`/`, `/catalogo`, `/catalogo/cla0cr`): `copy-lint` `0 FAIL, 0 WARN`; `layout/check.mjs` `0 findings` (`1440, 1024, 820, 768, 390`); `perf.mjs` `0 FAIL, 0 WARN -> PASS`; `gate.mjs` **`GATE: PASS`** on all three.
 
 

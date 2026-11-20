@@ -109,6 +109,7 @@ export function productLd(product: Producto) {
     sku: product.sku.toUpperCase(),
     name: product.nombre,
     description:
+      product.fichaDescription ??
       product.description ??
       `Lámina de hule ${product.calidad} con grabado ${product.grabado}, fierrajes ${product.fierrajes.join(', ')}.`,
     image: `${SITE_URL}${product.img}`,
@@ -139,11 +140,20 @@ export function productLd(product: Producto) {
           ]
         : []),
     ],
-    offers: {
-      '@type': 'Offer',
-      url,
-      priceCurrency: 'MXN',
-      availability: 'https://schema.org/InStock',
-    },
+  }
+}
+
+export function breadcrumbLd(
+  items: readonly { name: string; path: string }[],
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path.startsWith('/') ? item.path : `/${item.path}`}`,
+    })),
   }
 }
