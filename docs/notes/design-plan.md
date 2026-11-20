@@ -133,3 +133,22 @@ Global chrome on every route: `header.nav` (`nav-cards`, fixed `72px` desktop / 
 3. **Lens 3 & 5 — Typography & Copy Hygiene:**
    - Type minimums: body `16px/26px`, form inputs `16px` (prevents iOS Safari auto-zoom on focus), small meta `14px`, group labels `13px/500` sentence case. Zero text `<13px`, zero weights `>500` on headings (`--display-weight: 400`), `font-variant-numeric: tabular-nums` on all fierraje/gauge numbers.
    - `copy-lint.mjs docs/notes/copy.md --kind product`: **`0 FAIL, 0 WARN`** (2,352 words across 7 routes).
+
+---
+
+## 5. Build Status (Shell & `/`)
+
+- **Shell components & paths:**
+  - `src/routes/__root.tsx` — Root shell (`<html lang="es-MX" data-type="product" data-radius="soft" data-buttons="solid" data-motion>`, meta tags, self-hosted `Albert Sans` preload, `/kit/*.css` + `src/styles.css`, `organizationLd()` JSON-LD, `<SiteHeader />`, `<Loading>{props.children}</Loading>`, `<SiteFooter />`, and `/kit/*.js` runtime).
+  - `src/components/SiteHeader.tsx` — Fixed `header.nav` (`nav-cards` panel on `Láminas`, skip link, `.mark--thp` logo, links `Inicio`, `Láminas`, `Suelas`, `Catálogo`, `Contacto`, primary CTA `Solicitar cotización` → `/contacto`, mobile full-screen sheet with `aria-expanded`).
+  - `src/components/SiteFooter.tsx` — `footer.closing.footer--dark.ground-inverse` combining Row 1 (`close--type` CTA) and Row 2 (`footer--dark` directory, real contact data, legal row, and `.credits` line).
+  - `public/kit/` (`424 KB`, replacing the 37 MB `public/assets/`) & `public/fonts/albert-sans-{latin,latin-ext}.woff2` (`54 KB` total).
+- **How a new route reuses the shell:**
+  - `SiteHeader` and `SiteFooter` are mounted globally in `src/routes/__root.tsx`. Each route file (`src/routes/<slug>.tsx`) only needs `head: () => seo({ title, description, path, image })` and a component returning `<main id="top"><section class="hero ..." data-enter>...</section><section class="section" id="...">...</section></main>`.
+- **Gate & check results (`/`, `dist/client/index.html`):**
+  - `bun run check`: PASS (`tsc --noEmit`, `lint:standards`, `vite build` prerendering 11 pages + `sitemap.xml`).
+  - `copy-lint.mjs`: `0 FAIL, 0 WARN`.
+  - `layout/check.mjs` (`1440x900,1024x768,820x1180,768x1024,390x844`): `0 findings`.
+  - `perf.mjs` (`1440px` & `390px`): `0 FAIL, 0 WARN -> PASS` (CSS `71.7 KiB` / `10.28 kB` app CSS, JS `134.8 KiB` gz, fonts `62.9 KiB`, CLS `0.000`).
+  - `bun run gate`: **`GATE: PASS`** (`0 open FAIL`, 4 waivers in `.taste-skill/waivers.json`).
+

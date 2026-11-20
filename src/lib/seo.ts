@@ -1,7 +1,7 @@
 import type { Producto } from './catalogue'
 
 export const SITE_URL = 'https://thp.com.mx'
-export const THEME_COLOR = '#9F013B'
+export const THEME_COLOR = '#faf9f6'
 
 export type SeoInput = {
   title: string
@@ -11,10 +11,10 @@ export type SeoInput = {
 }
 
 export function seo({ title, description, path, image }: SeoInput) {
-  const fullTitle = title.endsWith('| THP Hules') ? title : `${title} | THP Hules`
+  const fullTitle = /\bTHP\b/i.test(title) ? title : `${title} | THP Hules`
   const cleanPath = path.startsWith('/') ? path : `/${path}`
   const url = `${SITE_URL}${cleanPath}`
-  const relImg = image ?? '/img/laminas/1600.jpg'
+  const relImg = image ?? '/img/antifatiga/1600.jpg'
   const imgUrl = relImg.startsWith('http')
     ? relImg
     : `${SITE_URL}${relImg.startsWith('/') ? relImg : `/${relImg}`}`
@@ -57,18 +57,18 @@ export function organizationLd() {
     logo: `${SITE_URL}/thp_logo.png`,
     image: `${SITE_URL}/img/planta/1600.jpg`,
     email: 'info@thp.com.mx',
-    telephone: '+52-33-3684-2909',
+    telephone: '(33) 3684-2909',
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: '+52-33-3684-2909',
+        telephone: '(33) 3684-2909',
         contactType: 'sales',
         areaServed: 'MX',
         availableLanguage: 'es',
       },
       {
         '@type': 'ContactPoint',
-        telephone: '+52-33-3684-3037',
+        telephone: '(33) 3684-3037',
         contactType: 'sales',
         areaServed: 'MX',
         availableLanguage: 'es',
@@ -76,8 +76,8 @@ export function organizationLd() {
     ],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Las Flores 1643, Col. La Florida',
-      addressLocality: 'Zapopan',
+      streetAddress: 'Las Flores 1643',
+      addressLocality: 'Col. La Florida, Zapopan',
       addressRegion: 'Jalisco',
       postalCode: '45234',
       addressCountry: 'MX',

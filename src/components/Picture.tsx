@@ -7,6 +7,8 @@ export type PictureProps = {
   priority?: boolean
   class?: string
   pictureClass?: string
+  dataSource?: 'client' | 'library' | 'shoot'
+  dataSubject?: string
 }
 
 const buildSrcSet = (slug: ImageSlug, ext: 'avif' | 'webp' | 'jpg') =>
@@ -41,10 +43,8 @@ export function Picture(props: PictureProps) {
         decoding={props.priority ? 'sync' : 'async'}
         fetchpriority={props.priority ? 'high' : undefined}
         class={props.class}
-        style={{
-          'background-image': `url(${images[props.slug].lqip})`,
-          'background-size': 'cover',
-        }}
+        data-source={props.dataSource ?? 'client'}
+        data-subject={props.dataSubject ?? props.alt}
       />
     </picture>
   )

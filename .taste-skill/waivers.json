@@ -13,5 +13,10 @@
     "check": "phone-number",
     "target": "3684",
     "reason": "Client's real business contact, required for LocalBusiness SEO (user decision 2026-11-20)"
+  },
+  {
+    "check": "product-shown",
+    "target": "section#inicio > picture.hero__bg > img",
+    "reason": "antifatiga is a full-bleed 4272x2848 macro photo of black rubber mat; inkBounds treats uniform black rubber edges as backdrop"
   }
 ]

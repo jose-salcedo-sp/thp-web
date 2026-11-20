@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CatalogoRouteImport } from './routes/catalogo'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as LaminasRouteImport } from './routes/laminas'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as SuelasRouteImport } from './routes/suelas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CatalogoRoute = CatalogoRouteImport.update({
+  id: '/catalogo',
+  path: '/catalogo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LaminasRoute = LaminasRouteImport.update({
+  id: '/laminas',
+  path: '/laminas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuelasRoute = SuelasRouteImport.update({
+  id: '/suelas',
+  path: '/suelas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/catalogo': typeof CatalogoRoute
+  '/contacto': typeof ContactoRoute
+  '/laminas': typeof LaminasRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/suelas': typeof SuelasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/catalogo': typeof CatalogoRoute
+  '/contacto': typeof ContactoRoute
+  '/laminas': typeof LaminasRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/suelas': typeof SuelasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/catalogo': typeof CatalogoRoute
+  '/contacto': typeof ContactoRoute
+  '/laminas': typeof LaminasRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/suelas': typeof SuelasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/catalogo' | '/contacto' | '/laminas' | '/privacidad' | '/suelas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/catalogo' | '/contacto' | '/laminas' | '/privacidad' | '/suelas'
+  id:
+    | '__root__'
+    | '/'
+    | '/catalogo'
+    | '/contacto'
+    | '/laminas'
+    | '/privacidad'
+    | '/suelas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CatalogoRoute: typeof CatalogoRoute
+  ContactoRoute: typeof ContactoRoute
+  LaminasRoute: typeof LaminasRoute
+  PrivacidadRoute: typeof PrivacidadRoute
+  SuelasRoute: typeof SuelasRoute
 }
 
 declare module '@tanstack/solid-router' {
@@ -48,11 +106,51 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/catalogo': {
+      id: '/catalogo'
+      path: '/catalogo'
+      fullPath: '/catalogo'
+      preLoaderRoute: typeof CatalogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/laminas': {
+      id: '/laminas'
+      path: '/laminas'
+      fullPath: '/laminas'
+      preLoaderRoute: typeof LaminasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suelas': {
+      id: '/suelas'
+      path: '/suelas'
+      fullPath: '/suelas'
+      preLoaderRoute: typeof SuelasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CatalogoRoute: CatalogoRoute,
+  ContactoRoute: ContactoRoute,
+  LaminasRoute: LaminasRoute,
+  PrivacidadRoute: PrivacidadRoute,
+  SuelasRoute: SuelasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
