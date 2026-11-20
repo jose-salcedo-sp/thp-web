@@ -8,6 +8,7 @@
     "build": "vite build",
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
+    "favicons": "bun run scripts/favicons.ts",
     "images": "bun run scripts/images.ts",
     "videos": "bun run scripts/videos.ts",
     "lint:standards": "bun run scripts/check-standards.ts",

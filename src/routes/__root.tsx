@@ -57,7 +57,20 @@ export const Route = createRootRouteWithContext()({
         { rel: 'stylesheet', href: '/kit/layout/layout.css' },
         { rel: 'stylesheet', href: '/kit/icons/icon.css' },
         { rel: 'stylesheet', href: styleCss },
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/favicon-32.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '16x16',
+          href: '/favicon-16.png',
+        },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/site.webmanifest' },
         { rel: 'modulepreload', href: '/kit/moments/moments.js' },
         { rel: 'modulepreload', href: '/kit/moments/lib.js' },
         {
