@@ -14,10 +14,8 @@ export type PictureProps = {
 const buildSrcSet = (slug: ImageSlug, ext: 'avif' | 'webp' | 'jpg') =>
   images[slug].widths.map((w) => `/img/${slug}/${w}.${ext} ${w}w`).join(', ')
 
-const fallbackSrc = (slug: ImageSlug) => {
-  const ws = images[slug].widths
-  return `/img/${slug}/${ws[ws.length - 1]}.jpg`
-}
+const fallbackSrc = (slug: ImageSlug) =>
+  `/img/${slug}/${images[slug].jpegFallbackWidth}.jpg`
 
 export function Picture(props: PictureProps) {
   return (
@@ -34,8 +32,6 @@ export function Picture(props: PictureProps) {
       />
       <img
         src={fallbackSrc(props.slug)}
-        srcset={buildSrcSet(props.slug, 'jpg')}
-        sizes={props.sizes ?? '100vw'}
         alt={props.alt}
         width={images[props.slug].width}
         height={images[props.slug].height}

@@ -6,6 +6,7 @@ const SRC_DIR = 'assets-src/photos'
 const OUT_DIR = 'public/img'
 const MANIFEST_PATH = 'src/lib/images.gen.ts'
 const TARGET_WIDTHS = [480, 768, 1080, 1600, 2400] as const
+const JPEG_FALLBACK_MAX = 1080
 const SKIP = /^(favicon|thp_logo|russ-ward)/i
 const IMG_EXT = /\.(jpe?g|png|webp|avif)$/i
 
@@ -28,7 +29,14 @@ await rm(OUT_DIR, { recursive: true, force: true })
 
 const manifest: Record<
   string,
-  { slug: string; width: number; height: number; widths: number[]; lqip: string }
+  {
+    slug: string
+    width: number
+    height: number
+    widths: number[]
+    jpegFallbackWidth: number
+    lqip: string
+  }
 > = {}
 
 let bytesBefore = 0
@@ -52,17 +60,36 @@ for (const file of files) {
   const outSlugDir = path.join(OUT_DIR, slug)
   await mkdir(outSlugDir, { recursive: true })
 
+  const jpegCap = Math.min(JPEG_FALLBACK_MAX, width)
+  const jpegFallbackWidth =
+    [...widths].reverse().find((w) => w <= jpegCap) ?? widths[widths.length - 1]!
+
   for (const w of widths) {
     const pipeline = sharp(file).resize({ width: w, withoutEnlargement: !isProducto })
-    const [avifInfo, webpInfo, jpgInfo] = await Promise.all([
+    const [avifInfo, webpInfo] = await Promise.all([
       pipeline.clone().avif({ quality: 52, effort: 4 }).toFile(path.join(outSlugDir, `${w}.avif`)),
       pipeline.clone().webp({ quality: 75 }).toFile(path.join(outSlugDir, `${w}.webp`)),
-      pipeline.clone().jpeg({ quality: 78, mozjpeg: true }).toFile(path.join(outSlugDir, `${w}.jpg`)),
     ])
-    bytesAfterAll += avifInfo.size + webpInfo.size + jpgInfo.size
+    bytesAfterAll += avifInfo.size + webpInfo.size
     if (w === widths[widths.length - 1]) {
       bytesAfterBestAvif += avifInfo.size
       bytesAfterBestWebp += webpInfo.size
+    }
+  }
+
+  const jpegPipeline = sharp(file).resize({
+    width: jpegFallbackWidth,
+    withoutEnlargement: !isProducto,
+  })
+  const jpgInfo = await jpegPipeline
+    .jpeg({ quality: 78, mozjpeg: true })
+    .toFile(path.join(outSlugDir, `${jpegFallbackWidth}.jpg`))
+  bytesAfterAll += jpgInfo.size
+
+  for (const name of await readdir(outSlugDir)) {
+    const m = /^(\d+)\.jpg$/.exec(name)
+    if (m && Number(m[1]) !== jpegFallbackWidth) {
+      await rm(path.join(outSlugDir, name))
     }
   }
 
@@ -71,7 +98,14 @@ for (const file of files) {
 
   const maxOutW = isProducto ? Math.max(width, widths[widths.length - 1]) : width
   const maxOutH = Math.round((height * maxOutW) / width)
-  manifest[slug] = { slug, width: maxOutW, height: maxOutH, widths: [...widths], lqip }
+  manifest[slug] = {
+    slug,
+    width: maxOutW,
+    height: maxOutH,
+    widths: [...widths],
+    jpegFallbackWidth,
+    lqip,
+  }
 }
 
 const sortedEntries = Object.keys(manifest)
