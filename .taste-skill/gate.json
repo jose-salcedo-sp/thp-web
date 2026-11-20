@@ -1,12 +1,12 @@
 {
- "start": "2026-11-20T21:03:18.030Z",
+ "start": "2026-11-20T21:49:07.506Z",
  "round": 0,
  "idle": 0,
  "errors": 0,
  "status": "pass",
  "history": [
   {
-   "at": "2026-11-20T21:04:54.884Z",
+   "at": "2026-11-20T21:50:49.498Z",
    "mode": "manual",
    "status": "pass",
    "fails": 0,
@@ -24,11 +24,11 @@
   "category": "láminas y suelas de hule para calzado e industria",
   "primary": "Solicitar cotización",
   "rounds": 3,
-  "start": "2026-11-20T21:03:18.030Z",
+  "start": "2026-11-20T21:49:07.506Z",
   "by": "gate.mjs --start"
  },
  "manual": true,
- "fp": "02c6df2c7d6d9550",
+ "fp": "11f418ff93ebbdf9",
  "page": "dist/client/index.html",
  "found": {
   "fails": [
@@ -172,13 +172,12 @@
     "from": "consistency"
    },
    {
-    "check": "photo-set",
-    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__media.m-zoom > picture > img.frame__img \"480.avif\"",
-    "msg": "6 photographs in more than one look: lightness from 0.17 to 0.55; the odd one out is 480.avif",
-    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
+    "check": "section-gaps",
+    "where": "section#catalogo-home / section#planta",
+    "msg": "332px between these sections, +44% against the median 230px of gaps at a change of ground",
+    "fix": "use one gap between sections (all within 25% of each other)",
     "widths": [
-     1440,
-     390
+     1440
     ],
     "from": "consistency"
    },
@@ -213,10 +212,10 @@
     "from": "consistency"
    },
    {
-    "check": "grounds",
-    "where": "section#planta \"Planta de molienda y laminado en Zapopan\"",
-    "msg": "4 flat grounds across the page (#faf9f6 section x4, #f0eee9 band x5, #9f013b section, #0c1221 footer): three at most (the base, a surface, an inverse)",
-    "fix": "three flat grounds at most (the base, one surface, one inverse): lay the other bands on one of them",
+    "check": "photo-set",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__media.m-zoom > picture > img.frame__img \"480.avif\"",
+    "msg": "9 photographs in more than one look: lightness from 0.10 to 0.55; the odd one out is 480.avif",
+    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
     "widths": [
      390
     ],
@@ -225,7 +224,7 @@
   ],
   "crashed": [],
   "seconds": {
-   "consistency": 92,
+   "consistency": 98,
    "layout": 4
   }
  },
@@ -301,5 +300,5 @@
   }
  ],
  "warnCount": 12,
- "at": "2026-11-20T21:04:54.886Z"
+ "at": "2026-11-20T21:50:49.499Z"
 }

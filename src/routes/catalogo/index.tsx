@@ -349,7 +349,6 @@ function CatalogoPage() {
       <section
         class={{
           section: true,
-          g2: !hasActiveFilter(),
           'catalogo-section': true,
           'is-filtered': hasActiveFilter(),
         }}
@@ -357,171 +356,166 @@ function CatalogoPage() {
         aria-labelledby="referencias-h"
       >
         <div class="wrap">
-          <div class="group catalogo-group-top">
-            <div class="section-head">
-              <h2 id="referencias-h">Filtrar referencias de lámina de hule</h2>
-              <p>
-                Combina calidad, grabado, fierraje y color para ubicar el
-                material de tu corrida.{' '}
-                <span
-                  class="catalogo-status tabular-nums"
-                  role="status"
-                  aria-live="polite"
-                  aria-atomic="true"
+          <div class="section-head">
+            <h2 id="referencias-h">Filtrar referencias de lámina de hule</h2>
+            <p>
+              Combina calidad, grabado, fierraje y color para ubicar el
+              material de tu corrida.{' '}
+              <span
+                class="catalogo-status tabular-nums"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {statusText()}.
+              </span>
+            </p>
+            <Show when={hasActiveFilter()}>
+              <div class="btn-row">
+                <button
+                  type="button"
+                  class="btn btn--secondary"
+                  onClick={resetFilters}
                 >
-                  {statusText()}.
-                </span>
-              </p>
-              <Show when={hasActiveFilter()}>
-                <div class="btn-row">
-                  <button
-                    type="button"
-                    class="btn btn--secondary"
-                    onClick={resetFilters}
-                  >
-                    Limpiar filtros
-                  </button>
-                </div>
-              </Show>
+                  Limpiar filtros
+                </button>
+              </div>
+            </Show>
+          </div>
+
+          <div
+            class="catalogo-filters"
+            role="region"
+            aria-label="Filtros de referencias"
+          >
+            <div class="filter-group">
+              <span class="t-label filter-group__label" id="lbl-calidad">
+                Calidad
+              </span>
+              <ToggleGroup
+                class="filter-pills"
+                aria-labelledby="lbl-calidad"
+                deselectable={false}
+                value={[calidad()]}
+                onValueChange={updateCalidad}
+              >
+                <For each={calidades}>
+                  {(cal) => (
+                    <Toggle value={cal} class="filter-pill">
+                      {calidadLabels[cal]}
+                    </Toggle>
+                  )}
+                </For>
+              </ToggleGroup>
             </div>
 
-            <div
-              class="catalogo-filters"
-              role="region"
-              aria-label="Filtros de referencias"
-            >
-              <div class="filter-group">
-                <span class="t-label filter-group__label" id="lbl-calidad">
-                  Calidad
-                </span>
-                <ToggleGroup
-                  class="filter-pills"
-                  aria-labelledby="lbl-calidad"
-                  deselectable={false}
-                  value={[calidad()]}
-                  onValueChange={updateCalidad}
-                >
-                  <For each={calidades}>
-                    {(cal) => (
-                      <Toggle value={cal} class="filter-pill">
-                        {calidadLabels[cal]}
-                      </Toggle>
-                    )}
-                  </For>
-                </ToggleGroup>
-              </div>
-
-              <div class="filter-group">
-                <span class="t-label filter-group__label" id="lbl-grabado">
-                  Grabado
-                </span>
-                <ToggleGroup
-                  class="filter-pills"
-                  aria-labelledby="lbl-grabado"
-                  deselectable={false}
-                  value={[grabado()]}
-                  onValueChange={updateGrabado}
-                >
-                  <For each={grabados}>
-                    {(grab) => (
-                      <Toggle value={grab} class="filter-pill">
-                        {grabadoLabels[grab]}
-                      </Toggle>
-                    )}
-                  </For>
-                </ToggleGroup>
-              </div>
-
-              <div class="filter-group">
-                <span class="t-label filter-group__label" id="lbl-fierraje">
-                  Fierraje
-                </span>
-                <ToggleGroup
-                  class="filter-pills"
-                  aria-labelledby="lbl-fierraje"
-                  deselectable={false}
-                  value={[String(fierraje())]}
-                  onValueChange={updateFierraje}
-                >
-                  <For each={fierrajes}>
-                    {(fier) => (
-                      <Toggle
-                        value={String(fier)}
-                        class="filter-pill tabular-nums"
-                      >
-                        {fierrajeLabels[String(fier)]}
-                      </Toggle>
-                    )}
-                  </For>
-                </ToggleGroup>
-              </div>
-
-              <div class="filter-group filter-group--color">
-                <span class="t-label filter-group__label" id="lbl-color">
-                  Color
-                </span>
-                <ToggleGroup
-                  class="filter-pills"
-                  aria-labelledby="lbl-color"
-                  deselectable={false}
-                  value={[color()]}
-                  onValueChange={updateColor}
-                >
-                  <For each={colores}>
-                    {(col) => (
-                      <Toggle value={col} class="filter-pill">
-                        {col !== 'todo' ? (
-                          <span
-                            class="swatch-dot"
-                            data-swatch={col}
-                            aria-hidden="true"
-                          />
-                        ) : null}
-                        {colorLabels[col]}
-                      </Toggle>
-                    )}
-                  </For>
-                </ToggleGroup>
-              </div>
+            <div class="filter-group">
+              <span class="t-label filter-group__label" id="lbl-grabado">
+                Grabado
+              </span>
+              <ToggleGroup
+                class="filter-pills"
+                aria-labelledby="lbl-grabado"
+                deselectable={false}
+                value={[grabado()]}
+                onValueChange={updateGrabado}
+              >
+                <For each={grabados}>
+                  {(grab) => (
+                    <Toggle value={grab} class="filter-pill">
+                      {grabadoLabels[grab]}
+                    </Toggle>
+                  )}
+                </For>
+              </ToggleGroup>
             </div>
 
-            <div class="grid catalogo-grid">
-              <For each={rowOneSkus}>
-                {(prod, idx) => (
-                  <SkuCard
-                    producto={prod}
-                    spanClass="span-6"
-                    hidden={!matchedSkus().has(prod.sku)}
-                    withMoment={idx() === 0}
-                  />
-                )}
-              </For>
+            <div class="filter-group filter-group--wide">
+              <span class="t-label filter-group__label" id="lbl-fierraje">
+                Fierraje
+              </span>
+              <ToggleGroup
+                class="filter-pills"
+                aria-labelledby="lbl-fierraje"
+                deselectable={false}
+                value={[String(fierraje())]}
+                onValueChange={updateFierraje}
+              >
+                <For each={fierrajes}>
+                  {(fier) => (
+                    <Toggle
+                      value={String(fier)}
+                      class="filter-pill tabular-nums"
+                    >
+                      {fierrajeLabels[String(fier)]}
+                    </Toggle>
+                  )}
+                </For>
+              </ToggleGroup>
+            </div>
+
+            <div class="filter-group filter-group--color">
+              <span class="t-label filter-group__label" id="lbl-color">
+                Color
+              </span>
+              <ToggleGroup
+                class="filter-pills"
+                aria-labelledby="lbl-color"
+                deselectable={false}
+                value={[color()]}
+                onValueChange={updateColor}
+              >
+                <For each={colores}>
+                  {(col) => (
+                    <Toggle value={col} class="filter-pill">
+                      {col !== 'todo' ? (
+                        <span
+                          class="swatch-dot"
+                          data-swatch={col}
+                          aria-hidden="true"
+                        />
+                      ) : null}
+                      {colorLabels[col]}
+                    </Toggle>
+                  )}
+                </For>
+              </ToggleGroup>
             </div>
           </div>
 
-          <div class="group catalogo-group-bottom">
-            <div class="grid catalogo-grid">
-              <For each={rowTwoSkus}>
-                {(prod) => (
-                  <SkuCard
-                    producto={prod}
-                    spanClass="span-4"
-                    hidden={!matchedSkus().has(prod.sku)}
-                  />
-                )}
-              </For>
-            </div>
+          <div class="grid catalogo-grid">
+            <For each={rowOneSkus}>
+              {(prod, idx) => (
+                <SkuCard
+                  producto={prod}
+                  spanClass="span-6"
+                  hidden={!matchedSkus().has(prod.sku)}
+                  withMoment={idx() === 0}
+                />
+              )}
+            </For>
+          </div>
+          <div class="grid catalogo-grid catalogo-grid--bottom">
+            <For each={rowTwoSkus}>
+              {(prod) => (
+                <SkuCard
+                  producto={prod}
+                  spanClass="span-4"
+                  hidden={!matchedSkus().has(prod.sku)}
+                />
+              )}
+            </For>
+          </div>
 
-            <div class="catalogo-empty" hidden={visibleCount() > 0}>
-              <p>Ninguna lámina coincide con esta combinación.</p>
-              <button
-                type="button"
-                class="btn btn--secondary"
-                onClick={resetFilters}
-              >
-                Mostrar las 5 referencias
-              </button>
-            </div>
+          <div class="catalogo-empty" hidden={visibleCount() > 0}>
+            <p>Ninguna lámina coincide con esta combinación.</p>
+            <button
+              type="button"
+              class="btn btn--secondary"
+              onClick={resetFilters}
+            >
+              Mostrar las 5 referencias
+            </button>
           </div>
         </div>
       </section>
