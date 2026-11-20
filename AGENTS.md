@@ -14,3 +14,6 @@
 - This project uses **Solid 2.0** (`solid-js@^2.0.3`, `@solidjs/web@^2.0.3`). Read `node_modules/solid-js/CHEATSHEET.md` before writing Solid components.
 - Web JSX uses `"jsxImportSource": "@solidjs/web"`. Imports moved from `solid-js/web` to `@solidjs/web`, and `solid-js/store` into `solid-js`.
 - `Suspense` is now `Loading`, `ErrorBoundary` is `Errored`, `onMount` is `onSettled`, `mergeProps` is `merge`, `splitProps` is `omit`, and `createEffect(compute, apply)` always takes two arguments.
+
+## Shell gotchas
+- `ls` is aliased (eza-style long output); use `command ls -1` in scripts. No GNU `timeout` on macOS.
