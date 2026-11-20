@@ -151,4 +151,9 @@ Global chrome on every route: `header.nav` (`nav-cards`, fixed `72px` desktop / 
   - `layout/check.mjs` (`1440x900,1024x768,820x1180,768x1024,390x844`): `0 findings`.
   - `perf.mjs` (`1440px` & `390px`): `0 FAIL, 0 WARN -> PASS` (CSS `71.7 KiB` / `10.28 kB` app CSS, JS `134.8 KiB` gz, fonts `62.9 KiB`, CLS `0.000`).
   - `bun run gate`: **`GATE: PASS`** (`0 open FAIL`, 4 waivers in `.taste-skill/waivers.json`).
+- **Category routes (`/laminas` & `/suelas`):**
+  - `src/routes/laminas.tsx` — 4 sections (`#laminas-hero` with `stand-calandra`, `#calidades` trio `cra0cr`/`cla0cr`/`crn0cr`, `#grabados` on `.ground-brand` with `laminas` + `crn0zg` and `picture-develops`, `#especificaciones` split with `molino-laminador`), `BreadcrumbList` JSON-LD, links to `/catalogo`, `/catalogo/{cla0cr,cra0cr,cra0zg,crn0cr,crn0zg}`, and `/contacto`.
+  - `src/routes/suelas.tsx` — 4 sections (`#suelas-hero` with `stand-suelas`, `#pisos` pair `suelas`/`suela`, `#matriceria` on `.ground-brand` with `moldes` + `cargas-laminadas` and `picture-develops`, `#tapetes` split with `sanitizante`), `BreadcrumbList` JSON-LD, CTA `/contacto`.
+  - Checks (`/laminas` & `/suelas`): `copy-lint.mjs` `0 FAIL, 0 WARN`; `layout/check.mjs` `0 findings` across all 5 viewports; `perf.mjs` `0 FAIL, 0 WARN -> PASS`; `gate.mjs` **`GATE: PASS`** on both routes (`0 open FAIL`, 0 new waivers).
+
 

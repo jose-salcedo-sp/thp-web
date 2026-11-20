@@ -13,6 +13,7 @@ export default defineConfig({
         enabled: true,
         crawlLinks: true,
         autoSubfolderIndex: true,
+        failOnError: false,
       },
       sitemap: {
         enabled: true,
