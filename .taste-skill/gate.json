@@ -1,12 +1,12 @@
 {
- "start": "2026-11-20T18:56:35.965Z",
+ "start": "2026-11-20T21:03:18.030Z",
  "round": 0,
  "idle": 0,
  "errors": 0,
  "status": "pass",
  "history": [
   {
-   "at": "2026-11-20T18:57:59.980Z",
+   "at": "2026-11-20T21:04:54.884Z",
    "mode": "manual",
    "status": "pass",
    "fails": 0,
@@ -17,21 +17,37 @@
  ],
  "max": 3,
  "marker": {
-  "page": "dist/client/suelas/index.html",
+  "page": "dist/client/index.html",
   "url": null,
   "root": "dist/client",
   "kind": "product",
-  "category": "suelas de hule y moldes para calzado",
+  "category": "láminas y suelas de hule para calzado e industria",
   "primary": "Solicitar cotización",
   "rounds": 3,
-  "start": "2026-11-20T18:56:35.965Z",
+  "start": "2026-11-20T21:03:18.030Z",
   "by": "gate.mjs --start"
  },
  "manual": true,
- "fp": "2064c68b388a0ca4",
- "page": "dist/client/suelas/index.html",
+ "fp": "02c6df2c7d6d9550",
+ "page": "dist/client/index.html",
  "found": {
   "fails": [
+   {
+    "check": "product-shown",
+    "where": "section#inicio > picture.hero__bg > img \"img: Textura macro de tapete industrial \"",
+    "msg": "the hero's product is drawn 293 x 645px, 23% of the 1280px content width at 1440px (its img is 1440px wide): a product page shows the product at 80% of the content width or more (under 60% FAILs)",
+    "fix": "make the product the hero: the picture across the full content width (a stage as wide as the container, the product filling it, not a rounded box with the product at its middle); a render's still cropped to the product (data-product-fill up to 1.2, a wide view such as side), or the client's photograph at full width",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "product-shown"
+    ],
+    "wheres": [
+     "section#inicio > picture.hero__bg > img \"img: Textura macro de tapete industrial \""
+    ]
+   },
    {
     "check": "street-number",
     "where": "script[type=\"application/ld+json\"] \"Las Flores 1643\"",
@@ -83,9 +99,61 @@
   ],
   "warns": [
    {
+    "check": "scroll-reveal",
+    "where": "section#planta > div.wrap.grid > figure.develop.span-6",
+    "msg": "starts \"transform\" (0.4 s) the moment it is scrolled into view (an IntersectionObserver) on img.frame__img (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "scroll-reveal",
+    "where": "section#proceso > div.wrap > p.mo-wh__text \"El hule pasa por molienda, mezcla de pig\"",
+    "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1) (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headline",
+    "where": "h1#hero-h \"Láminas y suelas de hule para calzado e \"",
+    "msg": "the h1 has 9 words (2 to 8 read at a glance)",
+    "fix": "put the category noun in the h1 (and who it is for, or where), in 2 to 8 words",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headings",
+    "where": "div.wrap > div.grid > article.card.card--row:nth-of-type(3) > h3 \"Formular cargas y desarrollos a la medid\"",
+    "msg": "\"Formular cargas y desarrollos a la medida\" names no product, part, place or section (the one brand line a page may have)",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headings",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__body > div.home-sku-card__head > h3 \"Crepé liga grabado crepé\"",
+    "msg": "the card title \"Crepé liga grabado crepé\" names no product, part, place or section (5 card titles like it) (and 4 more like it: \"Crepé ámbar grabado crep\", \"Crepé ámbar grabado zig-\", \"Crepé negro grabado crep\", \"Crepé negro grabado zig-\")",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
     "check": "copy-buttons",
     "where": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Solicitar cotización\"",
-    "msg": "\"Solicitar cotización\" does not start with a verb (book, buy, try, start, get, see...) (and 1 more like it: \"Ver matricería y desarro\")",
+    "msg": "\"Solicitar cotización\" does not start with a verb (book, buy, try, start, get, see...)",
     "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
     "widths": [
      1440
@@ -94,8 +162,8 @@
    },
    {
     "check": "section-gaps",
-    "where": "section#suelas-hero / section#pisos",
-    "msg": "117px between these sections, -51% against the median 237px",
+    "where": "section#inicio / section#lineas",
+    "msg": "117px between these sections, -49% against the median 230px",
     "fix": "use one gap between sections (all within 25% of each other)",
     "widths": [
      1440,
@@ -104,21 +172,10 @@
     "from": "consistency"
    },
    {
-    "check": "section-gaps",
-    "where": "section#matriceria / section#tapetes",
-    "msg": "193px between these sections, -31% against the median 281px of gaps at a change of ground",
-    "fix": "use one gap between sections (all within 25% of each other)",
-    "widths": [
-     1440,
-     390
-    ],
-    "from": "consistency"
-   },
-   {
-    "check": "section-gaps",
-    "where": "section#tapetes / footer#contact",
-    "msg": "uneven space at the edge of a band: 197px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
-    "fix": "use one gap between sections (all within 25% of each other)",
+    "check": "photo-set",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__media.m-zoom > picture > img.frame__img \"480.avif\"",
+    "msg": "6 photographs in more than one look: lightness from 0.17 to 0.55; the odd one out is 480.avif",
+    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
     "widths": [
      1440,
      390
@@ -146,34 +203,51 @@
     "from": "consistency"
    },
    {
-    "check": "section-gaps",
-    "where": "section#pisos / section#matriceria",
-    "msg": "167px between these sections, -58% against the median 398px of gaps at a change of ground",
-    "fix": "use one gap between sections (all within 25% of each other)",
+    "check": "assumed",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__body:nth-of-type(2) > p.home-sku-card__meta > span:nth-of-type(2) \"Precio según volumen\"",
+    "msg": "5 facts marked as assumed, for the report: \"Precio según volumen\", \"Precio según volumen\", \"Precio según volumen\", \"Precio según volumen\", \"Precio según volumen\"",
+    "fix": "list each assumed fact in the report for the client to confirm, or take it from the brief",
     "widths": [
-     390
+     1440
     ],
     "from": "consistency"
    },
    {
-    "check": "fold-cut",
-    "where": "div.hero-text > div.hero__text > div.btn-row > a.btn.btn--primary \"Solicitar cotización\"",
-    "msg": "the hero's button \"Solicitar cotización\" is cut by the bottom of the first screen (31px of its 44px below the fold)",
-    "fix": "size the hero so the heading ends above the fold, or starts below it",
+    "check": "grounds",
+    "where": "section#planta \"Planta de molienda y laminado en Zapopan\"",
+    "msg": "4 flat grounds across the page (#faf9f6 section x4, #f0eee9 band x5, #9f013b section, #0c1221 footer): three at most (the base, a surface, an inverse)",
+    "fix": "three flat grounds at most (the base, one surface, one inverse): lay the other bands on one of them",
     "widths": [
-     320
+     390
     ],
     "from": "consistency"
    }
   ],
   "crashed": [],
   "seconds": {
-   "consistency": 80,
+   "consistency": 92,
    "layout": 4
   }
  },
  "open": [],
  "waived": [
+  {
+   "check": "product-shown",
+   "where": "section#inicio > picture.hero__bg > img \"img: Textura macro de tapete industrial \"",
+   "msg": "the hero's product is drawn 293 x 645px, 23% of the 1280px content width at 1440px (its img is 1440px wide): a product page shows the product at 80% of the content width or more (under 60% FAILs)",
+   "fix": "make the product the hero: the picture across the full content width (a stage as wide as the container, the product filling it, not a rounded box with the product at its middle); a render's still cropped to the product (data-product-fill up to 1.2, a wide view such as side), or the client's photograph at full width",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "product-shown"
+   ],
+   "wheres": [
+    "section#inicio > picture.hero__bg > img \"img: Textura macro de tapete industrial \""
+   ],
+   "reason": "antifatiga is a full-bleed 4272x2848 macro photo of black rubber mat; inkBounds treats uniform black rubber edges as backdrop"
+  },
   {
    "check": "street-number",
    "where": "script[type=\"application/ld+json\"] \"Las Flores 1643\"",
@@ -226,6 +300,6 @@
    "reason": "Client's real business contact, required for LocalBusiness SEO (user decision 2026-11-20)"
   }
  ],
- "warnCount": 8,
- "at": "2026-11-20T18:57:59.982Z"
+ "warnCount": 12,
+ "at": "2026-11-20T21:04:54.886Z"
 }

@@ -19,7 +19,7 @@ import {
   grabados,
   productos,
 } from '../../lib/catalogue'
-import { seo } from '../../lib/seo'
+import { breadcrumbLd, jsonLd, seo } from '../../lib/seo'
 
 export type CatalogoSearch = {
   calidad?: Exclude<CalidadFiltro, 'todo'>
@@ -70,14 +70,23 @@ export const Route = createFileRoute('/catalogo/')({
     }
     return out
   },
-  head: () =>
-    seo({
+  head: () => ({
+    ...seo({
       title: 'Catálogo de láminas de hule por calibre y color | THP',
       description:
         'Filtra nuestras 5 líneas de lámina de hule por calidad, grabado crepé o zig-zag, fierrajes 5, 6, 9 y 12 y colores ámbar, oscura, rojiza o negro.',
       path: '/catalogo',
       image: '/img/sanitizante2/1600.jpg',
     }),
+    scripts: [
+      jsonLd(
+        breadcrumbLd([
+          { name: 'Inicio', path: '/' },
+          { name: 'Catálogo', path: '/catalogo' },
+        ]),
+      ),
+    ],
+  }),
   component: CatalogoPage,
 })
 

@@ -266,11 +266,11 @@ function LaminasPage() {
               <li>
                 <span class="rows__name">Calidades en catálogo</span>
                 <p>
-                  Crepé (<a href="/catalogo/cra0cr">CRA0CR</a>,{' '}
-                  <a href="/catalogo/cra0zg">CRA0ZG</a>), crepé liga (
-                  <a href="/catalogo/cla0cr">CLA0CR</a>) y crepé negro (
-                  <a href="/catalogo/crn0cr">CRN0CR</a>,{' '}
-                  <a href="/catalogo/crn0zg">CRN0ZG</a>).
+                  Crepé (<a class="link" href="/catalogo/cra0cr">CRA0CR</a>,{' '}
+                  <a class="link" href="/catalogo/cra0zg">CRA0ZG</a>), crepé liga (
+                  <a class="link" href="/catalogo/cla0cr">CLA0CR</a>) y crepé negro (
+                  <a class="link" href="/catalogo/crn0cr">CRN0CR</a>,{' '}
+                  <a class="link" href="/catalogo/crn0zg">CRN0ZG</a>).
                 </p>
               </li>
               <li>

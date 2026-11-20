@@ -81,6 +81,13 @@
   object-fit: cover;
 }
 
+.develop {
+  margin: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  height: min(500px, var(--ly-fit));
+}
+
 .mo-pd--film.is-armed > picture > img {
   filter: grayscale(1) contrast(0.55) brightness(1.32);
   transform: scale(1.06);
@@ -112,14 +119,18 @@
     --photo: 31svh;
   }
   #laminas-hero,
-  #suelas-hero {
+  #suelas-hero,
+  #contacto-hero,
+  #privacidad-hero {
     --photo: 22svh;
   }
 }
 
 @media (max-width: 360px) {
   #laminas-hero,
-  #suelas-hero {
+  #suelas-hero,
+  #contacto-hero,
+  #privacidad-hero {
     --photo: 16svh;
   }
 }
@@ -147,7 +158,10 @@
 #grabados,
 #especificaciones,
 #matriceria,
-#tapetes {
+#tapetes,
+#cotizacion,
+#privacidad-uso,
+#creditos {
   --h: 1;
   --hm: 2;
 }
@@ -1062,8 +1076,8 @@
     padding: 6px 0;
   }
   .sku-context-photo {
-    height: 240px;
-    margin-top: var(--s-4);
+    height: 360px;
+    margin-top: var(--s-6);
   }
   .sku-related {
     margin-top: var(--s-4);
@@ -1082,19 +1096,12 @@
   color: var(--p-accent-ink);
 }
 
-:is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .section-head {
+:is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .section-head {
   margin-bottom: var(--s-5);
 }
 
-:is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .rows > li {
+:is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .rows > li {
   padding-block: var(--s-3);
-}
-
-.develop {
-  margin: 0;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  height: min(500px, var(--ly-fit));
 }
 
 .planta-cta {
@@ -1102,16 +1109,16 @@
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .section-head {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .section-head {
     margin-bottom: var(--s-2);
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .section-head p {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .section-head p {
     font-size: var(--t-body);
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .rows > li {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .rows > li {
     padding-block: var(--s-1);
   }
-  :is(#especificaciones:not(:has(.sku-specs-grid)), #tapetes) .develop {
+  :is(#especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .develop {
     height: min(440px, var(--ly-fit));
   }
   .planta-cta {
@@ -1120,22 +1127,22 @@
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .section-head {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .section-head {
     margin-bottom: var(--s-3);
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .section-head p {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .section-head p {
     font-size: var(--t-body);
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .rows > li {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .rows > li {
     padding-block: var(--s-2);
   }
   .planta-cta {
     margin-top: var(--s-3);
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .grid > .span-6 {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .grid > .span-6 {
     grid-column: auto / span 6;
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .develop {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .develop {
     grid-column: 7 / span 6;
     margin-top: 0;
     height: min(560px, var(--ly-fit));
@@ -1144,16 +1151,16 @@
 }
 
 @media (max-width: 639px) {
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .section-head {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .section-head {
     margin-bottom: var(--s-7);
   }
-  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes) .rows > li {
+  :is(#planta, #especificaciones:not(:has(.sku-specs-grid)), #tapetes, #privacidad-uso) .rows > li {
     padding-block: var(--s-5);
   }
   .planta-cta {
     margin-top: var(--s-6);
   }
-  .develop:not(.sku-context-photo):not(.catalogo-table-photo) {
+  .develop:not(.sku-context-photo):not(.catalogo-table-photo):not(.cotizacion-photo):not(.creditos-photo) {
     height: 360px;
     aspect-ratio: auto;
     margin-top: var(--s-6);
@@ -1400,6 +1407,87 @@
   }
 }
 
+/* Route: /contacto (#cotizacion) & /privacidad (#creditos) */
+#cotizacion .section-head {
+  margin-bottom: var(--s-3);
+}
+
+#cotizacion .form {
+  gap: var(--s-2) var(--s-3);
+}
+
+#cotizacion .field {
+  gap: 4px;
+}
+
+#cotizacion .field :is(input:not([type="checkbox"]), select) {
+  height: 44px;
+}
+
+#cotizacion .field textarea {
+  min-height: 76px;
+  max-height: 88px;
+  padding-block: var(--s-2);
+}
+
+#cotizacion .field:has(> input[type="checkbox"]) {
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-2);
+}
+
+#cotizacion .field > input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  accent-color: var(--action);
+}
+
+#cotizacion .field:has(> input[type="checkbox"]) > .field__error {
+  grid-column: 1 / -1;
+}
+
+.cotizacion-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.cotizacion-photo {
+  height: 224px;
+}
+
+.cotizacion-specs > li {
+  padding-block: var(--s-2);
+}
+
+.cotizacion-map {
+  margin: 0;
+}
+
+#privacidad-uso .section-head {
+  margin-bottom: var(--s-3);
+}
+
+#privacidad-uso .rows > li {
+  padding-block: var(--s-2);
+}
+
+#creditos .section-head {
+  margin-bottom: var(--s-4);
+}
+
+.creditos-photo {
+  height: min(640px, var(--ly-fit));
+}
+
+@media (min-width: 1280px) {
+  #privacidad-uso .develop {
+    height: min(600px, var(--ly-fit));
+  }
+}
+
 .table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -1409,11 +1497,11 @@
   width: 100%;
   border-collapse: collapse;
   font-size: var(--t-small);
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .table-wrap :is(th, td) {
-  padding: var(--s-3) var(--s-4);
+  padding: var(--s-2) var(--s-3);
   border-bottom: 1px solid var(--line-strong);
   text-align: left;
   vertical-align: top;
@@ -1422,4 +1510,116 @@
 .table-wrap th {
   font-weight: 500;
   color: var(--muted);
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #cotizacion .section-head,
+  #creditos .section-head {
+    margin-bottom: var(--s-1);
+    gap: var(--s-1);
+  }
+  #cotizacion .section-head p,
+  #creditos .section-head p {
+    font-size: var(--t-body);
+  }
+  #cotizacion .form {
+    gap: 4px var(--s-3);
+  }
+  #cotizacion .field :is(input:not([type="checkbox"]), select) {
+    height: 40px;
+  }
+  #cotizacion .field textarea {
+    min-height: 56px;
+    max-height: 64px;
+  }
+  .cotizacion-photo {
+    height: 184px;
+  }
+  .cotizacion-specs > li {
+    padding-block: 4px;
+  }
+  .table-wrap :is(th, td) {
+    padding: 6px var(--s-2);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  #cotizacion .section-head,
+  #creditos .section-head {
+    margin-bottom: var(--s-2);
+  }
+  #cotizacion .section-head p,
+  #creditos .section-head p {
+    font-size: var(--t-body);
+  }
+  #cotizacion .cotizacion-grid > .span-6 {
+    grid-column: auto / span 6;
+  }
+  #cotizacion .cotizacion-aside {
+    grid-column: 7 / span 6;
+  }
+  .cotizacion-photo {
+    height: 220px;
+  }
+  .cotizacion-specs > li {
+    padding-block: var(--s-1);
+  }
+  #creditos .creditos-grid > .span-6 {
+    grid-column: auto / span 6;
+  }
+  #creditos .creditos-photo {
+    grid-column: 7 / span 6;
+    margin-top: 0;
+    height: min(440px, var(--ly-fit));
+  }
+  .table-wrap :is(th, td) {
+    padding: 6px var(--s-2);
+  }
+}
+
+@media (max-width: 639px) {
+  #cotizacion .section-head {
+    margin-bottom: var(--s-4);
+  }
+  #cotizacion .form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-2);
+  }
+  .cotizacion-aside {
+    margin-top: var(--s-5);
+    gap: var(--s-3);
+  }
+  .cotizacion-photo {
+    height: 260px;
+    margin-top: 0;
+  }
+  .cotizacion-specs > li {
+    padding-block: var(--s-2);
+  }
+  #creditos .section-head {
+    margin-bottom: var(--s-4);
+  }
+  .table-wrap {
+    overflow-x: clip;
+  }
+  .table-wrap table {
+    table-layout: fixed;
+    font-size: var(--t-label);
+    line-height: 1.3;
+  }
+  .table-wrap :is(th, td) {
+    padding: var(--s-2) var(--s-1);
+    overflow-wrap: anywhere;
+    vertical-align: middle;
+  }
+  .table-wrap a.link,
+  .rows a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .creditos-photo {
+    height: 500px;
+    margin-top: var(--s-5);
+  }
 }

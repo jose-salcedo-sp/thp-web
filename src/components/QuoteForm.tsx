@@ -14,11 +14,7 @@ const PRODUCTO_EXTRA = [
 function productLabel(sku: ProductSku): string {
   const p = productos.find((x) => x.sku === sku)
   if (!p) return sku.toUpperCase()
-  const title = p.nombre
-    .split(' ')
-    .map((w) => (w === 'crepe' ? 'Crepé' : w.charAt(0).toUpperCase() + w.slice(1)))
-    .join(' ')
-  return `${sku.toUpperCase()} · ${title}`
+  return `${sku.toUpperCase()} · ${p.nombre}`
 }
 
 export function QuoteForm(props: { initialSku?: string }) {
@@ -246,7 +242,7 @@ export function QuoteForm(props: { initialSku?: string }) {
         <select id="cot-fierraje" name="fierraje" aria-describedby="cot-fierraje-err">
           <option value="">Elige un fierraje</option>
           {FIERRAJE_OPTS.map((f) => (
-            <option value={f}>{f === 'no-se' ? 'No sé' : f}</option>
+            <option value={f}>{f === 'no-se' ? 'No sé' : `Calibre ${f}`}</option>
           ))}
         </select>
         <p id="cot-fierraje-err" class="field__error" hidden />

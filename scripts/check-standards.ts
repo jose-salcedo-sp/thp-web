@@ -29,6 +29,9 @@ for (const file of files) {
     if (rel !== 'src/components/Picture.tsx' && /<img\b/.test(line)) {
       errors.push(`${rel}:${lineNo} — Raw <img> tag forbidden; use <Picture> from src/components/Picture.tsx`)
     }
+    if (/\/catalogo\?sku=/i.test(line)) {
+      errors.push(`${rel}:${lineNo} — Internal product link '/catalogo?sku=' forbidden; use '/catalogo/<sku>'`)
+    }
     if (rel.endsWith('.tsx')) {
       const cleaned = line.replace(/\/\/.*$/, '')
       const matches = cleaned.match(hexRe)
@@ -41,6 +44,17 @@ for (const file of files) {
   if (rel.startsWith('src/routes/') && rel.endsWith('.tsx') && !/\bhead\s*:/.test(text)) {
     errors.push(`${rel} — Route file is missing 'head:' metadata configuration (use seo() from src/lib/seo.ts)`)
   }
+}
+
+const sitemapPath = 'dist/client/sitemap.xml'
+try {
+  const sitemapXml = await readFile(sitemapPath, 'utf8')
+  const withoutDecl = sitemapXml.replace(/^<\?xml[^?]*\?>\s*/i, '')
+  if (/[?#]/.test(withoutDecl)) {
+    errors.push(`${sitemapPath} — Sitemap must not contain URLs with '?' or '#'`)
+  }
+} catch {
+  errors.push(`${sitemapPath} — Missing built sitemap (run 'bun run build' before 'bun run lint:standards')`)
 }
 
 if (errors.length > 0) {

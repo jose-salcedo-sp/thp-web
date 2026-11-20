@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/solid-router'
+import { createFileRoute, notFound } from '@tanstack/solid-router'
 import { For, createMemo } from 'solid-js'
 import { Picture } from '../../components/Picture'
 import {
@@ -11,8 +11,26 @@ import {
 import { breadcrumbLd, jsonLd, productLd, seo } from '../../lib/seo'
 
 export const Route = createFileRoute('/catalogo/$sku')({
+  loader: ({ params }) => {
+    const product = getProductoBySku(params.sku)
+    if (!product) throw notFound()
+    return product
+  },
   head: ({ params }) => {
-    const product = getProductoBySku(params.sku) ?? productos[0]
+    const product = getProductoBySku(params.sku)
+    if (!product) {
+      return {
+        meta: [
+          { title: 'Referencia no encontrada (404) | THP Hules' },
+          {
+            name: 'description',
+            content:
+              'La referencia solicitada no existe en el catálogo de láminas de hule de THP.',
+          },
+          { name: 'robots', content: 'noindex, nofollow' },
+        ],
+      }
+    }
     const baseSeo = seo({
       title: product.seoTitle,
       description: product.seoDescription,
@@ -222,7 +240,7 @@ function ProductDetailPage() {
                 slug="molino-laminador"
                 class="frame__img"
                 alt="Molino laminador de rodillos en la planta de THP en Zapopan procesando lámina de hule crepé"
-                sizes="(max-width: 639px) 480px, 768px"
+                sizes="768px"
               />
             </figure>
           </div>

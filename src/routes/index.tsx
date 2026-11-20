@@ -36,14 +36,14 @@ function HomePage() {
         <div class="wrap">
           <div class="hero-text">
             <div class="hero__text">
-              <p class="hero__kicker">
+              <p class="hero__kicker tabular-nums">
                 <span class="dot" aria-hidden="true" />
                 Más de 50 años fabricando en Zapopan · Fierrajes 5, 6, 9 y 12
               </p>
               <h1 id="hero-h">
                 Láminas y suelas de hule para calzado e industria
               </h1>
-              <p class="hero__lead">
+              <p class="hero__lead tabular-nums">
                 Transformamos el hule en nuestra planta de Zapopan desde hace
                 más de 50 años. Laminamos compuestos en fierrajes 5, 6, 9 y 12,
                 moldeamos suelas y formulamos colores a la medida para talleres
@@ -266,7 +266,7 @@ function HomePage() {
                 colonia La Florida sin distribuidores intermedios.
               </p>
             </div>
-            <ul class="rows rows--spec">
+            <ul class="rows rows--spec tabular-nums">
               <li>
                 <span class="rows__name">Operación continua</span>
                 <p>Más de 50 años fabricando hule y plástico en Jalisco.</p>

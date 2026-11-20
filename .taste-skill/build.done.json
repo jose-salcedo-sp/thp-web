@@ -1,11 +1,11 @@
 {
- "page": "dist/client/suelas/index.html",
+ "page": "dist/client/index.html",
  "url": null,
  "root": "dist/client",
  "kind": "product",
- "category": "suelas de hule y moldes para calzado",
+ "category": "láminas y suelas de hule para calzado e industria",
  "primary": "Solicitar cotización",
  "rounds": 3,
- "start": "2026-11-20T18:56:35.965Z",
+ "start": "2026-11-20T21:03:18.030Z",
  "by": "gate.mjs --start"
 }

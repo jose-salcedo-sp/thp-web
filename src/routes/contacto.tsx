@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/solid-router'
 import { Picture } from '../components/Picture'
 import { QuoteForm } from '../components/QuoteForm'
 import { getProductoBySku } from '../lib/catalogue'
-import { seo } from '../lib/seo'
+import { breadcrumbLd, jsonLd, seo } from '../lib/seo'
 
 type ContactoSearch = {
   sku?: string
@@ -16,18 +16,28 @@ export const Route = createFileRoute('/contacto')({
     if (getProductoBySku(sku)) return { sku }
     return {}
   },
-  head: () =>
-    seo({
-      title: 'Cotizar láminas y suelas de hule en planta | THP',
+  head: () => ({
+    ...seo({
+      title: 'THP: Cotizar láminas y suelas de hule en planta',
       description:
         'Solicita cotización directa a la planta de THP en Las Flores 1643, Zapopan, Jalisco. Atención de lunes a sábados de 7:00 a 15:00 por teléfono o correo.',
       path: '/contacto',
+      image: '/img/planta/1600.jpg',
     }),
+    scripts: [
+      jsonLd(
+        breadcrumbLd([
+          { name: 'Inicio', path: '/' },
+          { name: 'Contacto', path: '/contacto' },
+        ]),
+      ),
+    ],
+  }),
   component: ContactoPage,
 })
 
 const MAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=Las+Flores+1643+La+Florida+Zapopan'
+  'https://www.google.com/maps/search/?api=1&query=Calle+Las+Flores+La+Florida+Zapopan'
 
 function ContactoPage() {
   const search = Route.useSearch()
@@ -42,28 +52,42 @@ function ContactoPage() {
         aria-labelledby="contacto-h"
       >
         <Picture
-          slug="antifatiga"
+          slug="stand-laminas-crepe"
           pictureClass="hero__bg"
-          alt="Textura macro de tapete industrial de hule negro antifatiga con celdas octagonales moldeadas en planta"
+          dataSource="library"
+          alt="Láminas de hule crepé natural en línea de secado y enfriamiento en planta"
+          priority
           sizes="100vw"
         />
         <div class="wrap">
           <div class="hero-text">
             <div class="hero__text">
-              <p class="hero__kicker">
+              <p class="hero__kicker tabular-nums">
                 <span class="dot" aria-hidden="true" />
                 Las Flores 1643, Zapopan · Teléfonos (33) 3684-2909 y (33)
                 3684-3037
               </p>
               <h1 id="contacto-h">
-                Cotizar láminas, suelas o desarrollos de hule en planta
+                Cotizar láminas y suelas de hule en planta
               </h1>
-              <p class="hero__lead">
+              <p class="hero__lead tabular-nums">
                 Envíanos las especificaciones de tu pedido o comunícate directo
                 a nuestras oficinas en la colonia La Florida, Zapopan. Atendemos
                 solicitudes de talleres de calzado y compradores industriales de
                 lunes a sábados de 7:00 a 15:00.
               </p>
+              <div class="btn-row">
+                <a class="btn btn--primary" href="#cotizacion">
+                  Solicitar cotización
+                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
+                    <path class="m-arrow__stem" d="M1 6h8" />
+                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
+                  </svg>
+                </a>
+                <a class="btn btn--secondary" href="/catalogo">
+                  Ver catálogo de láminas
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -85,12 +109,15 @@ function ContactoPage() {
               agilizar la respuesta.
             </p>
           </div>
-          <div class="grid grid--top">
-            <div class="span-6">
+          <div class="grid grid--top cotizacion-grid">
+            <div class="span-6 cotizacion-form-col">
               <QuoteForm initialSku={search().sku} />
             </div>
-            <aside class="span-6 start-7 stack-4">
-              <figure class="m-zoom">
+            <aside class="span-6 start-7 cotizacion-aside">
+              <figure
+                class="develop cotizacion-photo"
+                data-moment="picture-develops"
+              >
                 <Picture
                   slug="planta"
                   class="frame__img"
@@ -98,7 +125,7 @@ function ContactoPage() {
                   sizes="(max-width: 639px) 480px, 768px"
                 />
               </figure>
-              <ul class="rows rows--spec">
+              <ul class="rows rows--spec tabular-nums cotizacion-specs">
                 <li>
                   <span class="rows__name">Dirección de planta</span>
                   <p>
@@ -108,24 +135,19 @@ function ContactoPage() {
                 </li>
                 <li>
                   <span class="rows__name">Teléfonos directos</span>
-                  <p>
-                    <a href="tel:+523336842909">(33) 3684-2909</a>
-                    {' · '}
-                    <a href="tel:+523336843037">(33) 3684-3037</a>
-                  </p>
+                  <p>(33) 3684-2909 · (33) 3684-3037</p>
                 </li>
                 <li>
-                  <span class="rows__name">Correo electrónico</span>
+                  <span class="rows__name">Correo y horario</span>
                   <p>
-                    <a href="mailto:info@thp.com.mx">info@thp.com.mx</a>
+                    <a class="link" href="mailto:info@thp.com.mx">
+                      info@thp.com.mx
+                    </a>{' '}
+                    · Lunes a sábado: 7:00 a 15:00
                   </p>
-                </li>
-                <li>
-                  <span class="rows__name">Horario de atención</span>
-                  <p>Lunes a sábado: 7:00 a 15:00</p>
                 </li>
               </ul>
-              <p>
+              <p class="cotizacion-map">
                 <a
                   class="link"
                   href={MAPS_URL}
