@@ -7,7 +7,11 @@
     "generate-routes": "vite build",
     "build": "vite build",
     "start": "node .output/server/index.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "images": "bun run scripts/images.ts",
+    "lint:standards": "bun run scripts/check-standards.ts",
+    "check": "bunx tsc --noEmit && bun run lint:standards && bun run build",
+    "gate": "node ~/.agents/skills/design-taste-frontend/scripts/gate.mjs dist/client/index.html --root dist/client"
   },
   "dependencies": {
     "@solidjs/web": "^2.0.3",
@@ -21,6 +25,7 @@
   },
   "devDependencies": {
     "@solidjs/vite-plugin": "^3.0.1",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.2",
     "vite": "^8.0.0"
   }

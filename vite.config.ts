@@ -14,6 +14,10 @@ export default defineConfig({
         crawlLinks: true,
         autoSubfolderIndex: true,
       },
+      sitemap: {
+        enabled: true,
+        host: 'https://thp.com.mx',
+      },
     }),
     solidPlugin({ ssr: true }),
   ],

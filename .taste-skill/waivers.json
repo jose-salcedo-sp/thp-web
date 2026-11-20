@@ -1,0 +1,17 @@
+[
+  {
+    "check": "street-number",
+    "target": "Las Flores 1643",
+    "reason": "Client's real business contact, required for LocalBusiness SEO (user decision 2026-11-20)"
+  },
+  {
+    "check": "postcode",
+    "target": "45234",
+    "reason": "Client's real business contact, required for LocalBusiness SEO (user decision 2026-11-20)"
+  },
+  {
+    "check": "phone-number",
+    "target": "3684",
+    "reason": "Client's real business contact, required for LocalBusiness SEO (user decision 2026-11-20)"
+  }
+]

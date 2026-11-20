@@ -2,6 +2,14 @@
 @import "tailwindcss";
 @import "@ui-sdk/core/web.css" layer(components);
 
+@theme {
+  --color-thp-primary: #9f013b;
+  --color-thp-black: #0c1221;
+  --color-thp-accent: #363636;
+  --color-thp-gray: #d9d9d9;
+  --color-thp-white: #ffffff;
+}
+
 * {
   box-sizing: border-box;
 }

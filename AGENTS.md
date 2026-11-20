@@ -2,6 +2,7 @@
 
 ## Package Manager & Tooling
 - **Package manager is Bun** (`bun install`, `bun add`, `bun run dev`, `bun run build`). Do not use npm, yarn, or pnpm.
+- **Coding standards** live in [`CODING_STANDARDS.md`](./CODING_STANDARDS.md) and are enforced by `bun run check` (`bun run lint:standards`). Read it before writing code.
 - **Shared agent notes** live in `docs/notes/` (`README.md`, `scaffold.md`, `content-inventory.md`, `design-research.md`). Read them before starting work.
 - **Legacy site** in `legacy/` is **reference-only** (moved from the old Astro 1 + Yarn setup). Do not modify or build `legacy/`.
 

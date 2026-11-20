@@ -59,3 +59,20 @@ function SuelasPage() {
   return <main>...</main>
 }
 ```
+
+## Environment
+
+- **Image Pipeline (`bun run images`)**: Runs `scripts/images.ts` via `sharp`. Reads original photos from `assets-src/photos/` (excluding logos, favicons, and unused stock), outputs responsive `.avif`, `.webp`, and `.jpg` variants at widths `[480, 768, 1080, 1600, 2400]` (without upscaling) to `public/img/<slug>/<width>.<ext>`, and generates the typed manifest `src/lib/images.gen.ts` (`{ slug, width, height, widths, lqip }`).
+- **`<Picture>` Component (`src/components/Picture.tsx`)**: Solid 2 component rendering `<picture>` with AVIF/WebP `<source>` sets, JPEG fallback, explicit `width`/`height`, inline base64 WebP LQIP background, `loading="lazy"` + `decoding="async"` by default, and `fetchpriority="high"` + `loading="eager"` when `priority` is set. `slug` is typed against `ImageSlug`.
+- **Video Recipe (No Component — YAGNI)**: No source videos exist yet. When adding a loop/clip, transcode to muted WebM (VP9/AV1) + MP4 (H.264) and use a poster from `/img/<slug>/1600.webp` with `<video muted playsinline loop preload="none" poster="/img/planta/1600.webp">`:
+  ```bash
+  ffmpeg -i input.mp4 -an -vf "scale='min(1280,iw)':-2" -c:v libsvtav1 -crf 34 -preset 6 public/video/clip.webm && ffmpeg -i input.mp4 -an -vf "scale='min(1280,iw)':-2" -c:v libx264 -crf 24 -preset slow -movflags +faststart public/video/clip.mp4
+  ```
+- **SEO & JSON-LD Kit (`src/lib/seo.ts`)**: `seo({ title, description, path, image? })` builds route `head()` `meta` + `links` (`… | THP Hules`, canonical under `SITE_URL = "https://thp.com.mx"`, Open Graph `es_MX`, Twitter `summary_large_image`). `jsonLd(obj)` emits `application/ld+json` script descriptors for `head().scripts`. Includes `organizationLd()` (wired into `src/routes/__root.tsx`) and `productLd(product)`.
+- **Sitemap & Robots**: `vite.config.ts` enables `tanstackStart({ sitemap: { enabled: true, host: 'https://thp.com.mx' } })` to emit `dist/client/sitemap.xml` on build; `public/robots.txt` allows all crawlers and points to `https://thp.com.mx/sitemap.xml`.
+- **Catalogue Data (`src/lib/catalogue.ts`)**: Typed const product data (`productos`, `calidades`, `colores`, `grabados`, `fierrajes`, `filtrarProductos`, `getProductoBySku`) with lowercase `sku` (`ProductSku`), no placeholder Lorem ipsum (`description?: string`), and honest filter/product types.
+- **Standards & Gate (`bun run lint:standards`, `bun run check`, `bun run gate`)**:
+  - `bun run lint:standards` (`scripts/check-standards.ts`): Fails on raw `<img` outside `Picture.tsx`, hex literals in `.tsx`, routes missing `head:`, or `solid-js/web` imports. See [`CODING_STANDARDS.md`](../../CODING_STANDARDS.md).
+  - `bun run check`: Runs `bunx tsc --noEmit && bun run lint:standards && bun run build`.
+  - `bun run gate`: Runs `design-taste-frontend`'s `gate.mjs` against `dist/client/index.html --root dist/client` (with kit assets in `public/assets` and contact waivers in `.taste-skill/waivers.json`).
+

@@ -6,6 +6,7 @@ import {
 import { Loading } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 
+import { THEME_COLOR, jsonLd, organizationLd } from '../lib/seo'
 import styleCss from '../styles.css?url'
 
 export const Route = createRootRouteWithContext()({
@@ -21,12 +22,13 @@ export const Route = createRootRouteWithContext()({
         content:
           'Fabricante mexicano de suelas de hule, láminas industriales y tapetes de alta resistencia.',
       },
-      { name: 'theme-color', content: '#9F013B' },
+      { name: 'theme-color', content: THEME_COLOR },
     ],
     links: [
       { rel: 'stylesheet', href: styleCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     ],
+    scripts: [jsonLd(organizationLd())],
   }),
   shellComponent: RootComponent,
 })
