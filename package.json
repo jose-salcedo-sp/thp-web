@@ -9,6 +9,7 @@
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
     "images": "bun run scripts/images.ts",
+    "videos": "bun run scripts/videos.ts",
     "lint:standards": "bun run scripts/check-standards.ts",
     "check": "bunx tsc --noEmit && bun run lint:standards && bun run build",
     "gate": "node ~/.agents/skills/design-taste-frontend/scripts/gate.mjs dist/client/index.html --root dist/client"

@@ -17,3 +17,4 @@
 
 ## Shell gotchas
 - `ls` is aliased (eza-style long output); use `command ls -1` in scripts. No GNU `timeout` on macOS.
+- ffmpeg/ffprobe 8 are installed locally (`/opt/homebrew/bin`); use them for any video/media work.
