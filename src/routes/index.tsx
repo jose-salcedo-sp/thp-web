@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import { For } from 'solid-js'
 import { Picture } from '../components/Picture'
+import { calidadLabels, grabadoLabels, productos } from '../lib/catalogue'
 import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/')({
@@ -179,118 +181,71 @@ function HomePage() {
               Ver catálogo
             </a>
           </div>
-          <div class="grid">
-            <div class="span-6 stack-2">
-              <p class="t-label">Grabado crepé · Fierrajes 5, 6, 9 y 12</p>
-              <ul class="rows">
-                <li>
-                  <span class="rows__name">
-                    <a class="link" href="/catalogo?sku=cla0cr">
-                      Crepé liga grabado crepé
-                    </a>
-                  </span>
-                  <span class="rows__value">SKU CLA0CR</span>
-                  <p>
-                    Calidad crepé liga con textura crepé tradicional en tonos
-                    ámbar, oscura y rojiza.{' '}
-                    <span data-assumed="">Precio según volumen.</span>
-                  </p>
-                </li>
-                <li>
-                  <span class="rows__name">
-                    <a class="link" href="/catalogo?sku=cra0cr">
-                      Crepé ámbar grabado crepé
-                    </a>
-                  </span>
-                  <span class="rows__value">SKU CRA0CR</span>
-                  <p>
-                    Lámina de calidad crepé en colores ámbar, negro y blanco,
-                    más variante{' '}
-                    <a href="/catalogo?sku=crn0cr">crepé negro (SKU CRN0CR)</a>.
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <div class="span-6 stack-2">
-              <p class="t-label">Grabado zig-zag · Fierrajes 5, 6, 9 y 12</p>
-              <ul class="rows">
-                <li>
-                  <span class="rows__name">
-                    <a class="link" href="/catalogo?sku=cra0zg">
-                      Crepé ámbar grabado zig-zag
-                    </a>
-                  </span>
-                  <span class="rows__value">SKU CRA0ZG</span>
-                  <p>
-                    Lámina de calidad crepé con relieve en espiga zig-zag en
-                    tonos ámbar, negro y blanco.{' '}
-                    <span data-assumed="">Precio según volumen.</span>
-                  </p>
-                </li>
-                <li>
-                  <span class="rows__name">
-                    <a class="link" href="/catalogo?sku=crn0zg">
-                      Crepé negro grabado zig-zag
-                    </a>
-                  </span>
-                  <span class="rows__value">SKU CRN0ZG</span>
-                  <p>
-                    Lámina de crepé negro con grabado zig-zag de tracción
-                    profunda en fierrajes 5, 6, 9 y 12.
-                  </p>
-                </li>
-              </ul>
-            </div>
+          <div class="grid home-sku-grid">
+            <For each={productos.slice(0, 3)}>
+              {(prod) => (
+                <a
+                  class="card home-sku-card span-4"
+                  href={`/catalogo/${prod.sku}`}
+                >
+                  <div class="home-sku-card__media m-zoom">
+                    <Picture
+                      slug={prod.sku}
+                      class="frame__img"
+                      alt={prod.alt}
+                      sizes="(max-width: 639px) 480px, 410px"
+                    />
+                  </div>
+                  <div class="home-sku-card__body">
+                    <div class="home-sku-card__head">
+                      <h3>{prod.nombre}</h3>
+                      <span class="home-sku-card__sku tabular-nums">
+                        SKU {prod.sku.toUpperCase()}
+                      </span>
+                    </div>
+                    <p class="home-sku-card__meta">
+                      {calidadLabels[prod.calidad]} · Grabado{' '}
+                      {grabadoLabels[prod.grabado].toLowerCase()} · Fierrajes{' '}
+                      <span class="tabular-nums">5, 6, 9 y 12</span> ·{' '}
+                      <span data-assumed="">Precio según volumen</span>
+                    </p>
+                  </div>
+                </a>
+              )}
+            </For>
           </div>
-          <div class="grid strip-grid">
-            <a
-              class="m-zoom pl-photo span-3"
-              href="/catalogo?sku=cla0cr"
-              aria-label="Ver ficha técnica de Crepé liga grabado crepé (SKU CLA0CR)"
-            >
-              <Picture
-                slug="cla0cr"
-                class="frame__img"
-                alt="Muestra macro de lámina de hule crepé liga en tono ámbar con grabado crepé granulado"
-                sizes="480px"
-              />
-            </a>
-            <a
-              class="m-zoom pl-photo span-3"
-              href="/catalogo?sku=cra0cr"
-              aria-label="Ver ficha técnica de Crepé ámbar grabado crepé (SKU CRA0CR)"
-            >
-              <Picture
-                slug="cra0cr"
-                class="frame__img"
-                alt="Muestra macro de lámina de hule crepé ámbar con huella crepé uniforme"
-                sizes="480px"
-              />
-            </a>
-            <a
-              class="m-zoom pl-photo span-3"
-              href="/catalogo?sku=cra0zg"
-              aria-label="Ver ficha técnica de Crepé ámbar grabado zig-zag (SKU CRA0ZG)"
-            >
-              <Picture
-                slug="cra0zg"
-                class="frame__img"
-                alt="Muestra macro de lámina de hule crepé ámbar con relieve zig-zag en espiga"
-                sizes="480px"
-              />
-            </a>
-            <a
-              class="m-zoom pl-photo span-3"
-              href="/catalogo?sku=crn0zg"
-              aria-label="Ver ficha técnica de Crepé negro grabado zig-zag (SKU CRN0ZG)"
-            >
-              <Picture
-                slug="crn0zg"
-                class="frame__img"
-                alt="Muestra macro de lámina de hule crepé negro con grabado zig-zag de tracción profunda"
-                sizes="480px"
-              />
-            </a>
+          <div class="grid home-sku-grid home-sku-grid--bottom">
+            <For each={productos.slice(3, 5)}>
+              {(prod) => (
+                <a
+                  class="card home-sku-card span-6"
+                  href={`/catalogo/${prod.sku}`}
+                >
+                  <div class="home-sku-card__media m-zoom">
+                    <Picture
+                      slug={prod.sku}
+                      class="frame__img"
+                      alt={prod.alt}
+                      sizes="(max-width: 639px) 480px, 628px"
+                    />
+                  </div>
+                  <div class="home-sku-card__body">
+                    <div class="home-sku-card__head">
+                      <h3>{prod.nombre}</h3>
+                      <span class="home-sku-card__sku tabular-nums">
+                        SKU {prod.sku.toUpperCase()}
+                      </span>
+                    </div>
+                    <p class="home-sku-card__meta">
+                      {calidadLabels[prod.calidad]} · Grabado{' '}
+                      {grabadoLabels[prod.grabado].toLowerCase()} · Fierrajes{' '}
+                      <span class="tabular-nums">5, 6, 9 y 12</span> ·{' '}
+                      <span data-assumed="">Precio según volumen</span>
+                    </p>
+                  </div>
+                </a>
+              )}
+            </For>
           </div>
         </div>
       </section>

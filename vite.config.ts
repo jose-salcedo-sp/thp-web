@@ -9,6 +9,15 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     tanstackStart({
+      pages: [
+        { path: '/' },
+        { path: '/catalogo' },
+        { path: '/catalogo/cla0cr' },
+        { path: '/catalogo/cra0cr' },
+        { path: '/catalogo/cra0zg' },
+        { path: '/catalogo/crn0cr' },
+        { path: '/catalogo/crn0zg' },
+      ],
       prerender: {
         enabled: true,
         crawlLinks: true,

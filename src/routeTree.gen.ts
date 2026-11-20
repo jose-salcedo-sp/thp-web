@@ -10,20 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CatalogoRouteImport } from './routes/catalogo'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as LaminasRouteImport } from './routes/laminas'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as SuelasRouteImport } from './routes/suelas'
+import { Route as CatalogoIndexRouteImport } from './routes/catalogo/index'
+import { Route as CatalogoSkuRouteImport } from './routes/catalogo/$sku'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CatalogoRoute = CatalogoRouteImport.update({
-  id: '/catalogo',
-  path: '/catalogo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -46,55 +42,83 @@ const SuelasRoute = SuelasRouteImport.update({
   path: '/suelas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CatalogoIndexRoute = CatalogoIndexRouteImport.update({
+  id: '/catalogo/',
+  path: '/catalogo/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogoSkuRoute = CatalogoSkuRouteImport.update({
+  id: '/catalogo/$sku',
+  path: '/catalogo/$sku',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/catalogo': typeof CatalogoRoute
   '/contacto': typeof ContactoRoute
   '/laminas': typeof LaminasRoute
   '/privacidad': typeof PrivacidadRoute
   '/suelas': typeof SuelasRoute
+  '/catalogo/$sku': typeof CatalogoSkuRoute
+  '/catalogo/': typeof CatalogoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/catalogo': typeof CatalogoRoute
   '/contacto': typeof ContactoRoute
   '/laminas': typeof LaminasRoute
   '/privacidad': typeof PrivacidadRoute
   '/suelas': typeof SuelasRoute
+  '/catalogo/$sku': typeof CatalogoSkuRoute
+  '/catalogo': typeof CatalogoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/catalogo': typeof CatalogoRoute
   '/contacto': typeof ContactoRoute
   '/laminas': typeof LaminasRoute
   '/privacidad': typeof PrivacidadRoute
   '/suelas': typeof SuelasRoute
+  '/catalogo/$sku': typeof CatalogoSkuRoute
+  '/catalogo/': typeof CatalogoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/catalogo' | '/contacto' | '/laminas' | '/privacidad' | '/suelas'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/contacto' | '/laminas' | '/privacidad' | '/suelas'
-  id:
-    | '__root__'
     | '/'
-    | '/catalogo'
     | '/contacto'
     | '/laminas'
     | '/privacidad'
     | '/suelas'
+    | '/catalogo/$sku'
+    | '/catalogo/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/contacto'
+    | '/laminas'
+    | '/privacidad'
+    | '/suelas'
+    | '/catalogo/$sku'
+    | '/catalogo'
+  id:
+    | '__root__'
+    | '/'
+    | '/contacto'
+    | '/laminas'
+    | '/privacidad'
+    | '/suelas'
+    | '/catalogo/$sku'
+    | '/catalogo/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CatalogoRoute: typeof CatalogoRoute
   ContactoRoute: typeof ContactoRoute
   LaminasRoute: typeof LaminasRoute
   PrivacidadRoute: typeof PrivacidadRoute
   SuelasRoute: typeof SuelasRoute
+  CatalogoSkuRoute: typeof CatalogoSkuRoute
+  CatalogoIndexRoute: typeof CatalogoIndexRoute
 }
 
 declare module '@tanstack/solid-router' {
@@ -104,13 +128,6 @@ declare module '@tanstack/solid-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/catalogo': {
-      id: '/catalogo'
-      path: '/catalogo'
-      fullPath: '/catalogo'
-      preLoaderRoute: typeof CatalogoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -141,16 +158,31 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof SuelasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/catalogo/': {
+      id: '/catalogo/'
+      path: '/catalogo'
+      fullPath: '/catalogo/'
+      preLoaderRoute: typeof CatalogoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalogo/$sku': {
+      id: '/catalogo/$sku'
+      path: '/catalogo/$sku'
+      fullPath: '/catalogo/$sku'
+      preLoaderRoute: typeof CatalogoSkuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CatalogoRoute: CatalogoRoute,
   ContactoRoute: ContactoRoute,
   LaminasRoute: LaminasRoute,
   PrivacidadRoute: PrivacidadRoute,
   SuelasRoute: SuelasRoute,
+  CatalogoSkuRoute: CatalogoSkuRoute,
+  CatalogoIndexRoute: CatalogoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

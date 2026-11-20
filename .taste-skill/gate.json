@@ -1,16 +1,25 @@
 {
- "start": "2026-11-20T16:46:42.029Z",
- "round": 0,
+ "start": "2026-11-20T19:53:34.162Z",
+ "round": 1,
  "idle": 0,
  "errors": 0,
  "status": "pass",
  "history": [
   {
-   "at": "2026-11-20T18:09:00.271Z",
+   "at": "2026-11-20T19:55:10.147Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 1,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-20T19:58:48.817Z",
    "mode": "manual",
    "status": "pass",
    "fails": 0,
-   "round": 0,
+   "round": 1,
    "reused": false,
    "stopHookActive": false
   }
@@ -18,15 +27,21 @@
  "max": 3,
  "marker": {
   "page": "dist/client/index.html",
-  "dir": "/Users/jose.salcedo/Documents/Personal/thp-web",
-  "kind": "product",
-  "start": "2026-11-20T16:46:42.029Z",
-  "by": "start.mjs",
   "url": null,
-  "root": "dist/client"
+  "root": "dist/client",
+  "kind": "product",
+  "category": "láminas y suelas de hule",
+  "primary": "Solicitar cotización",
+  "rounds": 3,
+  "start": "2026-11-20T19:53:34.162Z",
+  "by": "gate.mjs --start"
  },
  "manual": true,
- "fp": "52d94dd3971f3e2e",
+ "roundKey": "589cf030de37d762:f3ebec5f",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "99cdb26e1e4020c6",
  "page": "dist/client/index.html",
  "found": {
   "fails": [
@@ -139,6 +154,16 @@
     "from": "consistency"
    },
    {
+    "check": "copy-headings",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__body > div.home-sku-card__head > h3 \"Crepé liga grabado crepé\"",
+    "msg": "the card title \"Crepé liga grabado crepé\" names no product, part, place or section (5 card titles like it) (and 4 more like it: \"Crepé ámbar grabado crep\", \"Crepé ámbar grabado zig-\", \"Crepé negro grabado crep\", \"Crepé negro grabado zig-\")",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
     "check": "copy-buttons",
     "where": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Solicitar cotización\"",
     "msg": "\"Solicitar cotización\" does not start with a verb (book, buy, try, start, get, see...)",
@@ -151,8 +176,19 @@
    {
     "check": "section-gaps",
     "where": "section#inicio / section#lineas",
-    "msg": "117px between these sections, -48% against the median 225px",
+    "msg": "117px between these sections, -49% against the median 230px",
     "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "photo-set",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__media.m-zoom > picture > img.frame__img \"480.avif\"",
+    "msg": "6 photographs in more than one look: lightness from 0.17 to 0.55; the odd one out is 480.avif",
+    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
     "widths": [
      1440,
      390
@@ -181,8 +217,8 @@
    },
    {
     "check": "assumed",
-    "where": "ul.rows > li:nth-of-type(1) > p > span \"Precio según volumen.\"",
-    "msg": "2 facts marked as assumed, for the report: \"Precio según volumen.\", \"Precio según volumen.\"",
+    "where": "a.card.home-sku-card:nth-of-type(1) > div.home-sku-card__body:nth-of-type(2) > p.home-sku-card__meta > span:nth-of-type(2) \"Precio según volumen\"",
+    "msg": "5 facts marked as assumed, for the report: \"Precio según volumen\", \"Precio según volumen\", \"Precio según volumen\", \"Precio según volumen\", \"Precio según volumen\"",
     "fix": "list each assumed fact in the report for the client to confirm, or take it from the brief",
     "widths": [
      1440
@@ -190,30 +226,10 @@
     "from": "consistency"
    },
    {
-    "check": "no-visual",
-    "where": "section#catalogo-home \"Catálogo de láminas de hule crepé\"",
-    "msg": "pictures, effects and mocks cover 22% of this section; a feature section needs a visual (about 25% or more)",
-    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
-    "widths": [
-     390
-    ],
-    "from": "consistency"
-   },
-   {
-    "check": "section-gaps",
-    "where": "section#planta / footer#contact",
-    "msg": "296px between these sections, +41% against the median 210px of gaps at a change of ground",
-    "fix": "use one gap between sections (all within 25% of each other)",
-    "widths": [
-     390
-    ],
-    "from": "consistency"
-   },
-   {
-    "check": "photo-set",
-    "where": "div.grid.strip-grid > a.m-zoom.pl-photo:nth-of-type(1) > picture > img.frame__img \"480.avif\"",
-    "msg": "8 photographs in more than one look: lightness from 0.10 to 0.56; the odd one out is 480.avif",
-    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
+    "check": "grounds",
+    "where": "section#planta \"Planta de molienda y laminado en Zapopan\"",
+    "msg": "4 flat grounds across the page (#faf9f6 section x4, #f0eee9 band x5, #9f013b section, #0c1221 footer): three at most (the base, a surface, an inverse)",
+    "fix": "three flat grounds at most (the base, one surface, one inverse): lay the other bands on one of them",
     "widths": [
      390
     ],
@@ -222,7 +238,7 @@
   ],
   "crashed": [],
   "seconds": {
-   "consistency": 91,
+   "consistency": 92,
    "layout": 4
   }
  },
@@ -298,5 +314,5 @@
   }
  ],
  "warnCount": 12,
- "at": "2026-11-20T18:09:00.272Z"
+ "at": "2026-11-20T19:58:48.819Z"
 }

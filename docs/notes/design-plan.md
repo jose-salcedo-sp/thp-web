@@ -151,4 +151,10 @@ Global chrome on every route: `header.nav` (`nav-cards`, fixed `72px` desktop / 
   - `layout/check.mjs` (`1440x900,1024x768,820x1180,768x1024,390x844`): `0 findings`.
   - `perf.mjs` (`1440px` & `390px`): `0 FAIL, 0 WARN -> PASS` (CSS `71.7 KiB` / `10.28 kB` app CSS, JS `134.8 KiB` gz, fonts `62.9 KiB`, CLS `0.000`).
   - `bun run gate`: **`GATE: PASS`** (`0 open FAIL`, 4 waivers in `.taste-skill/waivers.json`).
+- **Catalogue & product routes (`/catalogo`, `/catalogo/$sku`, and `/` `#catalogo-home`):**
+  - `src/routes/catalogo/index.tsx` — Prerendered 5-SKU catalogue with `@ui-sdk/solid/toggle` (`ToggleGroup` / `Toggle`) filter island (`calidad`, `grabado`, `fierraje`, `color`) synced to URL search params via `validateSearch`, polite live region announcing result count, 44px targets, and comparison matrix. Island JS chunk: `50.16 kB` (`18.58 kB` gz; route entry `1.16 kB` / `0.63 kB` gz).
+  - `src/routes/catalogo/$sku.tsx` — Prerendered product template for `cla0cr`, `cra0cr`, `cra0zg`, `crn0cr`, `crn0zg` with full-wrap product stage (`1080w` AVIF/WebP/JPG), tabular-nums specs table, `/contacto?sku=<SKU>` CTA, related SKUs, breadcrumb + `BreadcrumbList` and `Product` JSON-LD (no fake prices/offers).
+  - `src/routes/index.tsx` (`#catalogo-home`) — Updated so all 5 SKU cards include their own `<Picture>` and link directly to `/catalogo/$sku`.
+  - Gate & checks (`/`, `/catalogo`, `/catalogo/cla0cr`): `copy-lint` `0 FAIL, 0 WARN`; `layout/check.mjs` `0 findings` (`1440, 1024, 820, 768, 390`); `perf.mjs` `0 FAIL, 0 WARN -> PASS`; `gate.mjs` **`GATE: PASS`** on all three.
+
 
