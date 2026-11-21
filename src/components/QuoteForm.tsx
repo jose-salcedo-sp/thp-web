@@ -13,12 +13,16 @@ const PRODUCTO_EXTRA = [
 
 function productLabel(sku: ProductSku): string {
   const p = productos.find((x) => x.sku === sku)
-  if (!p) return sku.toUpperCase()
-  return `${sku.toUpperCase()} · ${p.nombre}`
+  return p ? p.nombre : 'Lámina de hule'
 }
+
+// In the control's background: a native select paints over a sibling icon.
+const chevron =
+  'bg-[url(/select-chevron.svg)] bg-[length:12px_12px] bg-[position:right_12px_center] bg-no-repeat'
 
 const field = 'field gap-1'
 const control = 'h-11 lg:max-xl:h-10'
+const selectControl = `${control} appearance-none pr-10 ${chevron}`
 
 export function QuoteForm(props: { initialSku?: string }) {
   const [status, setStatus] = createSignal('')
@@ -222,7 +226,7 @@ export function QuoteForm(props: { initialSku?: string }) {
         <label for="cot-producto">Producto</label>
         <select
           id="cot-producto"
-          class={control}
+          class={selectControl}
           name="producto"
           required
           data-error="Selecciona o indica la lámina, suela o fierraje que necesitas."
@@ -249,7 +253,7 @@ export function QuoteForm(props: { initialSku?: string }) {
         <label for="cot-fierraje">Fierraje</label>
         <select
           id="cot-fierraje"
-          class={control}
+          class={selectControl}
           name="fierraje"
           aria-describedby="cot-fierraje-err"
         >

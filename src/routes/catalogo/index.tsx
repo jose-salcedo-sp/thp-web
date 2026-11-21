@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/solid-router'
 import { Toggle, ToggleGroup, ToggleIcon } from '@ui-sdk/solid/toggle'
 import { For, Show, createEffect, createMemo, createSignal } from 'solid-js'
 import { Comparacion } from '../../components/catalogo/Comparacion'
+import { Hero } from '../../components/Hero'
 import { ReferenciaCard } from '../../components/catalogo/ReferenciaCard'
-import { Picture } from '../../components/Picture'
 import { SwatchDot } from '../../components/Swatch'
 import {
   type CalidadFiltro,
@@ -264,52 +264,15 @@ function CatalogoPage() {
 
   return (
     <main id="top">
-      <section
-        class="hero hero--photo bg-ground max-sm:[--photo:31svh]"
+      <Hero
         id="catalogo-hero"
-        data-enter=""
-        data-calm="left"
-        aria-labelledby="catalogo-h"
-      >
-        <Picture
-          slug="sanitizante2"
-          layout="hero"
-          alt="Textura macro de tapete y lámina de hule negro vulcanizado en la planta de THP en Zapopan"
-          priority
-          sizes="100vw"
-        />
-        <div class="wrap">
-          <div class="hero-text">
-            <div class="hero__text">
-              <p class="hero__kicker">
-                <span class="dot" aria-hidden="true" />5 referencias de línea ·
-                4 fierrajes (5, 6, 9 y 12) · 6 tonos de muestrario
-              </p>
-              <h1 id="catalogo-h" class="max-w-[20ch]">
-                Catálogo de láminas de hule por calibre y color
-              </h1>
-              <p class="hero__lead">
-                Revisa nuestras 5 referencias de lámina de hule crepé y filtra
-                por calidad, tipo de grabado, fierraje o color. Todas las
-                referencias se fabrican en fierrajes 5, 6, 9 y 12 en nuestra
-                planta de Zapopan.
-              </p>
-              <div class="btn-row">
-                <a class="btn btn--primary" href="/contacto">
-                  Solicitar cotización
-                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                    <path class="m-arrow__stem" d="M1 6h8" />
-                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-                  </svg>
-                </a>
-                <a class="btn btn--secondary" href="#referencias">
-                  Filtrar referencias
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        headingId="catalogo-h"
+        title="Catálogo de láminas"
+        line="5 referencias en fierrajes 5, 6, 9 y 12."
+        href="/contacto"
+        slug="sanitizante2"
+        alt="Textura macro de tapete y lámina de hule negro vulcanizado en la planta de THP en Zapopan"
+      />
 
       <section class="section h-auto min-h-0" id="referencias" aria-labelledby="referencias-h">
         <div class="wrap h-auto">

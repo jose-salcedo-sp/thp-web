@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import { Hero } from '../components/Hero'
 import { Picture } from '../components/Picture'
 import { SITE_URL, jsonLd, seo } from '../lib/seo'
 
@@ -41,54 +42,16 @@ const trioPanel =
 function LaminasPage() {
   return (
     <main id="top">
-      <section
-        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
+      <Hero
         id="laminas-hero"
-        data-enter=""
-        data-calm="left"
-        aria-labelledby="laminas-h"
-      >
-        <Picture
-          slug="stand-calandra"
-          layout="hero"
-          dataSource="library"
-          alt="Calandra industrial de dos rodillos metálicos laminando láminas de hule crepé y SBR en planta"
-          priority
-          sizes="100vw"
-        />
-        <div class="wrap">
-          <div class="hero-text">
-            <div class="hero__text">
-              <p class="hero__kicker tabular-nums">
-                <span class="dot" aria-hidden="true" />
-                3 calidades de crepé · Fierrajes 5, 6, 9 y 12 · 2 grabados de
-                prensa
-              </p>
-              <h1 id="laminas-h" class="max-w-[20ch]">
-                Láminas de hule crepé y SBR para calzado
-              </h1>
-              <p class="hero__lead tabular-nums">
-                Suministramos hojas de hule calibradas para corte, troquelado y
-                armado de suela. Trabajamos tres calidades de crepé de línea en
-                fierrajes 5, 6, 9 y 12 y laminamos lotes de polibutadieno
-                estireno en colores vivos bajo pedido.
-              </p>
-              <div class="btn-row">
-                <a class="btn btn--primary" href="/contacto">
-                  Solicitar cotización
-                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                    <path class="m-arrow__stem" d="M1 6h8" />
-                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-                  </svg>
-                </a>
-                <a class="btn btn--secondary" href="/catalogo">
-                  Explorar las 5 referencias
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        headingId="laminas-h"
+        title="Láminas de hule crepé"
+        line="En fierrajes 5, 6, 9 y 12."
+        href="/contacto"
+        slug="stand-calandra"
+        source="library"
+        alt="Calandra industrial de dos rodillos metálicos laminando láminas de hule crepé y SBR en planta"
+      />
 
       <section
         class="section [--h:1] [--hm:2]"
@@ -115,7 +78,7 @@ function LaminasPage() {
                 calzado casual donde el canto de la lámina queda a la vista.
               </p>
               <a class="card__link link" href="/catalogo/cra0cr">
-                Ver ficha SKU CRA0CR
+                Ver ficha de crepé ámbar
               </a>
               <div class={trioPanel}>
                 <Picture
@@ -136,7 +99,7 @@ function LaminasPage() {
                 constante.
               </p>
               <a class="card__link link" href="/catalogo/cla0cr">
-                Ver ficha SKU CLA0CR
+                Ver ficha de crepé liga
               </a>
               <div class={trioPanel}>
                 <Picture
@@ -157,7 +120,7 @@ function LaminasPage() {
                 lote.
               </p>
               <a class="card__link link" href="/catalogo/crn0cr">
-                Ver ficha SKU CRN0CR
+                Ver ficha de crepé negro
               </a>
               <div class={trioPanel}>
                 <Picture
@@ -207,7 +170,7 @@ function LaminasPage() {
                 <li>
                   <span class="rows__name">
                     <a class="link" href="/catalogo/cra0zg">
-                      Crepé ámbar zig-zag (CRA0ZG)
+                      Crepé ámbar zig-zag
                     </a>
                   </span>
                   <p>
@@ -218,7 +181,7 @@ function LaminasPage() {
                 <li>
                   <span class="rows__name">
                     <a class="link" href="/catalogo/crn0zg">
-                      Crepé negro zig-zag (CRN0ZG)
+                      Crepé negro zig-zag
                     </a>
                   </span>
                   <p>
@@ -274,11 +237,27 @@ function LaminasPage() {
               <li>
                 <span class="rows__name">Calidades en catálogo</span>
                 <p>
-                  Crepé (<a class="link" href="/catalogo/cra0cr">CRA0CR</a>,{' '}
-                  <a class="link" href="/catalogo/cra0zg">CRA0ZG</a>), crepé liga (
-                  <a class="link" href="/catalogo/cla0cr">CLA0CR</a>) y crepé negro (
-                  <a class="link" href="/catalogo/crn0cr">CRN0CR</a>,{' '}
-                  <a class="link" href="/catalogo/crn0zg">CRN0ZG</a>).
+                  Crepé (
+                  <a class="link" href="/catalogo/cra0cr">
+                    grabado crepé
+                  </a>
+                  ,{' '}
+                  <a class="link" href="/catalogo/cra0zg">
+                    grabado zig-zag
+                  </a>
+                  ), crepé liga (
+                  <a class="link" href="/catalogo/cla0cr">
+                    grabado crepé
+                  </a>
+                  ) y crepé negro (
+                  <a class="link" href="/catalogo/crn0cr">
+                    grabado crepé
+                  </a>
+                  ,{' '}
+                  <a class="link" href="/catalogo/crn0zg">
+                    grabado zig-zag
+                  </a>
+                  ).
                 </p>
               </li>
               <li>

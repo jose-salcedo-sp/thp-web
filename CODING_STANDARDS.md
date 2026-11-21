@@ -24,6 +24,9 @@
 - **Mobile-First CSS**: Base utilities target mobile (`320px–390px`); layer tablet/desktop adjustments upward with `sm:` (640), `lg:` (1024) and `xl:` (1280), the kit's breakpoints. Use a range (`sm:max-lg:`) only to leave the kit's own value in place outside it.
 - **Tokens Only (No Hex Literals in `.tsx`)**: Define colors in `src/styles.css` (`@theme`, or `@theme inline` for the kit's live tokens such as `ink`, `muted`, `line`, `ground`) or data maps in `src/lib/*.ts`. Hex literals (`#...`) inside `.tsx` components fail `bun run lint:standards`.
 
-## 5. `ui-sdk` (`@ui-sdk/solid` & `@ui-sdk/core`)
+## 5. Catalogue codes
+Internal reference codes (`CLA0CR`, `CRA0ZG`, and the rest of `ProductSku`) are not buyer-facing copy. Do not render one in visible text: headings, paragraphs, links, buttons, option labels, chips, table cells, or `alt`. Name the product by what it is (calidad, grabado, color). The code stays in `href`s (`/catalogo/<sku>`, `/contacto?sku=`), form `value`s, and JSON-LD (`sku`). `bun run lint:standards` fails a `.tsx` line that would show a code, including `SKU {…}`, a literal code, and `.sku.toUpperCase()` outside an `href`, `value`, `src`, `slug`, or a `path` / `sku` field.
+
+## 6. `ui-sdk` (`@ui-sdk/solid` & `@ui-sdk/core`)
 - Before using `ui-sdk`, follow `.agents/skills/ui-sdk/SKILL.md` and read `node_modules/@ui-sdk/solid/docs/llms.txt`.
 - To build a custom primitive or behavior, search `node_modules/@ui-sdk/solid/docs/core.md` by heading and read `node_modules/@ui-sdk/solid/docs/rendering.md`.

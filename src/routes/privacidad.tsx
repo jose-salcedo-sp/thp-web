@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/solid-router'
 import { For } from 'solid-js'
+import { Hero } from '../components/Hero'
 import { Picture } from '../components/Picture'
 import { photoCredits } from '../lib/credits'
 import { breadcrumbLd, jsonLd, seo } from '../lib/seo'
@@ -33,53 +34,16 @@ const cellLink = 'link max-sm:inline-flex max-sm:min-h-11 max-sm:items-center'
 function PrivacidadPage() {
   return (
     <main id="top">
-      <section
-        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
+      <Hero
         id="privacidad-hero"
-        data-enter=""
-        data-calm="left"
-        aria-labelledby="privacidad-h"
-      >
-        <Picture
-          slug="stand-almacen"
-          layout="hero"
-          dataSource="library"
-          alt="Almacén industrial con tarimas de láminas de hule y plástico en estantería metálica"
-          priority
-          sizes="100vw"
-        />
-        <div class="wrap">
-          <div class="hero-text">
-            <div class="hero__text">
-              <p class="hero__kicker tabular-nums">
-                <span class="dot" aria-hidden="true" />
-                Transformadora de Hules y Plásticos · LFPDPPP · Zapopan, Jalisco
-              </p>
-              <h1 id="privacidad-h" class="max-w-[20ch]">
-                Aviso de privacidad de láminas y suelas
-              </h1>
-              <p class="hero__lead tabular-nums">
-                Transformadora de Hules y Plásticos, con domicilio en Las Flores
-                1643, Colonia La Florida, C.P. 45234, Zapopan, Jalisco, México,
-                es responsable del tratamiento de los datos personales que nos
-                proporcionas al solicitar una cotización.
-              </p>
-              <div class="btn-row">
-                <a class="btn btn--primary" href="/contacto">
-                  Solicitar cotización
-                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                    <path class="m-arrow__stem" d="M1 6h8" />
-                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-                  </svg>
-                </a>
-                <a class="btn btn--secondary" href="#creditos">
-                  Ver créditos fotográficos
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        headingId="privacidad-h"
+        title="Aviso de privacidad"
+        line="Planta en Zapopan, Jalisco."
+        href="/contacto"
+        slug="stand-almacen"
+        source="library"
+        alt="Almacén industrial con tarimas de láminas de hule y plástico en estantería metálica"
+      />
 
       <section
         class="section [--h:1] [--hm:2]"

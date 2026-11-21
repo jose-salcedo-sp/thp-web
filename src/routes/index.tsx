@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/solid-router'
 import { For } from 'solid-js'
+import { Hero } from '../components/Hero'
 import { Picture } from '../components/Picture'
 import { calidadLabels, grabadoLabels, productos } from '../lib/catalogue'
 import { seo } from '../lib/seo'
@@ -25,52 +26,15 @@ const skuCard =
 function HomePage() {
   return (
     <main id="top">
-      <section
-        class="hero hero--photo bg-ground max-sm:[--photo:31svh]"
+      <Hero
         id="inicio"
-        data-enter=""
-        data-calm="left"
-        aria-labelledby="hero-h"
-      >
-        <Picture
-          slug="antifatiga"
-          layout="hero"
-          alt="Textura macro de tapete industrial de hule negro antifatiga con celdas octagonales moldeadas en planta"
-          priority
-          sizes="100vw"
-        />
-        <div class="wrap">
-          <div class="hero-text">
-            <div class="hero__text">
-              <p class="hero__kicker tabular-nums">
-                <span class="dot" aria-hidden="true" />
-                Más de 50 años fabricando en Zapopan · Fierrajes 5, 6, 9 y 12
-              </p>
-              <h1 id="hero-h" class="max-w-[20ch]">
-                Láminas y suelas de hule para calzado e industria
-              </h1>
-              <p class="hero__lead tabular-nums">
-                Transformamos el hule en nuestra planta de Zapopan desde hace
-                más de 50 años. Laminamos compuestos en fierrajes 5, 6, 9 y 12,
-                moldeamos suelas y formulamos colores a la medida para talleres
-                y fábricas.
-              </p>
-              <div class="btn-row">
-                <a class="btn btn--primary" href="/contacto">
-                  Solicitar cotización
-                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                    <path class="m-arrow__stem" d="M1 6h8" />
-                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-                  </svg>
-                </a>
-                <a class="btn btn--secondary" href="/catalogo">
-                  Ver catálogo de láminas
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        headingId="hero-h"
+        title="Láminas y suelas de hule"
+        line="Más de 50 años fabricándolas en Zapopan."
+        href="/contacto"
+        slug="antifatiga"
+        alt="Textura macro de tapete industrial de hule negro antifatiga con celdas octagonales moldeadas en planta"
+      />
 
       <section
         class="section [--h:1] [--hm:2]"
@@ -207,14 +171,9 @@ function HomePage() {
                     />
                   </div>
                   <div class="flex flex-col gap-1">
-                    <div class="flex items-baseline justify-between gap-3">
-                      <h3 class="text-body leading-[1.35] font-medium tracking-[-0.01em] text-ink">
-                        {prod.nombre}
-                      </h3>
-                      <span class="flex-none text-label font-medium text-muted tabular-nums">
-                        SKU {prod.sku.toUpperCase()}
-                      </span>
-                    </div>
+                    <h3 class="text-body leading-[1.35] font-medium tracking-[-0.01em] text-ink">
+                      {prod.nombre}
+                    </h3>
                     <p class="text-body leading-[1.45] text-ink sm:max-lg:leading-[1.35]">
                       {calidadLabels[prod.calidad]} · Grabado{' '}
                       {grabadoLabels[prod.grabado].toLowerCase()} · Fierrajes{' '}
@@ -243,14 +202,9 @@ function HomePage() {
                     />
                   </div>
                   <div class="flex flex-col gap-1">
-                    <div class="flex items-baseline justify-between gap-3">
-                      <h3 class="text-body leading-[1.35] font-medium tracking-[-0.01em] text-ink">
-                        {prod.nombre}
-                      </h3>
-                      <span class="flex-none text-label font-medium text-muted tabular-nums">
-                        SKU {prod.sku.toUpperCase()}
-                      </span>
-                    </div>
+                    <h3 class="text-body leading-[1.35] font-medium tracking-[-0.01em] text-ink">
+                      {prod.nombre}
+                    </h3>
                     <p class="text-body leading-[1.45] text-ink sm:max-lg:leading-[1.35]">
                       {calidadLabels[prod.calidad]} · Grabado{' '}
                       {grabadoLabels[prod.grabado].toLowerCase()} · Fierrajes{' '}

@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import { Hero } from '../components/Hero'
 import { Picture } from '../components/Picture'
 import { QuoteForm } from '../components/QuoteForm'
 import { getProductoBySku } from '../lib/catalogue'
@@ -44,54 +45,16 @@ function ContactoPage() {
 
   return (
     <main id="top">
-      <section
-        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
+      <Hero
         id="contacto-hero"
-        data-enter=""
-        data-calm="left"
-        aria-labelledby="contacto-h"
-      >
-        <Picture
-          slug="stand-laminas-crepe"
-          layout="hero"
-          dataSource="library"
-          alt="Láminas de hule crepé natural en línea de secado y enfriamiento en planta"
-          priority
-          sizes="100vw"
-        />
-        <div class="wrap">
-          <div class="hero-text">
-            <div class="hero__text">
-              <p class="hero__kicker tabular-nums">
-                <span class="dot" aria-hidden="true" />
-                Las Flores 1643, Zapopan · Teléfonos (33) 3684-2909 y (33)
-                3684-3037
-              </p>
-              <h1 id="contacto-h" class="max-w-[20ch]">
-                Cotizar láminas y suelas de hule en planta
-              </h1>
-              <p class="hero__lead tabular-nums">
-                Envíanos las especificaciones de tu pedido o comunícate directo
-                a nuestras oficinas en la colonia La Florida, Zapopan. Atendemos
-                solicitudes de talleres de calzado y compradores industriales de
-                lunes a sábados de 7:00 a 15:00.
-              </p>
-              <div class="btn-row">
-                <a class="btn btn--primary" href="#cotizacion">
-                  Solicitar cotización
-                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                    <path class="m-arrow__stem" d="M1 6h8" />
-                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-                  </svg>
-                </a>
-                <a class="btn btn--secondary" href="/catalogo">
-                  Ver catálogo de láminas
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        headingId="contacto-h"
+        title="Cotización en planta"
+        line="Lunes a sábado, de 7:00 a 15:00."
+        href="#cotizacion"
+        slug="stand-laminas-crepe"
+        source="library"
+        alt="Láminas de hule crepé natural en línea de secado y enfriamiento en planta"
+      />
 
       <section
         class="section [--h:1] [--hm:2]"

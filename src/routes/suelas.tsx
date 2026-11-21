@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import { Hero } from '../components/Hero'
 import { Picture } from '../components/Picture'
 import { SITE_URL, jsonLd, seo } from '../lib/seo'
 
@@ -44,54 +45,16 @@ const matriceriaPanel =
 function SuelasPage() {
   return (
     <main id="top">
-      <section
-        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
+      <Hero
         id="suelas-hero"
-        data-enter=""
-        data-calm="left"
-        aria-labelledby="suelas-h"
-      >
-        <Picture
-          slug="stand-suelas"
-          layout="hero"
-          dataSource="library"
-          alt="Par de suelas de hule negro moldeadas con dibujo de tracción sobre banco de madera en taller"
-          priority
-          sizes="100vw"
-        />
-        <div class="wrap">
-          <div class="hero-text">
-            <div class="hero__text">
-              <p class="hero__kicker tabular-nums">
-                <span class="dot" aria-hidden="true" />
-                Más de 50 años en planta · Suelas deportivas, casuales y tapetes
-                industriales
-              </p>
-              <h1 id="suelas-h" class="max-w-[20ch]">
-                Suelas de hule y moldes para calzado
-              </h1>
-              <p class="hero__lead tabular-nums">
-                Fabricamos suelas moldeadas para calzado deportivo y casual
-                junto con tapetes industriales de hule en Zapopan. Desarrollamos
-                compuestos y matricería propia desde hace más de 50 años para
-                marcas que buscan tracción y durabilidad en cada par.
-              </p>
-              <div class="btn-row">
-                <a class="btn btn--primary" href="/contacto">
-                  Solicitar cotización
-                  <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                    <path class="m-arrow__stem" d="M1 6h8" />
-                    <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-                  </svg>
-                </a>
-                <a class="btn btn--secondary" href="#matriceria">
-                  Ver matricería y desarrollos
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        headingId="suelas-h"
+        title="Suelas de hule para calzado"
+        line="Moldeadas en Zapopan, Jalisco."
+        href="/contacto"
+        slug="stand-suelas"
+        source="library"
+        alt="Par de suelas de hule negro moldeadas con dibujo de tracción sobre banco de madera en taller"
+      />
 
       <section
         class="section [--h:1] [--hm:1]"
