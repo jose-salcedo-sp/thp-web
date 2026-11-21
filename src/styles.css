@@ -1,0 +1,99 @@
+@layer ui-sdk, theme, base, kit, components, utilities;
+@import "tailwindcss" source("../src");
+@import "./kit/system.css" layer(kit);
+@import "./kit/ui/cards.css" layer(kit);
+@import "./kit/motion/motion.css" layer(kit);
+@import "./kit/backgrounds/backgrounds.css" layer(kit);
+@import "./kit/layout/layout.css" layer(kit);
+@import "./kit/icons/icon.css" layer(kit);
+@import "./kit/moments/word-highlight/moment.css" layer(kit);
+@import "./kit/moments/picture-develops/moment.css" layer(kit);
+
+@source not "./kit";
+/* the kit's grid columns (.start-7) are not Tailwind's inset-inline-start utilities.
+   `grid` is the kit's 12-column .grid too: a plain stack is `flex flex-col` */
+@source not inline("start-{1..12}");
+
+@layer ui-sdk {
+  :where([data-slot][hidden]:not([hidden="until-found"])) {
+    display: none !important;
+  }
+}
+
+@font-face {
+  font-family: "Albert Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/albert-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Albert Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/albert-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  --color-thp-primary: #9f013b;
+  --color-thp-black: #0c1221;
+  --color-thp-accent: #363636;
+  --color-thp-gray: #d9d9d9;
+  --color-thp-white: #ffffff;
+
+  --color-swatch-ambar: #ffbf00;
+  --color-swatch-oscura: #5a5a5a;
+  --color-swatch-rojiza: #ff0000;
+  --color-swatch-blanco: #ffffff;
+  --color-swatch-cafe: #a52a2a;
+  --color-swatch-negro: #000000;
+}
+
+/* the kit's live tokens: they change per ground (.ground-brand, .ground-inverse) and per breakpoint */
+@theme inline {
+  --color-ground: var(--bg);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-action: var(--action);
+  --color-action-ink: var(--action-ink);
+
+  --text-label: var(--t-label);
+  --text-small: var(--t-small);
+  --text-body: var(--t-body);
+  --text-title: var(--t-card);
+  --text-h3: var(--t-h3);
+
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-btn: var(--r-btn);
+}
+
+@layer components {
+  .rows a {
+    @variant max-sm {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+  }
+}
+
+:root {
+  --p-bg: #faf9f6; --p-surface: #f0eee9; --p-ink: #0c1221; --p-muted: #363636;
+  --p-accent: #9f013b; --p-accent-ink: #faf9f6; --p-action: #9f013b; --p-action-ink: #faf9f6;
+  --p-inv-bg: #0c1221; --p-inv-surface: #191f2e; --p-inv-ink: #faf9f6; --p-inv-muted: #95989e;
+  --p-inv-accent: #faf9f6; --p-inv-accent-ink: #0c1221; --p-inv-action: #faf9f6; --p-inv-action-ink: #0c1221;
+  --font-display: "Albert Sans", system-ui, sans-serif;
+  --font-text: "Albert Sans", system-ui, sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
+  --ly-h1-xl: clamp(34px, 1.9vw + 26.6px, 54px);
+}

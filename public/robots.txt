@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thp.com.mx/sitemap.xml

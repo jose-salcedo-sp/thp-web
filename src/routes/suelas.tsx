@@ -1,0 +1,224 @@
+import { createFileRoute } from '@tanstack/solid-router'
+import { Hero } from '../components/Hero'
+import { Picture } from '../components/Picture'
+import { SITE_URL, jsonLd, seo } from '../lib/seo'
+
+export const Route = createFileRoute('/suelas')({
+  head: () => ({
+    ...seo({
+      title: 'Suelas de hule para calzado y tapetes | THP Zapopan',
+      description:
+        'Fabricación de suelas de hule para calzado deportivo y casual, moldes a la medida y tapetes de hule antifatiga y sanitizantes hechos en Zapopan.',
+      path: '/suelas',
+      image: '/img/stand-suelas/1600.jpg',
+    }),
+    scripts: [
+      jsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Inicio',
+            item: `${SITE_URL}/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Suelas',
+            item: `${SITE_URL}/suelas`,
+          },
+        ],
+      }),
+    ],
+  }),
+  component: SuelasPage,
+})
+
+const pisosPhoto =
+  'pl-photo span-6 m-0 h-[156px] overflow-hidden rounded-lg sm:h-[460px] sm:max-lg:col-span-6 lg:h-[304px] xl:h-[380px]'
+
+const matriceriaPanel =
+  'panel [--p-h:224px] sm:[--p-h:320px] lg:[--p-h:172px] xl:[--p-h:244px]'
+
+function SuelasPage() {
+  return (
+    <main id="top">
+      <Hero
+        id="suelas-hero"
+        headingId="suelas-h"
+        title="Suelas de hule para calzado"
+        line="Moldeadas en Zapopan, Jalisco."
+        href="/contacto"
+        slug="stand-suelas"
+        source="library"
+        alt="Par de suelas de hule negro moldeadas con dibujo de tracción sobre banco de madera en taller"
+      />
+
+      <section
+        class="section [--h:1] [--hm:1]"
+        id="pisos"
+        aria-labelledby="pisos-h"
+      >
+        <div class="wrap">
+          <div class="section-head section-head--row mb-3 sm:mb-4 xl:mb-6">
+            <div>
+              <h2 id="pisos-h">Suelas para cancha, calle y uso diario</h2>
+              <p>
+                Prensamos pisos con dibujo de tracción multidireccional, tacos
+                para fútbol y relieves de agarre para zapato casual. Cada
+                corrida se vulcaniza vigilando tiempos de prensa y desmolde para
+                evitar rebabas o deformaciones en el enfraje.
+              </p>
+            </div>
+            <a class="link" href="/contacto">
+              Cotizar suelas
+            </a>
+          </div>
+          <div class="grid">
+            <figure class={pisosPhoto}>
+              <Picture
+                slug="suelas"
+                layout="cover"
+                class="frame__img"
+                alt="Caja de planta con lotes de suelas de hule negro y rojo con tacos para calzado de fútbol"
+                sizes="(max-width: 639px) 480px, 768px"
+              />
+            </figure>
+            <figure class={pisosPhoto}>
+              <Picture
+                slug="suela"
+                layout="cover"
+                class="frame__img"
+                alt="Suela de hule negro moldeada en prensa con zonas de tracción multidireccional para calzado deportivo y casual"
+                sizes="(max-width: 639px) 480px, 768px"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section ground-brand [--h:1] [--hm:2] [--muted:var(--p-accent-ink)]"
+        id="matriceria"
+        aria-labelledby="matriceria-h"
+      >
+        <div class="wrap">
+          <div class="section-head lg:max-xl:mb-4">
+            <h2 id="matriceria-h">
+              Moldes y desarrollos de suela a la medida
+            </h2>
+            <p>
+              Cuando un modelo nuevo necesita una huella propia, trabajamos con
+              el área de diseño del cliente desde la carga laminada hasta la
+              placa o molde metálico. Ajustamos la formulación del hule para
+              responder a las características específicas del mercado al que
+              pertenece su calzado.
+            </p>
+          </div>
+          <div class="grid sm:max-lg:grid-cols-2">
+            <article class="card card--row card--open span-6 [--c-text:var(--p-accent-ink)] sm:max-lg:col-auto">
+              <h3>Desarrollar placas y moldes propios</h3>
+              <p>
+                Contamos con acervo de moldes y placas de grabado en planta
+                para producir corridas repetibles temporada tras temporada.
+              </p>
+              <a class="card__link link" href="/contacto">
+                Cotizar molde o placa
+              </a>
+              <div class={matriceriaPanel} data-moment="picture-develops">
+                <Picture
+                  slug="moldes"
+                  layout="fill"
+                  class="frame__img"
+                  alt="Estantería de matricería en planta con moldes metálicos y placa de grabado en espiga para suelas de hule"
+                  sizes="(max-width: 639px) 480px, 768px"
+                />
+              </div>
+            </article>
+
+            <article class="card card--row card--open span-6 [--c-text:var(--p-accent-ink)] sm:max-lg:col-auto">
+              <h3>Ajustar la formulación de hule en molino</h3>
+              <p>
+                Mezclamos cargas en rama para alcanzar la dureza y flexibilidad
+                que pide el prototipo antes de pasar a prensa.
+              </p>
+              <a class="card__link link" href="/laminas">
+                Ver cargas y láminas
+              </a>
+              <div class={matriceriaPanel}>
+                <Picture
+                  slug="cargas-laminadas"
+                  layout="fill"
+                  class="frame__img"
+                  alt="Racks metálicos en planta con cargas laminadas de hule en rama formuladas para prensado de suelas"
+                  sizes="(max-width: 639px) 480px, 768px"
+                />
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section [--h:1] [--hm:2]"
+        id="tapetes"
+        aria-labelledby="tapetes-h"
+      >
+        <div class="wrap grid grid--top">
+          <div class="span-6 sm:max-lg:col-span-6">
+            <div class="section-head mb-12 sm:mb-3 lg:mb-2 xl:mb-6">
+              <h2 id="tapetes-h">
+                Tapetes de hule antifatiga y sanitizantes en México
+              </h2>
+              <p class="sm:max-xl:text-body">
+                El mismo dominio del hule moldeado nos permite fabricar tapetes
+                industriales con sello THP hecho en México para estaciones de
+                trabajo y accesos.
+              </p>
+            </div>
+            <ul class="rows rows--spec *:py-6 sm:*:py-2 lg:*:py-1 xl:*:py-3">
+              <li>
+                <span class="rows__name">Tapete antifatiga octagonal</span>
+                <p>
+                  Moldeado en hule negro con retícula de celdas octagonales y
+                  domos circulares de amortiguación para estaciones de trabajo
+                  de pie.
+                </p>
+              </li>
+              <li>
+                <span class="rows__name">Tapete sanitizante con pines</span>
+                <p>
+                  Charola de hule negro con pines limpiadores en relieve, borde
+                  de contención y grabado SANITIZANTE thp.com.mx.
+                </p>
+              </li>
+              <li>
+                <span class="rows__name">Identificación de planta</span>
+                <p>
+                  Piezas vulcanizadas con etiqueta moldeada THP FABRICADO EN
+                  MEXICO para uso industrial y comercial.
+                </p>
+              </li>
+            </ul>
+            <p class="mt-8 sm:mt-3 lg:mt-2 xl:mt-4">
+              <a class="link" href="/contacto">
+                Solicitar cotización de suelas o tapetes
+              </a>
+            </p>
+          </div>
+          <figure class="span-6 start-7 m-0 h-[360px] overflow-hidden rounded-lg max-sm:mt-8 sm:h-[min(560px,var(--ly-fit))] sm:max-lg:col-span-6 lg:h-[min(440px,var(--ly-fit))] xl:h-[min(500px,var(--ly-fit))]">
+            <Picture
+              slug="sanitizante"
+              layout="cover"
+              class="frame__img"
+              alt="Tapete sanitizante de hule negro moldeado con pines limpiadores y sello blanco THP FABRICADO EN MEXICO"
+              sizes="(max-width: 639px) 480px, 768px"
+            />
+          </figure>
+        </div>
+      </section>
+    </main>
+  )
+}
