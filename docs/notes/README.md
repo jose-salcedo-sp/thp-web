@@ -28,3 +28,8 @@ Builds and gate runs write to `dist/`, so parallel agents each get their own wor
 
 - Sitemap must exclude URLs containing `?` or `#` (filter in start plugin sitemap config); `lint:standards` should fail the build if `dist/client/sitemap.xml` contains either.
 - Internal product links use `/catalogo/<sku>`, never `/catalogo?sku=`.
+
+## Styling decision (2026-11-20, user)
+
+- **Tailwind 4, not StyleX.** Tokens in `@theme` in `src/styles.css`; port only used kit CSS rules into the Vite pipeline; delete `public/kit`; kit JS bundled from `src/kit/`. Any StyleX work must be reverted.
+- **Done (2026-11-20):** page styles are Tailwind utilities in the `.tsx` (`src/styles.css` holds only layers, fonts and tokens). The kit moved to `src/kit/`: its CSS is imported into the `kit` cascade layer under Tailwind's utilities, its JS loads from `src/client.tsx` after hydration (`src/kit/index.ts`), and `public/kit` is gone. Rules in `CODING_STANDARDS.md` section 4. Still open: pruning the unused kit CSS rules (about 200 kB unminified, 36 kB gzip).

@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/solid-router'
 import { Toggle, ToggleGroup } from '@ui-sdk/solid/toggle'
 import { For, Show, createEffect, createMemo, createSignal } from 'solid-js'
 import { Picture } from '../../components/Picture'
+import { SwatchChip, SwatchDot } from '../../components/Swatch'
 import {
   type CalidadFiltro,
   type ColorFiltro,
@@ -90,6 +91,17 @@ export const Route = createFileRoute('/catalogo/')({
   component: CatalogoPage,
 })
 
+const filterGroup =
+  'col-span-full flex flex-col gap-1 sm:col-span-4 lg:col-span-3'
+
+const filterPill =
+  'inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-btn border border-line-strong bg-ground px-2.5 text-small leading-none font-medium text-ink transition-colors duration-(--dur) ease-(--ease) max-sm:text-label xl:px-3 hover:border-ink/35 hover:bg-ink/8 data-pressed:border-action data-pressed:bg-action data-pressed:text-action-ink'
+
+const specRow =
+  'flex items-baseline justify-between gap-2 text-body leading-[1.35]'
+const specTerm = 'flex-none font-normal text-muted'
+const specValue = 'm-0 text-right font-medium text-ink'
+
 function SkuCard(props: {
   producto: Producto
   spanClass: string
@@ -98,62 +110,61 @@ function SkuCard(props: {
 }) {
   return (
     <a
-      class={`card cat-card ${props.spanClass}`}
+      class={[
+        'card flex flex-col gap-2 border-line p-4 sm:max-lg:p-3 lg:max-xl:gap-1.5 lg:max-xl:px-3 lg:max-xl:py-2',
+        props.spanClass,
+      ]}
       href={`/catalogo/${props.producto.sku}`}
       hidden={props.hidden}
     >
       <div
-        class="cat-card__media m-zoom"
+        class="m-zoom relative aspect-[4/3] max-h-[292px] flex-none overflow-clip rounded-md bg-ground lg:max-xl:max-h-[210px]"
         data-moment={props.withMoment ? 'picture-develops' : undefined}
       >
         <Picture
           slug={props.producto.sku}
+          layout="cover"
           class="frame__img"
           alt={props.producto.alt}
           sizes="(max-width: 639px) 480px, 628px"
         />
       </div>
-      <div class="cat-card__body">
-        <div class="cat-card__head">
-          <h3>{props.producto.nombre}</h3>
-          <span class="cat-card__sku tabular-nums">
+      <div class="flex flex-none flex-col gap-1">
+        <div class="flex items-baseline justify-between gap-2 max-sm:flex-wrap max-sm:gap-y-0.5">
+          <h3 class="text-title leading-[1.3] font-medium tracking-[-0.01em] text-ink max-sm:text-body">
+            {props.producto.nombre}
+          </h3>
+          <span class="flex-none text-label font-medium text-muted tabular-nums">
             SKU {props.producto.sku.toUpperCase()}
           </span>
         </div>
-        <p class="cat-card__desc">{props.producto.description}</p>
-        <dl class="cat-card__specs">
-          <div>
-            <dt>Calidad y grabado</dt>
-            <dd>
+        <p class="text-body leading-[1.4] text-ink">
+          {props.producto.description}
+        </p>
+        <dl class="m-0 mt-1 flex flex-col gap-1 border-t border-line pt-2">
+          <div class={specRow}>
+            <dt class={specTerm}>Calidad y grabado</dt>
+            <dd class={specValue}>
               {calidadLabels[props.producto.calidad]} ·{' '}
               {grabadoLabels[props.producto.grabado]}
             </dd>
           </div>
-          <div>
-            <dt>Fierrajes</dt>
-            <dd class="tabular-nums">
+          <div class={specRow}>
+            <dt class={specTerm}>Fierrajes</dt>
+            <dd class={[specValue, 'tabular-nums']}>
               {props.producto.fierrajes.join(', ')} fierros
             </dd>
           </div>
-          <div>
-            <dt>Colores</dt>
-            <dd class="cat-card__swatches">
+          <div class={specRow}>
+            <dt class={specTerm}>Colores</dt>
+            <dd class={specValue}>
               <For each={props.producto.colores}>
-                {(col) => (
-                  <span class="swatch-chip">
-                    <span
-                      class="swatch-dot"
-                      data-swatch={col}
-                      aria-hidden="true"
-                    />
-                    {colorLabels[col]}
-                  </span>
-                )}
+                {(col) => <SwatchChip color={col} />}
               </For>
             </dd>
           </div>
         </dl>
-        <span class="cat-card__cta">
+        <span class="mt-1 inline-flex items-center gap-2 text-body font-medium text-ink underline decoration-line-strong underline-offset-4 after:content-['→']">
           Ver ficha {props.producto.sku.toUpperCase()}
         </span>
       </div>
@@ -300,7 +311,7 @@ function CatalogoPage() {
   return (
     <main id="top">
       <section
-        class="hero hero--photo"
+        class="hero hero--photo bg-ground max-sm:[--photo:31svh]"
         id="catalogo-hero"
         data-enter=""
         data-calm="left"
@@ -308,7 +319,7 @@ function CatalogoPage() {
       >
         <Picture
           slug="sanitizante2"
-          pictureClass="hero__bg"
+          layout="hero"
           alt="Textura macro de tapete y lámina de hule negro vulcanizado en la planta de THP en Zapopan"
           priority
           sizes="100vw"
@@ -320,7 +331,7 @@ function CatalogoPage() {
                 <span class="dot" aria-hidden="true" />5 referencias de línea ·
                 4 fierrajes (5, 6, 9 y 12) · 6 tonos de muestrario
               </p>
-              <h1 id="catalogo-h">
+              <h1 id="catalogo-h" class="max-w-[20ch]">
                 Catálogo de láminas de hule por calibre y color
               </h1>
               <p class="hero__lead">
@@ -347,22 +358,21 @@ function CatalogoPage() {
       </section>
 
       <section
-        class={{
-          section: true,
-          'catalogo-section': true,
-          'is-filtered': hasActiveFilter(),
-        }}
+        class={[
+          'section h-auto min-h-[calc(var(--h,1)*100svh)] max-sm:min-h-[calc(var(--hm,var(--h,1))*100lvh)]',
+          hasActiveFilter() ? '[--h:1] [--hm:1]' : '[--h:2] [--hm:2]',
+        ]}
         id="referencias"
         aria-labelledby="referencias-h"
       >
-        <div class="wrap">
-          <div class="section-head">
+        <div class={['wrap h-auto', { 'flex flex-col gap-6': hasActiveFilter() }]}>
+          <div class="section-head mb-3 lg:max-xl:mb-2 lg:max-xl:gap-1">
             <h2 id="referencias-h">Filtrar referencias de lámina de hule</h2>
-            <p>
+            <p class="lg:max-xl:text-body">
               Combina calidad, grabado, fierraje y color para ubicar el
               material de tu corrida.{' '}
               <span
-                class="catalogo-status tabular-nums"
+                class="font-medium text-ink tabular-nums"
                 role="status"
                 aria-live="polite"
                 aria-atomic="true"
@@ -384,16 +394,16 @@ function CatalogoPage() {
           </div>
 
           <div
-            class="catalogo-filters"
+            class="mb-4 grid grid-cols-12 gap-2 sm:gap-x-(--gutter) lg:max-xl:mb-3 lg:max-xl:gap-x-3 lg:max-xl:gap-y-1.5"
             role="region"
             aria-label="Filtros de referencias"
           >
-            <div class="filter-group">
-              <span class="t-label filter-group__label" id="lbl-calidad">
+            <div class={filterGroup}>
+              <span class="t-label text-ink" id="lbl-calidad">
                 Calidad
               </span>
               <ToggleGroup
-                class="filter-pills"
+                class="flex flex-wrap gap-2"
                 aria-labelledby="lbl-calidad"
                 deselectable={false}
                 value={[calidad()]}
@@ -401,7 +411,7 @@ function CatalogoPage() {
               >
                 <For each={calidades}>
                   {(cal) => (
-                    <Toggle value={cal} class="filter-pill">
+                    <Toggle value={cal} class={filterPill}>
                       {calidadLabels[cal]}
                     </Toggle>
                   )}
@@ -409,12 +419,12 @@ function CatalogoPage() {
               </ToggleGroup>
             </div>
 
-            <div class="filter-group">
-              <span class="t-label filter-group__label" id="lbl-grabado">
+            <div class={filterGroup}>
+              <span class="t-label text-ink" id="lbl-grabado">
                 Grabado
               </span>
               <ToggleGroup
-                class="filter-pills"
+                class="flex flex-wrap gap-2"
                 aria-labelledby="lbl-grabado"
                 deselectable={false}
                 value={[grabado()]}
@@ -422,7 +432,7 @@ function CatalogoPage() {
               >
                 <For each={grabados}>
                   {(grab) => (
-                    <Toggle value={grab} class="filter-pill">
+                    <Toggle value={grab} class={filterPill}>
                       {grabadoLabels[grab]}
                     </Toggle>
                   )}
@@ -430,12 +440,12 @@ function CatalogoPage() {
               </ToggleGroup>
             </div>
 
-            <div class="filter-group filter-group--wide">
-              <span class="t-label filter-group__label" id="lbl-fierraje">
+            <div class="col-span-full flex flex-col gap-1 sm:col-span-4 lg:col-span-6">
+              <span class="t-label text-ink" id="lbl-fierraje">
                 Fierraje
               </span>
               <ToggleGroup
-                class="filter-pills"
+                class="flex flex-wrap gap-2"
                 aria-labelledby="lbl-fierraje"
                 deselectable={false}
                 value={[String(fierraje())]}
@@ -445,7 +455,7 @@ function CatalogoPage() {
                   {(fier) => (
                     <Toggle
                       value={String(fier)}
-                      class="filter-pill tabular-nums"
+                      class={[filterPill, 'tabular-nums']}
                     >
                       {fierrajeLabels[String(fier)]}
                     </Toggle>
@@ -454,12 +464,12 @@ function CatalogoPage() {
               </ToggleGroup>
             </div>
 
-            <div class="filter-group filter-group--color">
-              <span class="t-label filter-group__label" id="lbl-color">
+            <div class="col-span-full flex flex-col gap-1">
+              <span class="t-label text-ink" id="lbl-color">
                 Color
               </span>
               <ToggleGroup
-                class="filter-pills"
+                class="flex flex-wrap gap-2"
                 aria-labelledby="lbl-color"
                 deselectable={false}
                 value={[color()]}
@@ -467,14 +477,8 @@ function CatalogoPage() {
               >
                 <For each={colores}>
                   {(col) => (
-                    <Toggle value={col} class="filter-pill">
-                      {col !== 'todo' ? (
-                        <span
-                          class="swatch-dot"
-                          data-swatch={col}
-                          aria-hidden="true"
-                        />
-                      ) : null}
+                    <Toggle value={col} class={filterPill}>
+                      {col !== 'todo' ? <SwatchDot color={col} /> : null}
                       {colorLabels[col]}
                     </Toggle>
                   )}
@@ -483,31 +487,34 @@ function CatalogoPage() {
             </div>
           </div>
 
-          <div class="grid catalogo-grid">
+          <div class="grid gap-y-4">
             <For each={rowOneSkus}>
               {(prod, idx) => (
                 <SkuCard
                   producto={prod}
-                  spanClass="span-6"
+                  spanClass="span-6 sm:max-lg:col-span-6"
                   hidden={!matchedSkus().has(prod.sku)}
                   withMoment={idx() === 0}
                 />
               )}
             </For>
           </div>
-          <div class="grid catalogo-grid catalogo-grid--bottom">
+          <div class="grid mt-4 gap-y-4">
             <For each={rowTwoSkus}>
               {(prod) => (
                 <SkuCard
                   producto={prod}
-                  spanClass="span-4"
+                  spanClass="span-4 sm:max-lg:col-span-4"
                   hidden={!matchedSkus().has(prod.sku)}
                 />
               )}
             </For>
           </div>
 
-          <div class="catalogo-empty" hidden={visibleCount() > 0}>
+          <div
+            class="flex flex-col items-start gap-4 rounded-lg border border-line bg-card p-8"
+            hidden={visibleCount() > 0}
+          >
             <p>Ninguna lámina coincide con esta combinación.</p>
             <button
               type="button"
@@ -521,20 +528,20 @@ function CatalogoPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:2]"
         id="tabla-catalogo"
         aria-labelledby="tabla-h"
       >
         <div class="wrap">
-          <div class="section-head">
+          <div class="section-head mb-8 sm:mb-2 xl:mb-4">
             <h2 id="tabla-h">Tabla comparativa de referencias en catálogo</h2>
-            <p>
+            <p class="sm:max-xl:text-body">
               Compara las cinco formulaciones de línea por compuesto, grabado
               de prensa y calibres disponibles en nuestra planta de Zapopan.
             </p>
           </div>
           <div class="grid grid--top">
-            <ul class="rows rows--spec catalogo-matrix span-6">
+            <ul class="rows rows--spec span-6 *:py-6 sm:*:py-1 sm:*:first:pt-0 sm:max-lg:col-span-6 xl:*:py-2">
               <For each={productos}>
                 {(prod) => (
                   <li>
@@ -551,7 +558,7 @@ function CatalogoPage() {
                         Cotizar {prod.sku.toUpperCase()}
                       </a>
                     </span>
-                    <p>
+                    <p class="col-span-full">
                       SKU {prod.sku.toUpperCase()} ·{' '}
                       {calidadLabels[prod.calidad]} · Fierrajes{' '}
                       <span class="tabular-nums">
@@ -563,9 +570,10 @@ function CatalogoPage() {
                 )}
               </For>
             </ul>
-            <figure class="develop catalogo-table-photo span-6 start-7">
+            <figure class="span-6 start-7 m-0 h-[460px] overflow-hidden rounded-lg max-sm:mt-8 sm:h-[min(460px,var(--ly-fit))] sm:max-lg:col-span-6 lg:h-[min(440px,var(--ly-fit))]">
               <Picture
                 slug="molino-laminador"
+                layout="cover"
                 class="frame__img"
                 alt="Molino laminador de rodillos en la planta de THP en Zapopan procesando lámina de hule crepé"
                 sizes="(max-width: 639px) 480px, 768px"

@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/solid-router'
 import { For, createMemo } from 'solid-js'
 import { Picture } from '../../components/Picture'
+import { SwatchChip } from '../../components/Swatch'
 import {
   calidadLabels,
   colorLabels,
@@ -57,6 +58,14 @@ export const Route = createFileRoute('/catalogo/$sku')({
   component: ProductDetailPage,
 })
 
+const crumbLink =
+  'inline-flex min-h-11 items-center font-medium text-ink underline decoration-line-strong underline-offset-4'
+
+const specTerm =
+  'w-[42%] py-1.5 text-left align-top font-normal text-muted sm:max-xl:py-1 xl:pr-4'
+const specValue =
+  'py-1.5 text-right align-top font-medium text-ink sm:max-xl:py-1'
+
 function ProductDetailPage() {
   const params = Route.useParams()
   const product = createMemo(
@@ -75,26 +84,27 @@ function ProductDetailPage() {
   return (
     <main id="top">
       <section
-        class="hero hero--product sku-hero"
+        class="hero hero--product max-sm:[--hgap:16px] max-sm:[--hpadb:16px]"
         id="ficha"
         data-enter=""
         aria-labelledby="sku-h"
       >
         <div class="wrap">
           <div class="hero-text hero__in">
-            <div class="hero__head">
-              <div class="sku-hero__title-col">
-                <nav
-                  class="sku-breadcrumb"
-                  aria-label="Ruta de navegación"
-                >
-                  <ol>
+            <div class="hero__head max-lg:*:col-span-full max-sm:gap-y-2">
+              <div class="flex flex-col gap-1 sm:gap-2 lg:col-[1/span_7] lg:row-[1/span_2] lg:self-end lg:max-xl:col-[1/span_6] lg:[&>*+*]:mt-0">
+                <nav class="mb-0" aria-label="Ruta de navegación">
+                  <ol class="flex flex-wrap items-center gap-2 text-small text-muted">
                     <li>
-                      <a href="/">Inicio</a>
+                      <a class={crumbLink} href="/">
+                        Inicio
+                      </a>
                     </li>
                     <li aria-hidden="true">/</li>
                     <li>
-                      <a href="/catalogo">Catálogo</a>
+                      <a class={crumbLink} href="/catalogo">
+                        Catálogo
+                      </a>
                     </li>
                     <li aria-hidden="true">/</li>
                     <li aria-current="page">SKU {skuUpper()}</li>
@@ -105,11 +115,16 @@ function ProductDetailPage() {
                   SKU {skuUpper()} · Fierrajes 5, 6, 9 y 12 · Colores{' '}
                   {coloresText()}
                 </p>
-                <h1 id="sku-h">
+                <h1
+                  id="sku-h"
+                  class="max-sm:text-[28px] max-sm:leading-[1.08] lg:text-[length:clamp(36px,2.5vw_+_22px,56px)]"
+                >
                   {product().nombre} para suela de calzado
                 </h1>
               </div>
-              <p class="hero__lead">{product().fichaDescription}</p>
+              <p class="hero__lead max-sm:text-body max-sm:leading-[1.38]">
+                {product().fichaDescription}
+              </p>
               <div class="btn-row">
                 <a
                   class="btn btn--primary"
@@ -126,9 +141,10 @@ function ProductDetailPage() {
                 </a>
               </div>
             </div>
-            <div class="hero__stage sku-stage">
+            <div class="hero__stage mx-0 mt-3 mb-0 min-h-[112px] rounded-lg max-lg:flex-[1_1_0] max-sm:aspect-auto sm:mt-6 sm:min-h-[180px]">
               <Picture
                 slug={product().sku}
+                layout="fill"
                 class="frame__img"
                 alt={product().alt}
                 priority
@@ -140,67 +156,58 @@ function ProductDetailPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:2]"
         id="especificaciones"
         aria-labelledby="specs-h"
       >
         <div class="wrap">
-          <div class="section-head">
+          <div class="section-head mb-3 sm:max-lg:gap-1 sm:max-xl:mb-2">
             <h2 id="specs-h">Ficha de lámina de hule {skuUpper()}</h2>
-            <p>{product().description}</p>
+            <p class="sm:max-xl:text-body">{product().description}</p>
           </div>
 
-          <div class="grid grid--top sku-specs-grid">
-            <div class="span-6 sku-specs-col">
+          <div class="grid grid--top">
+            <div class="span-6 sm:max-lg:col-span-6">
               <table
-                class="sku-specs-table"
+                class="w-full border-collapse text-body leading-[1.4]"
                 aria-label={`Especificaciones técnicas de SKU ${skuUpper()}`}
               >
-                <tbody>
-                  <tr>
-                    <th scope="row">Código de referencia</th>
-                    <td class="tabular-nums">SKU {skuUpper()}</td>
+                <tbody class="[&>tr:first-child>*]:pt-0">
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Código de referencia</th>
+                    <td class={[specValue, 'tabular-nums']}>SKU {skuUpper()}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">Calidad de compuesto</th>
-                    <td>{calidadLabels[product().calidad]}</td>
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Calidad de compuesto</th>
+                    <td class={specValue}>{calidadLabels[product().calidad]}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">Grabado de superficie</th>
-                    <td>{grabadoLabels[product().grabado]}</td>
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Grabado de superficie</th>
+                    <td class={specValue}>{grabadoLabels[product().grabado]}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">Fierrajes disponibles</th>
-                    <td class="tabular-nums">
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Fierrajes disponibles</th>
+                    <td class={[specValue, 'tabular-nums']}>
                       {product().fierrajes.join(', ')} fierros
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">Colores de línea</th>
-                    <td class="sku-swatches-cell">
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Colores de línea</th>
+                    <td class={specValue}>
                       <For each={product().colores}>
-                        {(col) => (
-                          <span class="swatch-chip">
-                            <span
-                              class="swatch-dot"
-                              data-swatch={col}
-                              aria-hidden="true"
-                            />
-                            {colorLabels[col]}
-                          </span>
-                        )}
+                        {(col) => <SwatchChip color={col} />}
                       </For>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">Planta de fabricación</th>
-                    <td>
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Planta de fabricación</th>
+                    <td class={specValue}>
                       Las Flores 1643, Col. La Florida, 45234 Zapopan, Jalisco
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">Condiciones comerciales</th>
-                    <td>
+                  <tr class="border-b border-line">
+                    <th scope="row" class={specTerm}>Condiciones comerciales</th>
+                    <td class={specValue}>
                       <span data-assumed="">
                         Precio bajo cotización según fierraje y volumen
                       </span>
@@ -209,11 +216,11 @@ function ProductDetailPage() {
                 </tbody>
               </table>
 
-              <div class="sku-related">
-                <p class="t-label sku-related__label">
+              <div class="mt-4 flex flex-col gap-2 sm:mt-2 lg:mt-3 xl:mt-4">
+                <p class="t-label text-muted">
                   Otras referencias de lámina en catálogo
                 </p>
-                <ul class="rows sku-related__rows">
+                <ul class="rows *:py-2 *:first:pt-0 sm:max-xl:*:py-1">
                   <For each={relatedProducts()}>
                     {(rel) => (
                       <li>
@@ -233,11 +240,12 @@ function ProductDetailPage() {
             </div>
 
             <figure
-              class="develop sku-context-photo span-6 start-7"
+              class="span-6 start-7 m-0 h-[360px] overflow-hidden rounded-lg max-sm:mt-8 sm:h-[min(440px,var(--ly-fit))] sm:max-lg:col-span-6 xl:h-[min(420px,var(--ly-fit))]"
               data-moment="picture-develops"
             >
               <Picture
                 slug="molino-laminador"
+                layout="cover"
                 class="frame__img"
                 alt="Molino laminador de rodillos en la planta de THP en Zapopan procesando lámina de hule crepé"
                 sizes="768px"

@@ -35,11 +35,17 @@ export const Route = createFileRoute('/suelas')({
   component: SuelasPage,
 })
 
+const pisosPhoto =
+  'pl-photo span-6 m-0 h-[156px] overflow-hidden rounded-lg sm:h-[460px] sm:max-lg:col-span-6 lg:h-[304px] xl:h-[380px]'
+
+const matriceriaPanel =
+  'panel [--p-h:224px] sm:[--p-h:320px] lg:[--p-h:172px] xl:[--p-h:244px]'
+
 function SuelasPage() {
   return (
     <main id="top">
       <section
-        class="hero hero--photo"
+        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
         id="suelas-hero"
         data-enter=""
         data-calm="left"
@@ -47,7 +53,7 @@ function SuelasPage() {
       >
         <Picture
           slug="stand-suelas"
-          pictureClass="hero__bg"
+          layout="hero"
           dataSource="library"
           alt="Par de suelas de hule negro moldeadas con dibujo de tracción sobre banco de madera en taller"
           priority
@@ -61,7 +67,7 @@ function SuelasPage() {
                 Más de 50 años en planta · Suelas deportivas, casuales y tapetes
                 industriales
               </p>
-              <h1 id="suelas-h">
+              <h1 id="suelas-h" class="max-w-[20ch]">
                 Suelas de hule y moldes para calzado
               </h1>
               <p class="hero__lead tabular-nums">
@@ -88,12 +94,12 @@ function SuelasPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:1]"
         id="pisos"
         aria-labelledby="pisos-h"
       >
         <div class="wrap">
-          <div class="section-head section-head--row">
+          <div class="section-head section-head--row mb-3 sm:mb-4 xl:mb-6">
             <div>
               <h2 id="pisos-h">Suelas para cancha, calle y uso diario</h2>
               <p>
@@ -107,18 +113,20 @@ function SuelasPage() {
               Cotizar suelas
             </a>
           </div>
-          <div class="grid pisos-grid">
-            <figure class="pl-photo span-6">
+          <div class="grid">
+            <figure class={pisosPhoto}>
               <Picture
                 slug="suelas"
+                layout="cover"
                 class="frame__img"
                 alt="Caja de planta con lotes de suelas de hule negro y rojo con tacos para calzado de fútbol"
                 sizes="(max-width: 639px) 480px, 768px"
               />
             </figure>
-            <figure class="pl-photo span-6">
+            <figure class={pisosPhoto}>
               <Picture
                 slug="suela"
+                layout="cover"
                 class="frame__img"
                 alt="Suela de hule negro moldeada en prensa con zonas de tracción multidireccional para calzado deportivo y casual"
                 sizes="(max-width: 639px) 480px, 768px"
@@ -129,12 +137,12 @@ function SuelasPage() {
       </section>
 
       <section
-        class="section ground-brand"
+        class="section ground-brand [--h:1] [--hm:2] [--muted:var(--p-accent-ink)]"
         id="matriceria"
         aria-labelledby="matriceria-h"
       >
         <div class="wrap">
-          <div class="section-head">
+          <div class="section-head lg:max-xl:mb-4">
             <h2 id="matriceria-h">
               Moldes y desarrollos de suela a la medida
             </h2>
@@ -146,8 +154,8 @@ function SuelasPage() {
               pertenece su calzado.
             </p>
           </div>
-          <div class="grid">
-            <article class="card card--row card--open span-6">
+          <div class="grid sm:max-lg:grid-cols-2">
+            <article class="card card--row card--open span-6 [--c-text:var(--p-accent-ink)] sm:max-lg:col-auto">
               <h3>Desarrollar placas y moldes propios</h3>
               <p>
                 Contamos con acervo de moldes y placas de grabado en planta
@@ -156,9 +164,10 @@ function SuelasPage() {
               <a class="card__link link" href="/contacto">
                 Cotizar molde o placa
               </a>
-              <div class="panel" data-moment="picture-develops">
+              <div class={matriceriaPanel} data-moment="picture-develops">
                 <Picture
                   slug="moldes"
+                  layout="fill"
                   class="frame__img"
                   alt="Estantería de matricería en planta con moldes metálicos y placa de grabado en espiga para suelas de hule"
                   sizes="(max-width: 639px) 480px, 768px"
@@ -166,7 +175,7 @@ function SuelasPage() {
               </div>
             </article>
 
-            <article class="card card--row card--open span-6">
+            <article class="card card--row card--open span-6 [--c-text:var(--p-accent-ink)] sm:max-lg:col-auto">
               <h3>Ajustar la formulación de hule en molino</h3>
               <p>
                 Mezclamos cargas en rama para alcanzar la dureza y flexibilidad
@@ -175,9 +184,10 @@ function SuelasPage() {
               <a class="card__link link" href="/laminas">
                 Ver cargas y láminas
               </a>
-              <div class="panel">
+              <div class={matriceriaPanel}>
                 <Picture
                   slug="cargas-laminadas"
+                  layout="fill"
                   class="frame__img"
                   alt="Racks metálicos en planta con cargas laminadas de hule en rama formuladas para prensado de suelas"
                   sizes="(max-width: 639px) 480px, 768px"
@@ -189,23 +199,23 @@ function SuelasPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:2]"
         id="tapetes"
         aria-labelledby="tapetes-h"
       >
         <div class="wrap grid grid--top">
-          <div class="span-6">
-            <div class="section-head">
+          <div class="span-6 sm:max-lg:col-span-6">
+            <div class="section-head mb-12 sm:mb-3 lg:mb-2 xl:mb-6">
               <h2 id="tapetes-h">
                 Tapetes de hule antifatiga y sanitizantes en México
               </h2>
-              <p>
+              <p class="sm:max-xl:text-body">
                 El mismo dominio del hule moldeado nos permite fabricar tapetes
                 industriales con sello THP hecho en México para estaciones de
                 trabajo y accesos.
               </p>
             </div>
-            <ul class="rows rows--spec">
+            <ul class="rows rows--spec *:py-6 sm:*:py-2 lg:*:py-1 xl:*:py-3">
               <li>
                 <span class="rows__name">Tapete antifatiga octagonal</span>
                 <p>
@@ -229,15 +239,16 @@ function SuelasPage() {
                 </p>
               </li>
             </ul>
-            <p class="planta-cta">
+            <p class="mt-8 sm:mt-3 lg:mt-2 xl:mt-4">
               <a class="link" href="/contacto">
                 Solicitar cotización de suelas o tapetes
               </a>
             </p>
           </div>
-          <figure class="develop span-6 start-7">
+          <figure class="span-6 start-7 m-0 h-[360px] overflow-hidden rounded-lg max-sm:mt-8 sm:h-[min(560px,var(--ly-fit))] sm:max-lg:col-span-6 lg:h-[min(440px,var(--ly-fit))] xl:h-[min(500px,var(--ly-fit))]">
             <Picture
               slug="sanitizante"
+              layout="cover"
               class="frame__img"
               alt="Tapete sanitizante de hule negro moldeado con pines limpiadores y sello blanco THP FABRICADO EN MEXICO"
               sizes="(max-width: 639px) 480px, 768px"

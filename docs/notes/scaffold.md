@@ -36,7 +36,7 @@
 - Imports moved from `solid-js/web` to `@solidjs/web`; store utilities live in `solid-js`.
 - Renamed primitives: `Suspense` -> `Loading`, `ErrorBoundary` -> `Errored`, `onMount` -> `onSettled`, `mergeProps` -> `merge`, `splitProps` -> `omit`.
 - `createEffect(compute, apply)` always takes two arguments.
-- CSS layering in `src/styles.css` must keep `@layer ui-sdk;` first, followed by `@import "tailwindcss";` and `@import "@ui-sdk/core/web.css" layer(components);`.
+- CSS layering in `src/styles.css` starts with `@layer ui-sdk, theme, base, kit, components, utilities;`, then `@import "tailwindcss";` and the kit stylesheets with `layer(kit)`. Add `@import "@ui-sdk/core/web.css" layer(components);` there when a ui-sdk component needs it.
 
 ## Adding a Route with `head()` Meta
 
@@ -71,5 +71,5 @@ function SuelasPage() {
 - **Standards & Gate (`bun run lint:standards`, `bun run check`, `bun run gate`)**:
   - `bun run lint:standards` (`scripts/check-standards.ts`): Fails on raw `<img` outside `Picture.tsx`, hex literals in `.tsx`, routes missing `head:`, or `solid-js/web` imports. See [`CODING_STANDARDS.md`](../../CODING_STANDARDS.md).
   - `bun run check`: Runs `bunx tsc --noEmit && bun run lint:standards && bun run build`.
-  - `bun run gate`: Runs `design-taste-frontend`'s `gate.mjs` against `dist/client/index.html --root dist/client` (with kit assets in `public/assets` and contact waivers in `.taste-skill/waivers.json`).
+  - `bun run gate`: Runs `design-taste-frontend`'s `gate.mjs` against `dist/client/index.html --root dist/client` (the kit is bundled from `src/kit/`; contact waivers in `.taste-skill/waivers.json`).
 

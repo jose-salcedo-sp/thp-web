@@ -50,12 +50,6 @@ export const Route = createRootRouteWithContext()({
           type: 'font/woff2',
           crossOrigin: 'anonymous',
         },
-        { rel: 'stylesheet', href: '/kit/system.css' },
-        { rel: 'stylesheet', href: '/kit/ui/cards.css' },
-        { rel: 'stylesheet', href: '/kit/motion/motion.css' },
-        { rel: 'stylesheet', href: '/kit/backgrounds/backgrounds.css' },
-        { rel: 'stylesheet', href: '/kit/layout/layout.css' },
-        { rel: 'stylesheet', href: '/kit/icons/icon.css' },
         { rel: 'stylesheet', href: styleCss },
         {
           rel: 'icon',
@@ -71,16 +65,6 @@ export const Route = createRootRouteWithContext()({
         },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
-        { rel: 'modulepreload', href: '/kit/moments/moments.js' },
-        { rel: 'modulepreload', href: '/kit/moments/lib.js' },
-        {
-          rel: 'modulepreload',
-          href: '/kit/moments/word-highlight/moment.js',
-        },
-        {
-          rel: 'modulepreload',
-          href: '/kit/moments/picture-develops/moment.js',
-        },
       ],
       scripts: [
         {
@@ -145,9 +129,6 @@ function RootComponent(props: { children: JSX.Element }) {
         <Loading>{props.children}</Loading>
         <SiteFooter />
         <Scripts />
-        <script type="module" src="/kit/system.js" />
-        <script type="module" src="/kit/motion/motion.js" />
-        <script type="module" src="/kit/layout/layout.js" />
       </body>
     </html>
   )

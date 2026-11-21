@@ -13,7 +13,8 @@
     "videos": "bun run scripts/videos.ts",
     "lint:standards": "bun run scripts/check-standards.ts",
     "check": "bunx tsc --noEmit && bun run build && bun run lint:standards",
-    "gate": "node ~/.agents/skills/design-taste-frontend/scripts/gate.mjs dist/client/index.html --root dist/client"
+    "gate": "node ~/.agents/skills/design-taste-frontend/scripts/gate.mjs dist/client/index.html --root dist/client",
+    "shots": "bun run scripts/shots.ts"
   },
   "dependencies": {
     "@solidjs/web": "^2.0.3",

@@ -18,8 +18,11 @@
 - **Spanish `alt` Text**: Every `<Picture>` requires a descriptive Spanish `alt` naming the physical subject, material, and texture.
 
 ## 4. Styling, Responsive Design & Tokens
-- **Mobile-First CSS**: Base rules target mobile (`320px–390px`); layer tablet/desktop adjustments upward with `md:` and `lg:`.
-- **Tokens Only (No Hex Literals in `.tsx`)**: Define colors in `src/styles.css` (`@theme` / `:root` CSS variables) or data maps in `src/lib/*.ts`. Hex literals (`#...`) inside `.tsx` components fail `bun run lint:standards`.
+- **Tailwind Utilities in Markup**: Style elements with Tailwind 4 utilities in the `.tsx`, not new rules in `src/styles.css`. Repeated class lists become a `const` in the file or a small component (`Swatch.tsx`), never `@apply`.
+- **The Kit Is a Layer**: The design kit lives in `src/kit/` and is imported into the `kit` cascade layer, under Tailwind's utilities, so a utility always overrides a kit rule. Keep the kit's component classes (`section`, `card`, `panel`, `rows`, `span-6`, `start-7`) and adjust them with utilities. Pictures inside kit slots take `<Picture layout="cover" | "fill" | "hero">`.
+- **`grid` Is the Kit's Grid**: The class `grid` also matches the kit's 12-column `.grid`. Use `flex flex-col` for a plain stack.
+- **Mobile-First CSS**: Base utilities target mobile (`320px–390px`); layer tablet/desktop adjustments upward with `sm:` (640), `lg:` (1024) and `xl:` (1280), the kit's breakpoints. Use a range (`sm:max-lg:`) only to leave the kit's own value in place outside it.
+- **Tokens Only (No Hex Literals in `.tsx`)**: Define colors in `src/styles.css` (`@theme`, or `@theme inline` for the kit's live tokens such as `ink`, `muted`, `line`, `ground`) or data maps in `src/lib/*.ts`. Hex literals (`#...`) inside `.tsx` components fail `bun run lint:standards`.
 
 ## 5. `ui-sdk` (`@ui-sdk/solid` & `@ui-sdk/core`)
 - Before using `ui-sdk`, follow `.agents/skills/ui-sdk/SKILL.md` and read `node_modules/@ui-sdk/solid/docs/llms.txt`.

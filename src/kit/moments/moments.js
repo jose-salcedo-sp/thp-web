@@ -3,10 +3,9 @@
 
     <section data-moment="pinned-chapters" data-moment-opts='{"hold": 2.4}'>…</section>
 
-    in system.js:   const m = await import(new URL('moments/moments.js', HERE).href); await m.ready;
-    on its own:     <script type="module" src="assets/moments/moments.js"></script>
+    in system.js:   const m = await import('./moments/moments.js'); await m.ready;
 
-  It finds every [data-moment], links <id>/moment.css, imports <id>/moment.js and calls its default
+  It finds every [data-moment], imports <id>/moment.js (its moment.css ships in src/styles.css) and calls its default
   export mount(root, opts, lib) -> { destroy }. The page keeps scrolling natively; every moment shows
   its finished state under prefers-reduced-motion, without script, and when its module fails.
 
@@ -27,22 +26,8 @@
 */
 import * as lib from './lib.js';
 
-const BASE = new URL('./', import.meta.url);
+const modules = import.meta.glob('./*/moment.js');
 const html = document.documentElement;
-const linked = new Map();
-function css(href) {
-  if (!linked.has(href)) {
-    const done = [...document.querySelectorAll('link[rel="stylesheet"]')].some(l => l.href === href);
-    linked.set(href, done ? Promise.resolve() : new Promise(res => {
-      const l = document.createElement('link');
-      l.rel = 'stylesheet';
-      l.href = href;
-      l.onload = l.onerror = () => res();
-      document.head.appendChild(l);
-    }));
-  }
-  return linked.get(href);
-}
 
 export function mount(el) {
   if (el.__momentP) return el.__momentP;
@@ -52,7 +37,9 @@ export function mount(el) {
     let opts = {};
     try { opts = JSON.parse(el.dataset.momentOpts || '{}'); } catch { console.warn(`moments: bad data-moment-opts on ${id}`); }
     const card = lib.inCard(el);
-    const [, mod] = await Promise.all([css(new URL(`${id}/moment.css`, BASE).href), import(new URL(`${id}/moment.js`, BASE).href)]);
+    const load = modules[`./${id}/moment.js`];
+    if (!load) throw new Error(`moments: no moment named ${id}`);
+    const mod = await load();
     // a moment light enough for a phone says so in its module (export const phone = true: one picture
     // or one line of words, transform, filter or colour, nothing pinned that a phone cannot hold): it runs
     // there too, and only reduced motion and a card keep it still. Every other moment is still on a phone

@@ -41,7 +41,7 @@
   context freed; a ground a fragment drives stays live (at 1 device pixel) only near the screen. So
   the page needs one or two contexts. See grounds() below.
 */
-const BASE = new URL('./', import.meta.url);
+const BASE = new URL('./', /* @vite-ignore */ import.meta.url);
 const reducedQuery = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
 export const reduced = () => !!(reducedQuery && reducedQuery.matches);
 /** true when el sits under data-ui-still: it shows its finished picture and never cycles */
@@ -87,7 +87,7 @@ function uniqueIds(root) {
 
 const mods = new Map();
 function script(name) {
-  if (!mods.has(name)) mods.set(name, import(new URL(`${name}/fragment.js`, BASE).href).then(m => m.default));
+  if (!mods.has(name)) mods.set(name, import(/* @vite-ignore */ new URL(`${name}/fragment.js`, BASE).href).then(m => m.default));
   return mods.get(name);
 }
 

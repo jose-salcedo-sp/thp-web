@@ -17,6 +17,9 @@ function productLabel(sku: ProductSku): string {
   return `${sku.toUpperCase()} · ${p.nombre}`
 }
 
+const field = 'field gap-1'
+const control = 'h-11 lg:max-xl:h-10'
+
 export function QuoteForm(props: { initialSku?: string }) {
   const [status, setStatus] = createSignal('')
 
@@ -153,16 +156,17 @@ export function QuoteForm(props: { initialSku?: string }) {
   return (
     <form
       ref={formEl}
-      class="form"
+      class="form gap-x-3 gap-y-2 max-sm:grid-cols-2 max-sm:gap-x-2 lg:max-xl:gap-y-1"
       method="post"
       action={FORM_ENDPOINT || undefined}
       novalidate
       aria-label="Formulario de cotización"
     >
-      <div class="field">
+      <div class={field}>
         <label for="cot-nombre">Nombre y apellido</label>
         <input
           id="cot-nombre"
+          class={control}
           name="nombre"
           type="text"
           autocomplete="name"
@@ -172,10 +176,11 @@ export function QuoteForm(props: { initialSku?: string }) {
         />
         <p id="cot-nombre-err" class="field__error" data-text="Escribe tu nombre para dirigir la cotización." hidden />
       </div>
-      <div class="field">
+      <div class={field}>
         <label for="cot-empresa">Empresa o taller</label>
         <input
           id="cot-empresa"
+          class={control}
           name="empresa"
           type="text"
           autocomplete="organization"
@@ -184,10 +189,11 @@ export function QuoteForm(props: { initialSku?: string }) {
         />
         <p id="cot-empresa-err" class="field__error" data-text="Escribe el nombre de tu empresa o taller." hidden />
       </div>
-      <div class="field">
+      <div class={field}>
         <label for="cot-correo">Correo electrónico</label>
         <input
           id="cot-correo"
+          class={control}
           name="correo"
           type="email"
           autocomplete="email"
@@ -198,10 +204,11 @@ export function QuoteForm(props: { initialSku?: string }) {
         />
         <p id="cot-correo-err" class="field__error" data-text="Escribe un correo electrónico válido con @." hidden />
       </div>
-      <div class="field">
+      <div class={field}>
         <label for="cot-telefono">Teléfono de contacto</label>
         <input
           id="cot-telefono"
+          class={control}
           name="telefono"
           type="tel"
           autocomplete="tel"
@@ -211,10 +218,11 @@ export function QuoteForm(props: { initialSku?: string }) {
         />
         <p id="cot-telefono-err" class="field__error" data-text="Escribe un número telefónico de 10 dígitos." hidden />
       </div>
-      <div class="field field--full">
+      <div class={[field, 'field--full']}>
         <label for="cot-producto">Producto</label>
         <select
           id="cot-producto"
+          class={control}
           name="producto"
           required
           data-error="Selecciona o indica la lámina, suela o fierraje que necesitas."
@@ -237,9 +245,14 @@ export function QuoteForm(props: { initialSku?: string }) {
           hidden
         />
       </div>
-      <div class="field">
+      <div class={field}>
         <label for="cot-fierraje">Fierraje</label>
-        <select id="cot-fierraje" name="fierraje" aria-describedby="cot-fierraje-err">
+        <select
+          id="cot-fierraje"
+          class={control}
+          name="fierraje"
+          aria-describedby="cot-fierraje-err"
+        >
           <option value="">Elige un fierraje</option>
           {FIERRAJE_OPTS.map((f) => (
             <option value={f}>{f === 'no-se' ? 'No sé' : `Calibre ${f}`}</option>
@@ -247,10 +260,11 @@ export function QuoteForm(props: { initialSku?: string }) {
         </select>
         <p id="cot-fierraje-err" class="field__error" hidden />
       </div>
-      <div class="field">
+      <div class={field}>
         <label for="cot-cantidad">Cantidad aproximada</label>
         <input
           id="cot-cantidad"
+          class={control}
           name="cantidad"
           type="text"
           autocomplete="off"
@@ -264,10 +278,11 @@ export function QuoteForm(props: { initialSku?: string }) {
           hidden
         />
       </div>
-      <div class="field field--full">
+      <div class={[field, 'field--full']}>
         <label for="cot-mensaje">Mensaje</label>
         <textarea
           id="cot-mensaje"
+          class="min-h-[76px] max-h-[88px] py-2 lg:max-xl:min-h-14 lg:max-xl:max-h-16"
           name="mensaje"
           required
           data-error="Escribe las especificaciones o el volumen de tu pedido."
@@ -280,12 +295,12 @@ export function QuoteForm(props: { initialSku?: string }) {
           hidden
         />
       </div>
-      <div class="field field--full">
+      <div class="field field--full grid-cols-[20px_minmax(0,1fr)] items-center gap-2">
         <input
           id="cot-privacidad"
           name="privacidad"
           type="checkbox"
-          class="m-check"
+          class="m-check m-0 size-5 p-0 accent-action"
           value="acepto"
           required
           data-error="Acepta el aviso de privacidad para enviar la cotización."
@@ -300,7 +315,7 @@ export function QuoteForm(props: { initialSku?: string }) {
         </label>
         <p
           id="cot-privacidad-err"
-          class="field__error"
+          class="field__error col-span-full"
           data-text="Acepta el aviso de privacidad para enviar la cotización."
           hidden
         />

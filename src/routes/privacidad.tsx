@@ -25,11 +25,16 @@ export const Route = createFileRoute('/privacidad')({
   component: PrivacidadPage,
 })
 
+const cell =
+  'border-b border-line-strong px-1 py-2 text-left align-top max-sm:align-middle max-sm:[overflow-wrap:anywhere] sm:px-2 sm:py-1.5 xl:px-3 xl:py-2'
+const headCell = `${cell} font-medium text-muted`
+const cellLink = 'link max-sm:inline-flex max-sm:min-h-11 max-sm:items-center'
+
 function PrivacidadPage() {
   return (
     <main id="top">
       <section
-        class="hero hero--photo"
+        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
         id="privacidad-hero"
         data-enter=""
         data-calm="left"
@@ -37,7 +42,7 @@ function PrivacidadPage() {
       >
         <Picture
           slug="stand-almacen"
-          pictureClass="hero__bg"
+          layout="hero"
           dataSource="library"
           alt="Almacén industrial con tarimas de láminas de hule y plástico en estantería metálica"
           priority
@@ -50,7 +55,7 @@ function PrivacidadPage() {
                 <span class="dot" aria-hidden="true" />
                 Transformadora de Hules y Plásticos · LFPDPPP · Zapopan, Jalisco
               </p>
-              <h1 id="privacidad-h">
+              <h1 id="privacidad-h" class="max-w-[20ch]">
                 Aviso de privacidad de láminas y suelas
               </h1>
               <p class="hero__lead tabular-nums">
@@ -77,17 +82,17 @@ function PrivacidadPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:2]"
         id="privacidad-uso"
         aria-labelledby="privacidad-uso-h"
       >
         <div class="wrap grid grid--top">
-          <div class="span-6">
-            <div class="section-head">
+          <div class="span-6 sm:max-lg:col-span-6">
+            <div class="section-head mb-12 sm:mb-3 lg:mb-2 xl:mb-6">
               <h2 id="privacidad-uso-h">
                 Uso de datos de hule y derechos ARCO
               </h2>
-              <p>
+              <p class="sm:max-xl:text-body">
                 Los datos recabados en nuestro formulario de contacto se
                 utilizan únicamente para elaborar cotizaciones de láminas,
                 suelas y artículos de hule, dar seguimiento comercial a tus
@@ -95,7 +100,7 @@ function PrivacidadPage() {
               </p>
             </div>
             {/* TODO cliente: texto oficial LFPDPPP */}
-            <ul class="rows rows--spec tabular-nums">
+            <ul class="rows rows--spec tabular-nums *:py-6 sm:*:py-2 lg:*:py-1 xl:*:py-3">
               <li>
                 <span class="rows__name">Responsable y domicilio</span>
                 <p>
@@ -131,11 +136,12 @@ function PrivacidadPage() {
             </ul>
           </div>
           <figure
-            class="develop span-6 start-7"
+            class="span-6 start-7 m-0 h-[360px] overflow-hidden rounded-lg max-sm:mt-8 sm:h-[min(560px,var(--ly-fit))] sm:max-lg:col-span-6 lg:h-[min(440px,var(--ly-fit))] xl:h-[min(600px,var(--ly-fit))]"
             data-moment="picture-develops"
           >
             <Picture
               slug="planta"
+              layout="cover"
               class="frame__img"
               alt="Nave de molienda y laminado de THP en Zapopan con tarimas de láminas de hule marcadas en calibres 0.7, 0.9 y 1.2"
               sizes="768px"
@@ -145,49 +151,49 @@ function PrivacidadPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:2]"
         id="creditos"
         aria-labelledby="creditos-h"
       >
-        <div class="wrap grid grid--top creditos-grid">
-          <div class="span-6 creditos-col">
-            <div class="section-head">
+        <div class="wrap grid grid--top">
+          <div class="span-6 sm:max-lg:col-span-6">
+            <div class="section-head mb-4 sm:max-lg:mb-2 lg:max-xl:mb-1 lg:max-xl:gap-1">
               <h2 id="creditos-h">
                 Créditos fotográficos de láminas y suelas
               </h2>
-              <p>
+              <p class="sm:max-xl:text-body">
                 Atribución de las fotografías de apoyo industrial publicadas
                 bajo licencias abiertas de Wikimedia Commons.
               </p>
             </div>
-            <div class="table-wrap">
-              <table>
+            <div class="overflow-x-auto [-webkit-overflow-scrolling:touch] max-sm:overflow-x-clip">
+              <table class="w-full border-collapse text-small leading-[1.4] max-sm:table-fixed max-sm:text-label max-sm:leading-[1.3]">
                 <thead>
                   <tr>
-                    <th scope="col">Imagen</th>
-                    <th scope="col">Autor</th>
-                    <th scope="col">Licencia</th>
-                    <th scope="col">Fuente</th>
+                    <th scope="col" class={headCell}>Imagen</th>
+                    <th scope="col" class={headCell}>Autor</th>
+                    <th scope="col" class={headCell}>Licencia</th>
+                    <th scope="col" class={headCell}>Fuente</th>
                   </tr>
                 </thead>
                 <tbody>
                   <For each={[...photoCredits]}>
                     {(row) => (
                       <tr>
-                        <td>{row.tema}</td>
-                        <td>{row.autor}</td>
-                        <td>
+                        <td class={cell}>{row.tema}</td>
+                        <td class={cell}>{row.autor}</td>
+                        <td class={cell}>
                           <a
-                            class="link"
+                            class={cellLink}
                             href={row.licenciaUrl}
                             rel="noopener noreferrer"
                           >
                             {row.licencia}
                           </a>
                         </td>
-                        <td>
+                        <td class={cell}>
                           <a
-                            class="link"
+                            class={cellLink}
                             href={row.fuenteUrl}
                             rel="noopener noreferrer"
                           >
@@ -201,10 +207,11 @@ function PrivacidadPage() {
               </table>
             </div>
           </div>
-          <figure class="develop creditos-photo span-6 start-7">
+          <figure class="span-6 start-7 m-0 h-[500px] overflow-hidden rounded-lg max-sm:mt-6 sm:h-[min(440px,var(--ly-fit))] sm:max-lg:col-span-6 lg:h-[min(640px,var(--ly-fit))]">
             <Picture
               slug="stand-muestras-crepe"
               dataSource="library"
+              layout="cover"
               class="frame__img"
               alt="Muestras de hule crepé natural y coloreado en distintos acabados de laminado"
               sizes="768px"

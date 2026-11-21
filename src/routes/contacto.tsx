@@ -45,7 +45,7 @@ function ContactoPage() {
   return (
     <main id="top">
       <section
-        class="hero hero--photo"
+        class="hero hero--photo bg-ground max-[361px]:[--photo:16svh] min-[361px]:max-sm:[--photo:22svh]"
         id="contacto-hero"
         data-enter=""
         data-calm="left"
@@ -53,7 +53,7 @@ function ContactoPage() {
       >
         <Picture
           slug="stand-laminas-crepe"
-          pictureClass="hero__bg"
+          layout="hero"
           dataSource="library"
           alt="Láminas de hule crepé natural en línea de secado y enfriamiento en planta"
           priority
@@ -67,7 +67,7 @@ function ContactoPage() {
                 Las Flores 1643, Zapopan · Teléfonos (33) 3684-2909 y (33)
                 3684-3037
               </p>
-              <h1 id="contacto-h">
+              <h1 id="contacto-h" class="max-w-[20ch]">
                 Cotizar láminas y suelas de hule en planta
               </h1>
               <p class="hero__lead tabular-nums">
@@ -94,38 +94,39 @@ function ContactoPage() {
       </section>
 
       <section
-        class="section"
+        class="section [--h:1] [--hm:2]"
         id="cotizacion"
         aria-labelledby="cotizacion-h"
       >
         <div class="wrap">
-          <div class="section-head">
+          <div class="section-head mb-4 sm:mb-2 lg:mb-1 lg:max-xl:gap-1 xl:mb-3">
             <h2 id="cotizacion-h">
               Formulario de cotización y datos de planta
             </h2>
-            <p>
+            <p class="sm:max-xl:text-body">
               Completa los campos para preparar tu cotización. Si llegaste desde
               una referencia del catálogo, el producto queda prellenado para
               agilizar la respuesta.
             </p>
           </div>
-          <div class="grid grid--top cotizacion-grid">
-            <div class="span-6 cotizacion-form-col">
+          <div class="grid grid--top">
+            <div class="span-6 sm:max-lg:col-span-6">
               <QuoteForm initialSku={search().sku} />
             </div>
-            <aside class="span-6 start-7 cotizacion-aside">
+            <aside class="span-6 start-7 flex flex-col gap-3 max-sm:mt-6 sm:max-lg:col-span-6">
               <figure
-                class="develop cotizacion-photo"
+                class="m-0 h-[260px] overflow-hidden rounded-lg sm:h-[220px] lg:h-[184px] xl:h-[224px]"
                 data-moment="picture-develops"
               >
                 <Picture
                   slug="planta"
+                  layout="cover"
                   class="frame__img"
                   alt="Nave de molienda y laminado de THP en Zapopan con tarimas de láminas de hule marcadas en calibres 0.7, 0.9 y 1.2"
                   sizes="(max-width: 639px) 480px, 768px"
                 />
               </figure>
-              <ul class="rows rows--spec tabular-nums cotizacion-specs">
+              <ul class="rows rows--spec tabular-nums *:py-2 *:first:pt-0 sm:*:py-1 xl:*:py-2">
                 <li>
                   <span class="rows__name">Dirección de planta</span>
                   <p>
@@ -147,7 +148,7 @@ function ContactoPage() {
                   </p>
                 </li>
               </ul>
-              <p class="cotizacion-map">
+              <p class="m-0">
                 <a
                   class="link"
                   href={MAPS_URL}

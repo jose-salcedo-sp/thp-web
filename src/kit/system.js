@@ -62,7 +62,7 @@
     and <html data-placeholders="n">; an effect id in more than two sections sets <html data-fx-repeat>.
 */
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const HERE = new URL('./', import.meta.url);
+const HERE = new URL('./', /* @vite-ignore */ import.meta.url);
 /* kind other (a cafe, a shop, a studio, a service firm) and a place: nothing moves by itself (MO-07) */
 const kindOther = () => {
   const m = document.querySelector('meta[name="site-kind"]');
@@ -482,8 +482,8 @@ async function visuals() {
   const moving = phone ? [] : grounds.filter(el => el.closest('.hero, .section--hero') && !box(el).querySelector('[data-print], [data-scene]'));
   const live = el => moving.includes(el);
   const [fx, ui] = await Promise.all([
-    grounds.length || glows.length ? import(new URL('effects/fx.js', HERE).href).then(m => m.default) : null,
-    import(new URL('ui/ui.js', HERE).href).then(m => m.default),
+    grounds.length || glows.length ? import(/* @vite-ignore */ new URL('effects/fx.js', HERE).href).then(m => m.default) : null,
+    import('./ui/ui.js').then(m => m.default),
   ]);
   const name = el => el.dataset.uiLoad || el.dataset.ui || '';
   const loops = el => !phone && !!el.closest('[data-ui-loop], [data-ui-cycles]');
@@ -577,7 +577,7 @@ function guards() {
    holds a [data-moment]; data-ready waits for them. mount is idempotent, so nothing mounts twice. */
 async function moments() {
   if (!document.querySelector('[data-moment]')) return;
-  const m = await import(new URL('moments/moments.js', HERE).href);
+  const m = await import('./moments/moments.js');
   await m.ready;
 }
 

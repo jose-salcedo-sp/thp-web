@@ -41,7 +41,10 @@ export function SiteHeader() {
           Saltar al contenido
         </a>
         <a class="nav__logo" href="/" onClick={closeMenu}>
-          <span class="mark mark--thp" aria-hidden="true" />
+          <span
+            class="mark bg-transparent bg-[url(/thp-mark.webp)] bg-contain bg-center bg-no-repeat mask-none sm:h-6 sm:w-7"
+            aria-hidden="true"
+          />
           THP
         </a>
         <nav class="nav__links" aria-label="Principal">
@@ -50,7 +53,7 @@ export function SiteHeader() {
               Inicio
             </a>
           </div>
-          <div class={{ nav__item: true, 'is-expanded': expanded() }}>
+          <div class={['nav__item group/item', { 'is-expanded': expanded() }]}>
             <a
               class="nav__link"
               href="/laminas"
@@ -91,16 +94,17 @@ export function SiteHeader() {
                     />
                   </svg>
                 </button>
-                <div class="nav__menu">
+                <div class="nav__menu lg:group-[:not(:hover,:focus-within,.is-open)]/item:hidden">
                   <div class="wrap grid">
                     <a
                       class="menu-card span-4"
                       href="/laminas"
                       onClick={closeMenu}
                     >
-                      <div class="panel">
+                      <div class="panel [--p-h:180px]">
                         <Picture
                           slug="cla0cr"
+                          layout="fill"
                           class="frame__img"
                           alt="Muestra macro de lámina de hule crepé liga con grabado crepé"
                           sizes="410px"
@@ -116,9 +120,10 @@ export function SiteHeader() {
                       href="/suelas"
                       onClick={closeMenu}
                     >
-                      <div class="panel">
+                      <div class="panel [--p-h:180px]">
                         <Picture
                           slug="cra0zg"
+                          layout="fill"
                           class="frame__img"
                           alt="Muestra macro de lámina de hule crepé ámbar con grabado zig-zag"
                           sizes="410px"
@@ -134,9 +139,10 @@ export function SiteHeader() {
                       href="/catalogo"
                       onClick={closeMenu}
                     >
-                      <div class="panel">
+                      <div class="panel [--p-h:180px]">
                         <Picture
                           slug="crn0zg"
+                          layout="fill"
                           class="frame__img"
                           alt="Muestra macro de lámina de hule crepé negro con grabado zig-zag"
                           sizes="410px"
