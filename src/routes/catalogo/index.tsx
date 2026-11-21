@@ -92,6 +92,20 @@ export const Route = createFileRoute('/catalogo/')({
 const filterPill =
   'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-btn border-2 border-line bg-ground px-3 text-body leading-none font-medium whitespace-nowrap text-ink transition-colors duration-(--dur) ease-(--ease) hover:border-ink/40 data-pressed:border-ink data-pressed:bg-ink/8 data-pressed:font-semibold [&_[data-slot=toggle-icon]]:hidden data-pressed:[&_[data-slot=toggle-icon]]:inline-flex'
 
+function cardSpan(index: number, count: number): string {
+  const tablet =
+    count % 2 === 1 && index === count - 1
+      ? 'sm:max-lg:col-span-6 sm:max-lg:col-start-4'
+      : 'sm:max-lg:col-span-6 sm:max-lg:col-start-auto'
+  if (count === 5) {
+    if (index < 3) return `span-4 ${tablet}`
+    return index === 3 ? `span-4 start-3 ${tablet}` : `span-4 start-7 ${tablet}`
+  }
+  if (count === 3) return `span-4 ${tablet}`
+  if (count === 1) return `span-4 start-5 ${tablet}`
+  return `span-6 ${tablet}`
+}
+
 function Marca() {
   return (
     <ToggleIcon>
@@ -432,12 +446,12 @@ function CatalogoPage() {
               </div>
             }
           >
-            <div class="grid">
+            <div class="grid items-start">
               <For each={visibleProducts()}>
-                {(prod) => (
+                {(prod, index) => (
                   <ReferenciaCard
                     producto={prod}
-                    spanClass="span-6 sm:max-lg:col-span-6"
+                    spanClass={cardSpan(index(), visibleProducts().length)}
                     moment={prod.sku === productos[0].sku}
                   />
                 )}
