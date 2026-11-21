@@ -2,22 +2,21 @@ import type { ImageSlug } from '../lib/images.gen'
 import { Picture } from './Picture'
 
 /**
- * One hero for every route: the photograph is a band under the header,
- * and the words sit on the ground beneath it. Short h1, one fact, one action.
- * The kit's `.hero--photo` still draws the band below `lg`; these utilities
- * keep that same band on desktop so nothing sits in a box on the picture.
+ * One hero. From 640px up the photograph is full-bleed and the short copy
+ * sits in a solid panel at the lower left. On a phone the photograph stays
+ * a band under the header and the words sit on the ground beneath it.
  */
 const section =
-  'hero hero--photo bg-ground lg:[--photo:min(54svh,540px)] sm:max-lg:[--photo:60svh] [@media(max-width:639px)_and_(min-height:701px)]:[--photo:50svh]'
+  'hero hero--photo bg-ground sm:max-lg:[--photo:0px] [@media(max-width:639px)_and_(min-height:701px)]:[--photo:50svh]'
 
-const band =
-  'lg:top-(--nav) lg:right-0 lg:bottom-auto lg:left-0 lg:h-(--photo) lg:w-full'
+const bleed =
+  'sm:max-lg:top-0 sm:max-lg:right-0 sm:max-lg:bottom-0 sm:max-lg:left-0 sm:max-lg:h-full sm:max-lg:w-full'
 
-const copy =
-  'lg:w-full lg:bg-transparent lg:p-0 lg:rounded-none'
+const panel =
+  'sm:max-lg:w-[min(100%,36rem)] sm:max-lg:bg-ground sm:max-lg:p-6 sm:max-lg:rounded-lg'
 
 const title =
-  'max-w-none text-[length:clamp(36px,2.2vw_+_28px,64px)] leading-[1.05]'
+  'max-w-none text-[length:clamp(36px,2.2vw_+_28px,56px)] leading-[1.05]'
 
 export function Hero(props: {
   id: string
@@ -39,15 +38,15 @@ export function Hero(props: {
       <Picture
         slug={props.slug}
         layout="hero"
-        pictureClass={band}
+        pictureClass={bleed}
         alt={props.alt}
         priority
         sizes="100vw"
         dataSource={props.source}
       />
       <div class="wrap">
-        <div class="hero-text lg:justify-start">
-          <div class={['hero__text', copy]}>
+        <div class="hero-text sm:max-lg:justify-end">
+          <div class={['hero__text', panel]}>
             <h1 id={props.headingId} class={title}>
               {props.title}
             </h1>
