@@ -1,14 +1,15 @@
 import { createFileRoute } from '@tanstack/solid-router'
-import { Toggle, ToggleGroup } from '@ui-sdk/solid/toggle'
+import { Toggle, ToggleGroup, ToggleIcon } from '@ui-sdk/solid/toggle'
 import { For, Show, createEffect, createMemo, createSignal } from 'solid-js'
+import { Comparacion } from '../../components/catalogo/Comparacion'
+import { ReferenciaCard } from '../../components/catalogo/ReferenciaCard'
 import { Picture } from '../../components/Picture'
-import { SwatchChip, SwatchDot } from '../../components/Swatch'
+import { SwatchDot } from '../../components/Swatch'
 import {
   type CalidadFiltro,
   type ColorFiltro,
   type FierrajeFiltro,
   type GrabadoFiltro,
-  type Producto,
   calidadLabels,
   calidades,
   colorLabels,
@@ -28,9 +29,6 @@ export type CatalogoSearch = {
   fierraje?: Exclude<FierrajeFiltro, 'todo'>
   color?: Exclude<ColorFiltro, 'todo'>
 }
-
-const rowOneSkus = productos.slice(0, 2)
-const rowTwoSkus = productos.slice(2, 5)
 
 export const Route = createFileRoute('/catalogo/')({
   validateSearch: (search: Record<string, unknown>): CatalogoSearch => {
@@ -91,84 +89,22 @@ export const Route = createFileRoute('/catalogo/')({
   component: CatalogoPage,
 })
 
-const filterGroup =
-  'col-span-full flex flex-col gap-1 sm:col-span-4 lg:col-span-3'
-
 const filterPill =
-  'inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-btn border border-line-strong bg-ground px-2.5 text-small leading-none font-medium text-ink transition-colors duration-(--dur) ease-(--ease) max-sm:text-label xl:px-3 hover:border-ink/35 hover:bg-ink/8 data-pressed:border-action data-pressed:bg-action data-pressed:text-action-ink'
+  'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-btn border-2 border-line bg-ground px-3 text-body leading-none font-medium whitespace-nowrap text-ink transition-colors duration-(--dur) ease-(--ease) hover:border-ink/40 data-pressed:border-ink data-pressed:bg-ink/8 data-pressed:font-semibold [&_[data-slot=toggle-icon]]:hidden data-pressed:[&_[data-slot=toggle-icon]]:inline-flex'
 
-const specRow =
-  'flex items-baseline justify-between gap-2 text-body leading-[1.35]'
-const specTerm = 'flex-none font-normal text-muted'
-const specValue = 'm-0 text-right font-medium text-ink'
-
-function SkuCard(props: {
-  producto: Producto
-  spanClass: string
-  hidden: boolean
-  withMoment?: boolean
-}) {
+function Marca() {
   return (
-    <a
-      class={[
-        'card flex flex-col gap-2 border-line p-4 sm:max-lg:p-3 lg:max-xl:gap-1.5 lg:max-xl:px-3 lg:max-xl:py-2',
-        props.spanClass,
-      ]}
-      href={`/catalogo/${props.producto.sku}`}
-      hidden={props.hidden}
-    >
-      <div
-        class="m-zoom relative aspect-[4/3] max-h-[292px] flex-none overflow-clip rounded-md bg-ground lg:max-xl:max-h-[210px]"
-        data-moment={props.withMoment ? 'picture-develops' : undefined}
-      >
-        <Picture
-          slug={props.producto.sku}
-          layout="cover"
-          class="frame__img"
-          alt={props.producto.alt}
-          sizes="(max-width: 639px) 480px, 628px"
+    <ToggleIcon>
+      <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path
+          d="M3.5 8.5 6.5 11.5 12.5 4.5"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         />
-      </div>
-      <div class="flex flex-none flex-col gap-1">
-        <div class="flex items-baseline justify-between gap-2 max-sm:flex-wrap max-sm:gap-y-0.5">
-          <h3 class="text-title leading-[1.3] font-medium tracking-[-0.01em] text-ink max-sm:text-body">
-            {props.producto.nombre}
-          </h3>
-          <span class="flex-none text-label font-medium text-muted tabular-nums">
-            SKU {props.producto.sku.toUpperCase()}
-          </span>
-        </div>
-        <p class="text-body leading-[1.4] text-ink">
-          {props.producto.description}
-        </p>
-        <dl class="m-0 mt-1 flex flex-col gap-1 border-t border-line pt-2">
-          <div class={specRow}>
-            <dt class={specTerm}>Calidad y grabado</dt>
-            <dd class={specValue}>
-              {calidadLabels[props.producto.calidad]} ·{' '}
-              {grabadoLabels[props.producto.grabado]}
-            </dd>
-          </div>
-          <div class={specRow}>
-            <dt class={specTerm}>Fierrajes</dt>
-            <dd class={[specValue, 'tabular-nums']}>
-              {props.producto.fierrajes.join(', ')} fierros
-            </dd>
-          </div>
-          <div class={specRow}>
-            <dt class={specTerm}>Colores</dt>
-            <dd class={specValue}>
-              <For each={props.producto.colores}>
-                {(col) => <SwatchChip color={col} />}
-              </For>
-            </dd>
-          </div>
-        </dl>
-        <span class="mt-1 inline-flex items-center gap-2 text-body font-medium text-ink underline decoration-line-strong underline-offset-4 after:content-['→']">
-          Ver ficha {props.producto.sku.toUpperCase()}
-        </span>
-      </div>
-    </a>
+      </svg>
+    </ToggleIcon>
   )
 }
 
@@ -287,6 +223,10 @@ function CatalogoPage() {
 
   const visibleCount = createMemo(() => matchedSkus().size)
 
+  const visibleProducts = createMemo(() =>
+    productos.filter((prod) => matchedSkus().has(prod.sku)),
+  )
+
   const hasActiveFilter = createMemo(
     () =>
       calidad() !== 'todo' ||
@@ -357,18 +297,11 @@ function CatalogoPage() {
         </div>
       </section>
 
-      <section
-        class={[
-          'section h-auto min-h-[calc(var(--h,1)*100svh)] max-sm:min-h-[calc(var(--hm,var(--h,1))*100lvh)]',
-          hasActiveFilter() ? '[--h:1] [--hm:1]' : '[--h:2] [--hm:2]',
-        ]}
-        id="referencias"
-        aria-labelledby="referencias-h"
-      >
-        <div class={['wrap h-auto', { 'flex flex-col gap-6': hasActiveFilter() }]}>
-          <div class="section-head mb-3 lg:max-xl:mb-2 lg:max-xl:gap-1">
-            <h2 id="referencias-h">Filtrar referencias de lámina de hule</h2>
-            <p class="lg:max-xl:text-body">
+      <section class="section h-auto min-h-0" id="referencias" aria-labelledby="referencias-h">
+        <div class="wrap h-auto">
+          <div class="section-head">
+            <h2 id="referencias-h">Referencias de lámina de hule</h2>
+            <p>
               Combina calidad, grabado, fierraje y color para ubicar el
               material de tu corrida.{' '}
               <span
@@ -380,208 +313,141 @@ function CatalogoPage() {
                 {statusText()}.
               </span>
             </p>
-            <Show when={hasActiveFilter()}>
-              <div class="btn-row">
-                <button
-                  type="button"
-                  class="btn btn--secondary"
-                  onClick={resetFilters}
+          </div>
+
+          <div
+            class="mb-8 rounded-lg border border-line bg-card p-4 sm:p-6"
+            role="region"
+            aria-label="Filtros de referencias"
+          >
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-6">
+                <span class="text-body font-medium text-ink sm:w-28 sm:shrink-0 sm:pt-2.5" id="lbl-calidad">
+                  Calidad
+                </span>
+                <ToggleGroup
+                  class="flex flex-1 flex-wrap gap-3"
+                  aria-labelledby="lbl-calidad"
+                  deselectable={false}
+                  value={[calidad()]}
+                  onValueChange={updateCalidad}
                 >
+                  <For each={calidades}>
+                    {(cal) => (
+                      <Toggle value={cal} class={filterPill}>
+                        <Marca />
+                        {calidadLabels[cal]}
+                      </Toggle>
+                    )}
+                  </For>
+                </ToggleGroup>
+              </div>
+
+              <div class="flex flex-col gap-2 border-t border-line pt-4 sm:flex-row sm:items-start sm:gap-6">
+                <span class="text-body font-medium text-ink sm:w-28 sm:shrink-0 sm:pt-2.5" id="lbl-grabado">
+                  Grabado
+                </span>
+                <ToggleGroup
+                  class="flex flex-1 flex-wrap gap-3"
+                  aria-labelledby="lbl-grabado"
+                  deselectable={false}
+                  value={[grabado()]}
+                  onValueChange={updateGrabado}
+                >
+                  <For each={grabados}>
+                    {(grab) => (
+                      <Toggle value={grab} class={filterPill}>
+                        <Marca />
+                        {grabadoLabels[grab]}
+                      </Toggle>
+                    )}
+                  </For>
+                </ToggleGroup>
+              </div>
+
+              <div class="flex flex-col gap-2 border-t border-line pt-4 sm:flex-row sm:items-start sm:gap-6">
+                <span class="text-body font-medium text-ink sm:w-28 sm:shrink-0 sm:pt-2.5" id="lbl-fierraje">
+                  Fierraje
+                </span>
+                <ToggleGroup
+                  class="flex flex-1 flex-wrap gap-3"
+                  aria-labelledby="lbl-fierraje"
+                  deselectable={false}
+                  value={[String(fierraje())]}
+                  onValueChange={updateFierraje}
+                >
+                  <For each={fierrajes}>
+                    {(fier) => (
+                      <Toggle value={String(fier)} class={[filterPill, 'tabular-nums']}>
+                        <Marca />
+                        {fierrajeLabels[String(fier)]}
+                      </Toggle>
+                    )}
+                  </For>
+                </ToggleGroup>
+              </div>
+
+              <div class="flex flex-col gap-2 border-t border-line pt-4 sm:flex-row sm:items-start sm:gap-6">
+                <span class="text-body font-medium text-ink sm:w-28 sm:shrink-0 sm:pt-2.5" id="lbl-color">
+                  Color
+                </span>
+                <ToggleGroup
+                  class="flex flex-1 flex-wrap gap-3"
+                  aria-labelledby="lbl-color"
+                  deselectable={false}
+                  value={[color()]}
+                  onValueChange={updateColor}
+                >
+                  <For each={colores}>
+                    {(col) => (
+                      <Toggle value={col} class={filterPill}>
+                        <Marca />
+                        {col !== 'todo' ? <SwatchDot color={col} /> : null}
+                        {colorLabels[col]}
+                      </Toggle>
+                    )}
+                  </For>
+                </ToggleGroup>
+              </div>
+            </div>
+            <Show when={hasActiveFilter()}>
+              <div class="mt-4 border-t border-line pt-4">
+                <button type="button" class="btn btn--secondary" onClick={resetFilters}>
                   Limpiar filtros
                 </button>
               </div>
             </Show>
           </div>
 
-          <div
-            class="mb-4 grid grid-cols-12 gap-2 sm:gap-x-(--gutter) lg:max-xl:mb-3 lg:max-xl:gap-x-3 lg:max-xl:gap-y-1.5"
-            role="region"
-            aria-label="Filtros de referencias"
+          <Show
+            when={visibleCount() > 0}
+            fallback={
+              <div class="flex flex-col items-start gap-4 rounded-lg border border-line bg-card px-6 py-8">
+                <p class="text-body text-ink">
+                  Ninguna lámina coincide con esta combinación.
+                </p>
+                <button type="button" class="btn btn--secondary" onClick={resetFilters}>
+                  Mostrar las 5 referencias
+                </button>
+              </div>
+            }
           >
-            <div class={filterGroup}>
-              <span class="t-label text-ink" id="lbl-calidad">
-                Calidad
-              </span>
-              <ToggleGroup
-                class="flex flex-wrap gap-2"
-                aria-labelledby="lbl-calidad"
-                deselectable={false}
-                value={[calidad()]}
-                onValueChange={updateCalidad}
-              >
-                <For each={calidades}>
-                  {(cal) => (
-                    <Toggle value={cal} class={filterPill}>
-                      {calidadLabels[cal]}
-                    </Toggle>
-                  )}
-                </For>
-              </ToggleGroup>
-            </div>
-
-            <div class={filterGroup}>
-              <span class="t-label text-ink" id="lbl-grabado">
-                Grabado
-              </span>
-              <ToggleGroup
-                class="flex flex-wrap gap-2"
-                aria-labelledby="lbl-grabado"
-                deselectable={false}
-                value={[grabado()]}
-                onValueChange={updateGrabado}
-              >
-                <For each={grabados}>
-                  {(grab) => (
-                    <Toggle value={grab} class={filterPill}>
-                      {grabadoLabels[grab]}
-                    </Toggle>
-                  )}
-                </For>
-              </ToggleGroup>
-            </div>
-
-            <div class="col-span-full flex flex-col gap-1 sm:col-span-4 lg:col-span-6">
-              <span class="t-label text-ink" id="lbl-fierraje">
-                Fierraje
-              </span>
-              <ToggleGroup
-                class="flex flex-wrap gap-2"
-                aria-labelledby="lbl-fierraje"
-                deselectable={false}
-                value={[String(fierraje())]}
-                onValueChange={updateFierraje}
-              >
-                <For each={fierrajes}>
-                  {(fier) => (
-                    <Toggle
-                      value={String(fier)}
-                      class={[filterPill, 'tabular-nums']}
-                    >
-                      {fierrajeLabels[String(fier)]}
-                    </Toggle>
-                  )}
-                </For>
-              </ToggleGroup>
-            </div>
-
-            <div class="col-span-full flex flex-col gap-1">
-              <span class="t-label text-ink" id="lbl-color">
-                Color
-              </span>
-              <ToggleGroup
-                class="flex flex-wrap gap-2"
-                aria-labelledby="lbl-color"
-                deselectable={false}
-                value={[color()]}
-                onValueChange={updateColor}
-              >
-                <For each={colores}>
-                  {(col) => (
-                    <Toggle value={col} class={filterPill}>
-                      {col !== 'todo' ? <SwatchDot color={col} /> : null}
-                      {colorLabels[col]}
-                    </Toggle>
-                  )}
-                </For>
-              </ToggleGroup>
-            </div>
-          </div>
-
-          <div class="grid gap-y-4">
-            <For each={rowOneSkus}>
-              {(prod, idx) => (
-                <SkuCard
-                  producto={prod}
-                  spanClass="span-6 sm:max-lg:col-span-6"
-                  hidden={!matchedSkus().has(prod.sku)}
-                  withMoment={idx() === 0}
-                />
-              )}
-            </For>
-          </div>
-          <div class="grid mt-4 gap-y-4">
-            <For each={rowTwoSkus}>
-              {(prod) => (
-                <SkuCard
-                  producto={prod}
-                  spanClass="span-4 sm:max-lg:col-span-4"
-                  hidden={!matchedSkus().has(prod.sku)}
-                />
-              )}
-            </For>
-          </div>
-
-          <div
-            class="flex flex-col items-start gap-4 rounded-lg border border-line bg-card p-8"
-            hidden={visibleCount() > 0}
-          >
-            <p>Ninguna lámina coincide con esta combinación.</p>
-            <button
-              type="button"
-              class="btn btn--secondary"
-              onClick={resetFilters}
-            >
-              Mostrar las 5 referencias
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="section [--h:1] [--hm:2]"
-        id="tabla-catalogo"
-        aria-labelledby="tabla-h"
-      >
-        <div class="wrap">
-          <div class="section-head mb-8 sm:mb-2 xl:mb-4">
-            <h2 id="tabla-h">Tabla comparativa de referencias en catálogo</h2>
-            <p class="sm:max-xl:text-body">
-              Compara las cinco formulaciones de línea por compuesto, grabado
-              de prensa y calibres disponibles en nuestra planta de Zapopan.
-            </p>
-          </div>
-          <div class="grid grid--top">
-            <ul class="rows rows--spec span-6 *:py-6 sm:*:py-1 sm:*:first:pt-0 sm:max-lg:col-span-6 xl:*:py-2">
-              <For each={productos}>
+            <div class="grid">
+              <For each={visibleProducts()}>
                 {(prod) => (
-                  <li>
-                    <span class="rows__name">
-                      <a class="link" href={`/catalogo/${prod.sku}`}>
-                        {prod.nombre}
-                      </a>
-                    </span>
-                    <span class="rows__value">
-                      <a
-                        class="link"
-                        href={`/contacto?sku=${prod.sku.toUpperCase()}`}
-                      >
-                        Cotizar {prod.sku.toUpperCase()}
-                      </a>
-                    </span>
-                    <p class="col-span-full">
-                      SKU {prod.sku.toUpperCase()} ·{' '}
-                      {calidadLabels[prod.calidad]} · Fierrajes{' '}
-                      <span class="tabular-nums">
-                        {prod.fierrajes.join(', ')}
-                      </span>{' '}
-                      · <span data-assumed="">Precio según volumen</span>
-                    </p>
-                  </li>
+                  <ReferenciaCard
+                    producto={prod}
+                    spanClass="span-6 sm:max-lg:col-span-6"
+                    moment={prod.sku === productos[0].sku}
+                  />
                 )}
               </For>
-            </ul>
-            <figure class="span-6 start-7 m-0 h-[460px] overflow-hidden rounded-lg max-sm:mt-8 sm:h-[min(460px,var(--ly-fit))] sm:max-lg:col-span-6 lg:h-[min(440px,var(--ly-fit))]">
-              <Picture
-                slug="molino-laminador"
-                layout="cover"
-                class="frame__img"
-                alt="Molino laminador de rodillos en la planta de THP en Zapopan procesando lámina de hule crepé"
-                sizes="(max-width: 639px) 480px, 768px"
-              />
-            </figure>
-          </div>
+            </div>
+          </Show>
         </div>
       </section>
+
+      <Comparacion />
     </main>
   )
 }

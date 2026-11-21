@@ -25,6 +25,7 @@ export type Producto = {
   readonly calidad: Calidad
   readonly nombre: string
   readonly description: string
+  readonly uso: string
   readonly fichaDescription: string
   readonly seoTitle: string
   readonly seoDescription: string
@@ -82,6 +83,7 @@ export const productos: readonly Producto[] = [
     nombre: 'Crepé liga grabado crepé',
     description:
       'Calidad crepé liga con textura crepé tradicional en tonos ámbar, oscura y rojiza.',
+    uso: 'Para elasticidad y flexión constante.',
     fichaDescription:
       'Lámina formulada en calidad crepé liga con acabado granulado crepé. Se fabrica en tonos ámbar, oscura y rojiza dentro de los fierrajes 5, 6, 9 y 12 para talleres que buscan flexibilidad y agarre clásico en piso de calzado.',
     seoTitle: 'Crepé liga grabado crepé en fierrajes 5 a 12 | THP Hule',
@@ -99,6 +101,7 @@ export const productos: readonly Producto[] = [
     nombre: 'Crepé ámbar grabado crepé',
     description:
       'Lámina de calidad crepé con huella crepé en colores ámbar, negro y blanco.',
+    uso: 'Para tonos claros y calzado casual.',
     fichaDescription:
       'Lámina de calidad crepé con textura crepé uniforme. Disponible en colores ámbar, negro y blanco en fierrajes 5, 6, 9 y 12, pensada para suelas y entresuelas de calzado casual con cantos limpios.',
     seoTitle: 'Crepé ámbar grabado crepé en fierrajes 5 a 12 | THP Hule',
@@ -116,6 +119,7 @@ export const productos: readonly Producto[] = [
     nombre: 'Crepé ámbar grabado zig-zag',
     description:
       'Lámina de calidad crepé con relieve en espiga zig-zag en tonos ámbar, negro y blanco.',
+    uso: 'Para tonos claros y calzado casual, con tracción en piso liso.',
     fichaDescription:
       'Lámina de calidad crepé prensada con placa de grabado zig-zag en espiga. Se entrega en colores ámbar, negro y blanco en fierrajes 5, 6, 9 y 12 para calzado que requiere mayor tracción longitudinal.',
     seoTitle: 'Crepé ámbar grabado zig-zag en fierrajes 5 a 12 | THP Hule',
@@ -133,6 +137,7 @@ export const productos: readonly Producto[] = [
     nombre: 'Crepé negro grabado crepé',
     description:
       'Compuesto de crepé negro uniforme con acabado crepé para calzado de línea e industrial.',
+    uso: 'Para trabajo pesado y abrasión.',
     fichaDescription:
       'Lámina de calidad crepé negro con textura crepé cerrada en fierrajes 5, 6, 9 y 12. Diseñada para pisos de calzado e industria que piden color negro continuo y resistencia al roce diario.',
     seoTitle: 'Crepé negro grabado crepé en fierrajes 5 a 12 | THP Hule',
@@ -150,6 +155,7 @@ export const productos: readonly Producto[] = [
     nombre: 'Crepé negro grabado zig-zag',
     description:
       'Lámina de crepé negro con grabado zig-zag de tracción profunda en fierrajes 5, 6, 9 y 12.',
+    uso: 'Para trabajo pesado y abrasión, con tracción en piso liso.',
     fichaDescription:
       'Lámina de calidad crepé negro con relieve zig-zag de huella marcada en fierrajes 5, 6, 9 y 12. Recomendada para suelas de trabajo, bota ligera y calzado de uso rudo con requerimiento antiderrapante.',
     seoTitle: 'Crepé negro grabado zig-zag en fierrajes 5 a 12 | THP Hule',
@@ -173,6 +179,12 @@ export function filtrarProductos(filtro: Filtro): Producto[] {
         prod.fierrajes.includes(filtro.fierraje)) &&
       (filtro.color === 'todo' || prod.colores.includes(filtro.color)),
   )
+}
+
+export function unir(partes: readonly (string | number)[]): string {
+  const textos = partes.map(String)
+  if (textos.length < 2) return textos[0] ?? ''
+  return `${textos.slice(0, -1).join(', ')} y ${textos[textos.length - 1]}`
 }
 
 export function getProductoBySku(sku: string): Producto | undefined {
